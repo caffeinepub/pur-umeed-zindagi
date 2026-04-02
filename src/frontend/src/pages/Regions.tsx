@@ -2,16 +2,16 @@ import { MapPin } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -33,7 +33,8 @@ const regions = [
   {
     id: "karachi",
     name: "Karachi",
-    color: "oklch(58% 0.2 200)",
+    color: "oklch(35% 0.18 200)",
+    lightBg: "oklch(94% 0.04 200)",
     sites: [
       {
         name: "KC (Korangi Campus)",
@@ -50,7 +51,8 @@ const regions = [
   {
     id: "sindh",
     name: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
+    lightBg: "oklch(94% 0.04 145)",
     sites: [
       {
         name: "CHB (Civil Hospital Badin)",
@@ -92,7 +94,8 @@ const regions = [
   {
     id: "balochistan",
     name: "Balochistan",
-    color: "oklch(75% 0.18 60)",
+    color: "oklch(40% 0.15 60)",
+    lightBg: "oklch(94% 0.04 60)",
     sites: [
       {
         name: "Saranan",
@@ -109,7 +112,8 @@ const regions = [
   {
     id: "punjab",
     name: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
+    lightBg: "oklch(94% 0.04 300)",
     sites: [
       {
         name: "Gurmani",
@@ -145,8 +149,8 @@ export default function Regions() {
   const activeRegion = regions.find((r) => r.id === active)!;
 
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Regions & Sites"
         subtitle="17+ active sites across 4 regions of Pakistan"
       />
@@ -162,11 +166,14 @@ export default function Regions() {
                 onClick={() => setActive(r.id)}
                 className="px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all"
                 style={{
-                  background:
-                    active === r.id ? r.color : "oklch(14% 0.045 145)",
+                  background: active === r.id ? r.color : "white",
                   borderColor:
-                    active === r.id ? r.color : "oklch(22% 0.06 145)",
-                  color: active === r.id ? "white" : "oklch(82% 0.02 145)",
+                    active === r.id ? r.color : "oklch(88% 0.03 145)",
+                  color: active === r.id ? "white" : "oklch(30% 0.06 145)",
+                  boxShadow:
+                    active === r.id
+                      ? `0 4px 14px ${r.color}40`
+                      : "0 1px 3px oklch(60% 0.02 145 / 0.1)",
                 }}
                 data-ocid="regions.tab"
               >
@@ -189,15 +196,15 @@ export default function Regions() {
               />
               <h2
                 className="text-2xl font-bold"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 {activeRegion.name} Region
               </h2>
               <span
                 className="px-3 py-1 rounded-full text-xs font-medium"
                 style={{
-                  background: "oklch(17% 0.05 145)",
-                  color: "oklch(68% 0.025 145)",
+                  background: activeRegion.lightBg,
+                  color: activeRegion.color,
                 }}
               >
                 {activeRegion.sites.length} sites
@@ -211,17 +218,17 @@ export default function Regions() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08, duration: 0.4 }}
-                  className="rounded-2xl p-6 border card-hover"
+                  className="rounded-2xl p-6 border card-hover bg-white"
                   style={{
-                    background: "oklch(14% 0.045 145)",
-                    borderColor: "oklch(22% 0.06 145)",
+                    borderColor: "oklch(88% 0.03 145)",
+                    boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                   }}
                   data-ocid={`regions.item.${i + 1}`}
                 >
                   <div className="flex items-start gap-3">
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${activeRegion.color}20` }}
+                      style={{ background: activeRegion.lightBg }}
                     >
                       <MapPin
                         className="w-5 h-5"
@@ -232,7 +239,7 @@ export default function Regions() {
                       <div className="flex items-center gap-2 mb-1">
                         <h3
                           className="font-bold text-base"
-                          style={{ color: "oklch(96% 0.005 145)" }}
+                          style={{ color: "oklch(20% 0.06 145)" }}
                         >
                           {site.name}
                         </h3>
@@ -240,9 +247,8 @@ export default function Regions() {
                           <span
                             className="px-2 py-0.5 rounded text-xs font-semibold"
                             style={{
-                              background: `${activeRegion.color}22`,
+                              background: activeRegion.lightBg,
                               color: activeRegion.color,
-                              border: `1px solid ${activeRegion.color}44`,
                             }}
                           >
                             {site.label}
@@ -251,7 +257,7 @@ export default function Regions() {
                       </div>
                       <p
                         className="text-sm"
-                        style={{ color: "oklch(68% 0.025 145)" }}
+                        style={{ color: "oklch(50% 0.04 145)" }}
                       >
                         {site.address}
                       </p>
@@ -264,8 +270,8 @@ export default function Regions() {
         </div>
       </section>
 
-      {/* Summary */}
-      <section className="py-12 green-gradient">
+      {/* Summary bar */}
+      <section className="py-12" style={{ background: "oklch(25% 0.15 145)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {regions.map((r) => (
@@ -273,7 +279,7 @@ export default function Regions() {
                 <div className="text-3xl font-bold text-white">
                   {r.sites.length}
                 </div>
-                <div className="text-white/80 text-sm">{r.name}</div>
+                <div className="text-white/70 text-sm">{r.name}</div>
               </div>
             ))}
           </div>

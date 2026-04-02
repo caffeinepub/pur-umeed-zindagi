@@ -8,16 +8,16 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -71,8 +71,8 @@ export default function Contact() {
   };
 
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Contact Us"
         subtitle="We're here to help you take the first step"
       />
@@ -88,13 +88,13 @@ export default function Contact() {
             >
               <div
                 className="uppercase tracking-widest text-xs font-semibold mb-3"
-                style={{ color: "oklch(58% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
                 Get In Touch
               </div>
               <h2
                 className="text-3xl font-bold mb-6"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Send Us a Message
               </h2>
@@ -107,7 +107,7 @@ export default function Contact() {
                 <div>
                   <Label
                     htmlFor="name"
-                    style={{ color: "oklch(82% 0.02 145)" }}
+                    style={{ color: "oklch(30% 0.06 145)" }}
                   >
                     Full Name *
                   </Label>
@@ -119,18 +119,12 @@ export default function Contact() {
                     }
                     placeholder="Your full name"
                     className="mt-1.5"
-                    style={{
-                      background: "oklch(17% 0.05 145)",
-                      borderColor: errors.name
-                        ? "oklch(50% 0.22 25)"
-                        : "oklch(22% 0.06 145)",
-                      color: "oklch(96% 0.005 145)",
-                    }}
                     data-ocid="contact.input"
                   />
                   {errors.name && (
                     <p
-                      className="text-xs mt-1 text-red-400"
+                      className="text-xs mt-1"
+                      style={{ color: "oklch(50% 0.22 25)" }}
                       data-ocid="contact.name_error"
                     >
                       {errors.name}
@@ -141,7 +135,7 @@ export default function Contact() {
                 <div>
                   <Label
                     htmlFor="phone"
-                    style={{ color: "oklch(82% 0.02 145)" }}
+                    style={{ color: "oklch(30% 0.06 145)" }}
                   >
                     Phone Number *
                   </Label>
@@ -153,18 +147,12 @@ export default function Contact() {
                     }
                     placeholder="+92 300 0000000"
                     className="mt-1.5"
-                    style={{
-                      background: "oklch(17% 0.05 145)",
-                      borderColor: errors.phone
-                        ? "oklch(50% 0.22 25)"
-                        : "oklch(22% 0.06 145)",
-                      color: "oklch(96% 0.005 145)",
-                    }}
                     data-ocid="contact.input"
                   />
                   {errors.phone && (
                     <p
-                      className="text-xs mt-1 text-red-400"
+                      className="text-xs mt-1"
+                      style={{ color: "oklch(50% 0.22 25)" }}
                       data-ocid="contact.phone_error"
                     >
                       {errors.phone}
@@ -175,7 +163,7 @@ export default function Contact() {
                 <div>
                   <Label
                     htmlFor="email"
-                    style={{ color: "oklch(82% 0.02 145)" }}
+                    style={{ color: "oklch(30% 0.06 145)" }}
                   >
                     Email Address
                   </Label>
@@ -188,11 +176,6 @@ export default function Contact() {
                     }
                     placeholder="your@email.com"
                     className="mt-1.5"
-                    style={{
-                      background: "oklch(17% 0.05 145)",
-                      borderColor: "oklch(22% 0.06 145)",
-                      color: "oklch(96% 0.005 145)",
-                    }}
                     data-ocid="contact.input"
                   />
                 </div>
@@ -200,7 +183,7 @@ export default function Contact() {
                 <div>
                   <Label
                     htmlFor="message"
-                    style={{ color: "oklch(82% 0.02 145)" }}
+                    style={{ color: "oklch(30% 0.06 145)" }}
                   >
                     Message *
                   </Label>
@@ -213,18 +196,12 @@ export default function Contact() {
                     placeholder="How can we help you?"
                     rows={5}
                     className="mt-1.5 resize-none"
-                    style={{
-                      background: "oklch(17% 0.05 145)",
-                      borderColor: errors.message
-                        ? "oklch(50% 0.22 25)"
-                        : "oklch(22% 0.06 145)",
-                      color: "oklch(96% 0.005 145)",
-                    }}
                     data-ocid="contact.textarea"
                   />
                   {errors.message && (
                     <p
-                      className="text-xs mt-1 text-red-400"
+                      className="text-xs mt-1"
+                      style={{ color: "oklch(50% 0.22 25)" }}
                       data-ocid="contact.field_error"
                     >
                       {errors.message}
@@ -235,8 +212,8 @@ export default function Contact() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full py-3 font-semibold rounded-xl transition-all hover:opacity-90"
-                  style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+                  className="w-full py-3 font-semibold rounded-xl transition-all hover:opacity-90 text-white"
+                  style={{ background: "oklch(35% 0.2 145)" }}
                   data-ocid="contact.submit_button"
                 >
                   {mutation.isPending ? (
@@ -255,13 +232,13 @@ export default function Contact() {
                   <div
                     className="rounded-xl p-4 border text-sm"
                     style={{
-                      background: "oklch(17% 0.07 145)",
-                      borderColor: "oklch(35% 0.14 145)",
-                      color: "oklch(75% 0.18 145)",
+                      background: "oklch(94% 0.04 145)",
+                      borderColor: "oklch(70% 0.12 145)",
+                      color: "oklch(30% 0.15 145)",
                     }}
                     data-ocid="contact.success_state"
                   >
-                    ✓ Your message has been sent successfully. We'll reach out
+                    ✓ Your message has been sent successfully. We’ll reach out
                     soon.
                   </div>
                 )}
@@ -277,51 +254,51 @@ export default function Contact() {
             >
               <div
                 className="uppercase tracking-widest text-xs font-semibold mb-3"
-                style={{ color: "oklch(58% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
                 Contact Information
               </div>
               <h2
                 className="text-3xl font-bold mb-6"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Reach Us
               </h2>
 
               {/* Phone */}
               <div
-                className="flex items-start gap-4 rounded-2xl p-5 border"
+                className="flex items-start gap-4 rounded-2xl p-5 border bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid="contact.item.1"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <Phone
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <div>
                   <div
                     className="font-semibold mb-0.5"
-                    style={{ color: "oklch(96% 0.005 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     Program Helpline
                   </div>
                   <div
                     className="text-sm font-medium"
-                    style={{ color: "oklch(75% 0.18 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   >
                     +92 297330160
                   </div>
                   <div
                     className="text-xs mt-1"
-                    style={{ color: "oklch(68% 0.025 145)" }}
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     Mon–Fri, 9am–5pm
                   </div>
@@ -330,39 +307,39 @@ export default function Contact() {
 
               {/* Email */}
               <div
-                className="flex items-start gap-4 rounded-2xl p-5 border"
+                className="flex items-start gap-4 rounded-2xl p-5 border bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid="contact.item.2"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <Mail
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <div>
                   <div
                     className="font-semibold mb-0.5"
-                    style={{ color: "oklch(96% 0.005 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     Official Program Email
                   </div>
                   <a
                     href="mailto:Purumeedzindagi@outlook.com"
                     className="text-sm font-medium hover:underline"
-                    style={{ color: "oklch(75% 0.18 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   >
                     Purumeedzindagi@outlook.com
                   </a>
                   <div
                     className="text-xs mt-1"
-                    style={{ color: "oklch(68% 0.025 145)" }}
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     Reply within 1–2 business days
                   </div>
@@ -371,38 +348,38 @@ export default function Contact() {
 
               {/* HQ */}
               <div
-                className="flex items-start gap-4 rounded-2xl p-5 border"
+                className="flex items-start gap-4 rounded-2xl p-5 border bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid="contact.item.3"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <MapPin
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <div>
                   <div
                     className="font-semibold mb-0.5"
-                    style={{ color: "oklch(96% 0.005 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     Headquarters
                   </div>
                   <div
                     className="text-sm font-medium"
-                    style={{ color: "oklch(75% 0.18 145)" }}
+                    style={{ color: "oklch(30% 0.08 145)" }}
                   >
                     Indus Hospital &amp; Health Network
                   </div>
                   <div
                     className="text-xs mt-1"
-                    style={{ color: "oklch(68% 0.025 145)" }}
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     Pakistan
                   </div>
@@ -411,38 +388,38 @@ export default function Contact() {
 
               {/* Badin Office */}
               <div
-                className="flex items-start gap-4 rounded-2xl p-5 border"
+                className="flex items-start gap-4 rounded-2xl p-5 border bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid="contact.item.4"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <MapPin
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <div>
                   <div
                     className="font-semibold mb-0.5"
-                    style={{ color: "oklch(96% 0.005 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     Badin Office
                   </div>
                   <div
                     className="text-sm font-medium"
-                    style={{ color: "oklch(75% 0.18 145)" }}
+                    style={{ color: "oklch(30% 0.08 145)" }}
                   >
                     Dr. Sam Civil Hospital, Badin
                   </div>
                   <div
                     className="text-xs mt-1"
-                    style={{ color: "oklch(68% 0.025 145)" }}
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     Sindh, Pakistan
                   </div>
@@ -450,23 +427,15 @@ export default function Contact() {
               </div>
 
               <div
-                className="rounded-2xl p-5 border"
+                className="rounded-2xl p-4 border"
                 style={{
-                  background: "oklch(17% 0.07 145)",
-                  borderColor: "oklch(35% 0.14 145)",
+                  background: "oklch(94% 0.04 145)",
+                  borderColor: "oklch(80% 0.08 145)",
                 }}
               >
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "oklch(82% 0.02 145)" }}
-                >
-                  <span
-                    className="font-semibold"
-                    style={{ color: "oklch(75% 0.18 145)" }}
-                  >
-                    Remember:
-                  </span>{" "}
-                  All services are completely free and confidential.
+                <p className="text-sm" style={{ color: "oklch(30% 0.12 145)" }}>
+                  <span className="font-semibold">Remember:</span> All services
+                  are completely free and confidential.
                 </p>
               </div>
             </motion.div>
@@ -479,13 +448,13 @@ export default function Contact() {
             >
               <div
                 className="uppercase tracking-widest text-xs font-semibold mb-3"
-                style={{ color: "oklch(58% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
                 Staff Portal
               </div>
               <h2
                 className="text-3xl font-bold mb-6"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Data Entry
               </h2>
@@ -493,21 +462,22 @@ export default function Contact() {
               <div
                 className="rounded-2xl border overflow-hidden"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(30% 0.12 145)",
+                  background: "white",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.08)",
                 }}
                 data-ocid="contact.staff_portal"
               >
                 {/* Top accent bar */}
                 <div
                   className="h-2 w-full"
-                  style={{ background: "oklch(58% 0.22 145)" }}
+                  style={{ background: "oklch(35% 0.2 145)" }}
                 />
 
                 <div className="p-6">
                   <div
                     className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
-                    style={{ background: "oklch(22% 0.08 145)" }}
+                    style={{ background: "oklch(94% 0.04 145)" }}
                   >
                     <svg
                       aria-label="Document"
@@ -516,7 +486,7 @@ export default function Contact() {
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      style={{ color: "oklch(58% 0.22 145)" }}
+                      style={{ color: "oklch(35% 0.2 145)" }}
                     >
                       <path
                         strokeLinecap="round"
@@ -529,13 +499,13 @@ export default function Contact() {
 
                   <h3
                     className="text-xl font-bold mb-2"
-                    style={{ color: "oklch(96% 0.005 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     REDCap Staff Portal
                   </h3>
                   <p
                     className="text-sm leading-relaxed mb-6"
-                    style={{ color: "oklch(68% 0.025 145)" }}
+                    style={{ color: "oklch(45% 0.04 145)" }}
                   >
                     MHOs and program staff can log patient screening,
                     enrollment, and treatment data directly through the REDCap
@@ -552,7 +522,7 @@ export default function Contact() {
                       <div key={item} className="flex items-center gap-2.5">
                         <div
                           className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                          style={{ background: "oklch(22% 0.08 145)" }}
+                          style={{ background: "oklch(94% 0.04 145)" }}
                         >
                           <svg
                             aria-label="Check"
@@ -561,7 +531,7 @@ export default function Contact() {
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
-                            style={{ color: "oklch(58% 0.22 145)" }}
+                            style={{ color: "oklch(35% 0.2 145)" }}
                           >
                             <path
                               strokeLinecap="round"
@@ -573,7 +543,7 @@ export default function Contact() {
                         </div>
                         <span
                           className="text-sm"
-                          style={{ color: "oklch(82% 0.02 145)" }}
+                          style={{ color: "oklch(35% 0.05 145)" }}
                         >
                           {item}
                         </span>
@@ -585,11 +555,8 @@ export default function Contact() {
                     href="https://redcap.tih.org.pk/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all hover:opacity-90"
-                    style={{
-                      background: "oklch(58% 0.22 145)",
-                      color: "white",
-                    }}
+                    className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl font-semibold text-sm transition-all hover:opacity-90 text-white"
+                    style={{ background: "oklch(35% 0.2 145)" }}
                     data-ocid="contact.redcap_button"
                   >
                     Open REDCap Portal
@@ -598,7 +565,7 @@ export default function Contact() {
 
                   <p
                     className="text-xs text-center mt-3"
-                    style={{ color: "oklch(55% 0.02 145)" }}
+                    style={{ color: "oklch(55% 0.04 145)" }}
                   >
                     Staff login required &bull; redcap.tih.org.pk
                   </p>

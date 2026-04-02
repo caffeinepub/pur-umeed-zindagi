@@ -1,16 +1,16 @@
-import { Brain, CheckCircle, MapPin } from "lucide-react";
+import { Calendar, CheckCircle, MapPin } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -32,8 +32,9 @@ const psychologists = [
   {
     name: "Tasleem Barkat",
     region: "Karachi",
-    photo: null,
-    color: "oklch(58% 0.22 145)",
+    photo: "/assets/generated/tasleem-barkat-photo.dim_400x400.jpg",
+    accentColor: "oklch(35% 0.2 145)",
+    clinicDays: null,
     sites: ["Korangi Campus (KC)", "Baba Island"],
     specializations: [
       "Depression & Mood Disorders",
@@ -53,7 +54,8 @@ const psychologists = [
     region: "Sindh",
     photo:
       "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
-    color: "oklch(58% 0.2 200)",
+    accentColor: "oklch(35% 0.18 200)",
+    clinicDays: ["Monday", "Wednesday"],
     sites: [
       "CHB (Civil Hospital Badin)",
       "Makli",
@@ -79,8 +81,9 @@ const psychologists = [
   {
     name: "Tariq Aziz",
     region: "Balochistan",
-    photo: null,
-    color: "oklch(60% 0.18 300)",
+    photo: "/assets/generated/tariq-aziz-photo.dim_400x400.jpg",
+    accentColor: "oklch(40% 0.16 300)",
+    clinicDays: null,
     sites: ["Saranan (PCP)", "Nokundi (PCP)"],
     specializations: [
       "Cultural Adaptation of Therapy",
@@ -99,8 +102,8 @@ const psychologists = [
 
 export default function Psychologists() {
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Our Psychologists"
         subtitle="Dedicated clinical leads serving their regions"
       />
@@ -117,61 +120,63 @@ export default function Psychologists() {
                 transition={{ delay: i * 0.15, duration: 0.6 }}
                 className="rounded-2xl border overflow-hidden"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  background: "white",
+                  borderColor: "oklch(88% 0.03 145)",
+                  borderLeft: `4px solid ${p.accentColor}`,
+                  boxShadow: "0 2px 20px oklch(50% 0.06 145 / 0.08)",
                 }}
                 data-ocid={`psychologists.item.${i + 1}`}
               >
                 <div className="p-8">
                   <div className="flex items-start gap-6 mb-8">
-                    {/* Photo or Initials Avatar */}
-                    {p.photo ? (
-                      <img
-                        src={p.photo}
-                        alt={p.name}
-                        className="w-20 h-20 rounded-full object-cover flex-shrink-0 border-2"
-                        style={{ borderColor: p.color }}
-                      />
-                    ) : (
-                      <div
-                        className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${p.color}20` }}
-                      >
-                        <Brain
-                          className="w-10 h-10"
-                          style={{ color: p.color }}
-                        />
-                      </div>
-                    )}
+                    <img
+                      src={p.photo}
+                      alt={p.name}
+                      className="w-28 h-28 rounded-2xl object-cover flex-shrink-0 border-2 shadow-md"
+                      style={{ borderColor: p.accentColor }}
+                    />
                     <div>
                       <h2
                         className="text-3xl font-bold mb-1"
-                        style={{ color: "oklch(96% 0.005 145)" }}
+                        style={{ color: "oklch(20% 0.06 145)" }}
                       >
                         {p.name}
                       </h2>
                       <div
-                        className="font-medium mb-1"
-                        style={{ color: p.color }}
+                        className="font-semibold mb-1"
+                        style={{ color: p.accentColor }}
                       >
                         Regional Psychologist
                       </div>
                       <div
-                        className="flex items-center gap-2 text-sm"
-                        style={{ color: "oklch(68% 0.025 145)" }}
+                        className="flex items-center gap-2 text-sm mb-2"
+                        style={{ color: "oklch(50% 0.04 145)" }}
                       >
                         <MapPin className="w-4 h-4" />
                         {p.region} Region
                       </div>
+                      {p.clinicDays && (
+                        <div
+                          className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg"
+                          style={{
+                            background: "oklch(94% 0.04 145)",
+                            border: "1px solid oklch(80% 0.1 145)",
+                            color: "oklch(30% 0.15 145)",
+                          }}
+                        >
+                          <Calendar className="w-4 h-4" />
+                          <span className="font-semibold">Clinic Days:</span>
+                          <span>{p.clinicDays.join(" & ")}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Sites */}
                     <div>
                       <h4
                         className="uppercase tracking-widest text-xs font-semibold mb-3"
-                        style={{ color: "oklch(58% 0.22 145)" }}
+                        style={{ color: "oklch(35% 0.2 145)" }}
                       >
                         Sites Covered
                       </h4>
@@ -180,11 +185,11 @@ export default function Psychologists() {
                           <div key={s} className="flex items-center gap-2">
                             <MapPin
                               className="w-3.5 h-3.5 flex-shrink-0"
-                              style={{ color: p.color }}
+                              style={{ color: p.accentColor }}
                             />
                             <span
                               className="text-sm"
-                              style={{ color: "oklch(82% 0.02 145)" }}
+                              style={{ color: "oklch(35% 0.05 145)" }}
                             >
                               {s}
                             </span>
@@ -193,11 +198,10 @@ export default function Psychologists() {
                       </div>
                     </div>
 
-                    {/* Specializations */}
                     <div>
                       <h4
                         className="uppercase tracking-widest text-xs font-semibold mb-3"
-                        style={{ color: "oklch(58% 0.22 145)" }}
+                        style={{ color: "oklch(35% 0.2 145)" }}
                       >
                         Specializations
                       </h4>
@@ -206,11 +210,11 @@ export default function Psychologists() {
                           <div key={s} className="flex items-start gap-2">
                             <CheckCircle
                               className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
-                              style={{ color: p.color }}
+                              style={{ color: p.accentColor }}
                             />
                             <span
                               className="text-sm"
-                              style={{ color: "oklch(82% 0.02 145)" }}
+                              style={{ color: "oklch(35% 0.05 145)" }}
                             >
                               {s}
                             </span>
@@ -219,11 +223,10 @@ export default function Psychologists() {
                       </div>
                     </div>
 
-                    {/* Services */}
                     <div>
                       <h4
                         className="uppercase tracking-widest text-xs font-semibold mb-3"
-                        style={{ color: "oklch(58% 0.22 145)" }}
+                        style={{ color: "oklch(35% 0.2 145)" }}
                       >
                         Services Offered
                       </h4>
@@ -232,11 +235,11 @@ export default function Psychologists() {
                           <div key={s} className="flex items-start gap-2">
                             <CheckCircle
                               className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
-                              style={{ color: p.color }}
+                              style={{ color: p.accentColor }}
                             />
                             <span
                               className="text-sm"
-                              style={{ color: "oklch(82% 0.02 145)" }}
+                              style={{ color: "oklch(35% 0.05 145)" }}
                             >
                               {s}
                             </span>

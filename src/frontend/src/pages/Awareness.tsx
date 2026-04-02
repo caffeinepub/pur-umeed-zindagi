@@ -1,16 +1,16 @@
 import { Calendar, MapPin, Users } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -97,8 +97,8 @@ const programs = [
 
 export default function Awareness() {
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Awareness Sessions & Programs"
         subtitle="Spreading mental health awareness across Pakistan"
       />
@@ -120,19 +120,20 @@ export default function Awareness() {
                 transition={{ delay: i * 0.1 }}
                 className="rounded-2xl p-5 border text-center"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  background: "white",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
               >
                 <div
                   className="text-3xl font-bold mb-1"
-                  style={{ color: "oklch(58% 0.22 145)" }}
+                  style={{ color: "oklch(35% 0.2 145)" }}
                 >
                   {s.value}
                 </div>
                 <div
                   className="text-sm"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
                   {s.label}
                 </div>
@@ -150,14 +151,15 @@ export default function Awareness() {
                 transition={{ delay: i * 0.08, duration: 0.5 }}
                 className="rounded-2xl p-7 border card-hover"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  background: "white",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid={`awareness.item.${i + 1}`}
               >
                 <div
                   className="flex items-center gap-3 text-xs mb-3"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
@@ -170,19 +172,19 @@ export default function Awareness() {
                 </div>
                 <h3
                   className="font-bold text-xl mb-3"
-                  style={{ color: "oklch(96% 0.005 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   {p.title}
                 </h3>
                 <p
                   className="text-sm leading-relaxed mb-4"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(40% 0.04 145)" }}
                 >
                   {p.desc}
                 </p>
                 <div
-                  className="flex items-center gap-2 text-xs mb-4"
-                  style={{ color: "oklch(75% 0.18 145)" }}
+                  className="flex items-center gap-2 text-xs mb-4 font-medium"
+                  style={{ color: "oklch(35% 0.18 145)" }}
                 >
                   <Users className="w-3.5 h-3.5" />
                   {p.participants}
@@ -193,8 +195,8 @@ export default function Awareness() {
                       key={tag}
                       className="px-2 py-0.5 rounded-full text-xs font-medium"
                       style={{
-                        background: "oklch(20% 0.07 145)",
-                        color: "oklch(75% 0.18 145)",
+                        background: "oklch(92% 0.04 145)",
+                        color: "oklch(30% 0.15 145)",
                       }}
                     >
                       {tag}

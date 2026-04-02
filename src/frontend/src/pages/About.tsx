@@ -1,16 +1,16 @@
 import { Brain, Heart, Leaf, Shield, Star, Target } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -30,8 +30,8 @@ const GreenHeader = ({
 
 export default function About() {
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="About Us"
         subtitle="The story behind Pur Umeed Zindagi"
       />
@@ -48,19 +48,19 @@ export default function About() {
             >
               <div
                 className="uppercase tracking-widest text-xs font-semibold mb-3"
-                style={{ color: "oklch(58% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
                 Our Story
               </div>
               <h2
                 className="text-4xl font-bold mb-6"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 A Program Born from Community Need
               </h2>
               <p
                 className="text-base leading-relaxed mb-4"
-                style={{ color: "oklch(68% 0.025 145)" }}
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 Pur Umeed Zindagi (PUZ) — meaning &ldquo;A Life Full of
                 Hope&rdquo; — was launched in 2018 as a flagship mental health
@@ -70,7 +70,7 @@ export default function About() {
               </p>
               <p
                 className="text-base leading-relaxed mb-4"
-                style={{ color: "oklch(68% 0.025 145)" }}
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 Recognizing that mental health conditions affect millions yet
                 remain deeply stigmatized and undertreated, PUZ embedded trained
@@ -79,7 +79,7 @@ export default function About() {
               </p>
               <p
                 className="text-base leading-relaxed"
-                style={{ color: "oklch(68% 0.025 145)" }}
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 From its origins in Karachi, the program has expanded across
                 Sindh, Balochistan, and Punjab, now serving over 120,000
@@ -101,21 +101,22 @@ export default function About() {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-2xl p-6 border text-center"
+                  className="rounded-2xl p-6 border text-center card-hover"
                   style={{
-                    background: "oklch(14% 0.045 145)",
-                    borderColor: "oklch(22% 0.06 145)",
+                    background: "white",
+                    borderColor: "oklch(88% 0.03 145)",
+                    boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.07)",
                   }}
                 >
                   <div
                     className="text-4xl font-bold mb-1"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   >
                     {s.value}
                   </div>
                   <div
                     className="text-sm"
-                    style={{ color: "oklch(68% 0.025 145)" }}
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     {s.label}
                   </div>
@@ -127,18 +128,18 @@ export default function About() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20" style={{ background: "oklch(11% 0.045 145)" }}>
+      <section className="py-20" style={{ background: "oklch(96% 0.01 145)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div
               className="uppercase tracking-widest text-xs font-semibold mb-3"
-              style={{ color: "oklch(58% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
               Direction
             </div>
             <h2
               className="text-4xl font-bold"
-              style={{ color: "oklch(96% 0.005 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
               Mission &amp; Vision
             </h2>
@@ -150,23 +151,25 @@ export default function About() {
               viewport={{ once: true }}
               className="rounded-2xl p-8 border"
               style={{
-                background: "oklch(14% 0.045 145)",
-                borderColor: "oklch(35% 0.14 145)",
+                background: "white",
+                borderColor: "oklch(88% 0.03 145)",
+                borderLeft: "4px solid oklch(35% 0.2 145)",
+                boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.07)",
               }}
             >
               <Target
                 className="w-8 h-8 mb-4"
-                style={{ color: "oklch(58% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               />
               <h3
                 className="text-2xl font-bold mb-4"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Our Mission
               </h3>
               <p
                 className="text-base leading-relaxed"
-                style={{ color: "oklch(68% 0.025 145)" }}
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 To provide accessible, evidence-based, and stigma-free mental
                 health services to underserved communities across Pakistan
@@ -181,23 +184,25 @@ export default function About() {
               transition={{ delay: 0.2 }}
               className="rounded-2xl p-8 border"
               style={{
-                background: "oklch(14% 0.045 145)",
-                borderColor: "oklch(35% 0.14 145)",
+                background: "white",
+                borderColor: "oklch(88% 0.03 145)",
+                borderLeft: "4px solid oklch(35% 0.2 145)",
+                boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.07)",
               }}
             >
               <Star
                 className="w-8 h-8 mb-4"
-                style={{ color: "oklch(58% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               />
               <h3
                 className="text-2xl font-bold mb-4"
-                style={{ color: "oklch(96% 0.005 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Our Vision
               </h3>
               <p
                 className="text-base leading-relaxed"
-                style={{ color: "oklch(68% 0.025 145)" }}
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 A Pakistan where every individual has access to quality mental
                 health care, free from stigma and financial barriers, integrated
@@ -209,18 +214,18 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div
               className="uppercase tracking-widest text-xs font-semibold mb-3"
-              style={{ color: "oklch(58% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
               Principles
             </div>
             <h2
               className="text-4xl font-bold"
-              style={{ color: "oklch(96% 0.005 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
               Core Values
             </h2>
@@ -266,28 +271,29 @@ export default function About() {
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 className="rounded-2xl p-6 border card-hover"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  background: "white",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <v.icon
                     className="w-6 h-6"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <h3
                   className="font-bold text-lg mb-2"
-                  style={{ color: "oklch(96% 0.005 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   {v.title}
                 </h3>
                 <p
                   className="text-sm leading-relaxed"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(45% 0.04 145)" }}
                 >
                   {v.desc}
                 </p>

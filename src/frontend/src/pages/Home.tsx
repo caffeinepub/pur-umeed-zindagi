@@ -19,7 +19,6 @@ import {
   Database,
   ExternalLink,
   HeartHandshake,
-  Leaf,
   Lock,
   MapPin,
   Play,
@@ -30,7 +29,7 @@ import {
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-// ─── Count-up hook ────────────────────────────────────────────────────────────
+// ─── Count-up hook ─────────────────────────────────────────────────────────────────────────────
 function useCountUp(target: number, duration: number, active: boolean) {
   const [count, setCount] = useState(0);
   const rafRef = useRef<number>(0);
@@ -56,8 +55,64 @@ function useCountUp(target: number, duration: number, active: boolean) {
   return count;
 }
 
-// ─── Live Date Badge ──────────────────────────────────────────────────────────
-function LiveDateBadge() {
+// ─── Staff Portal Banner ──────────────────────────────────────────────────────────────────────
+function StaffPortalBanner() {
+  return (
+    <div
+      className="py-3"
+      style={{
+        background: "oklch(94% 0.04 145)",
+        borderBottom: "1px solid oklch(80% 0.08 145)",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div
+            className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+            style={{ background: "oklch(35% 0.2 145)" }}
+          >
+            <Database className="w-4 h-4 text-white" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <Lock
+                className="w-3 h-3"
+                style={{ color: "oklch(40% 0.1 145)" }}
+              />
+              <span
+                className="text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "oklch(40% 0.1 145)" }}
+              >
+                For MHOs &amp; Staff Only
+              </span>
+            </div>
+            <p
+              className="text-sm font-semibold"
+              style={{ color: "oklch(25% 0.12 145)" }}
+            >
+              Staff Data Entry Portal — REDCap
+            </p>
+          </div>
+        </div>
+        <a
+          href="https://redcap.tih.org.pk/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2 rounded-lg font-semibold text-sm text-white transition-opacity hover:opacity-85"
+          style={{ background: "oklch(35% 0.2 145)" }}
+          data-ocid="home.staff_portal.primary_button"
+        >
+          <Database className="w-4 h-4" />
+          Open REDCap Portal
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// ─── Live Date Bar ──────────────────────────────────────────────────────────────────────────────
+function LiveDateBar() {
   const [dateStr, setDateStr] = useState("");
 
   useEffect(() => {
@@ -81,79 +136,43 @@ function LiveDateBadge() {
     return () => clearTimeout(t);
   }, []);
 
-  return (
-    <div className="flex justify-center mb-6">
-      <div
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
-        style={{
-          background: "oklch(14% 0.05 145 / 0.7)",
-          border: "1px solid oklch(35% 0.14 145 / 0.5)",
-          color: "oklch(80% 0.12 145)",
-        }}
-        data-ocid="home.date_badge"
-      >
-        <Clock
-          className="w-3.5 h-3.5"
-          style={{ color: "oklch(65% 0.22 145)" }}
-        />
-        <span>{dateStr}</span>
-      </div>
-    </div>
-  );
-}
-
-// ─── Counter Band ─────────────────────────────────────────────────────────────
-function CounterBand() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const count = useCountUp(120388, 2500, isInView);
-
+  if (!dateStr) return null;
   return (
     <div
-      ref={ref}
-      className="py-14 text-center"
-      style={{ background: "oklch(16% 0.055 145)" }}
+      className="py-2 px-4 text-center text-xs font-medium"
+      style={{
+        background: "oklch(96% 0.01 145)",
+        borderBottom: "1px solid oklch(88% 0.03 145)",
+        color: "oklch(40% 0.06 145)",
+      }}
+      data-ocid="home.date_badge"
     >
-      <div className="max-w-4xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div
-            className="text-6xl md:text-7xl font-bold tracking-tight mb-2"
-            style={{ color: "oklch(65% 0.22 145)" }}
-          >
-            {count.toLocaleString()}
-          </div>
-          <div
-            className="text-lg font-semibold mb-1"
-            style={{ color: "oklch(92% 0.01 145)" }}
-          >
-            Patients Seen in 2025
-          </div>
-          <div className="text-sm" style={{ color: "oklch(65% 0.025 145)" }}>
-            Across 4 regions · 17+ sites · Karachi, Sindh, Balochistan, Punjab
-          </div>
-        </motion.div>
-      </div>
+      <span className="inline-flex items-center gap-2">
+        <Clock
+          className="w-3.5 h-3.5"
+          style={{ color: "oklch(40% 0.15 145)" }}
+        />
+        Today: {dateStr}
+      </span>
     </div>
   );
 }
 
-// ─── Stats Band ───────────────────────────────────────────────────────────────
+// ─── Stats Bar ──────────────────────────────────────────────────────────────────────────────────
 function StatItem({
   label,
   value,
   suffix,
   isInView,
   delay,
+  isLast,
 }: {
   label: string;
   value: number;
   suffix: string;
   isInView: boolean;
   delay: number;
+  isLast: boolean;
 }) {
   const count = useCountUp(value, 1800, isInView);
   return (
@@ -161,18 +180,16 @@ function StatItem({
       initial={{ opacity: 0, y: 16 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.5 }}
-      className="text-center py-5"
+      className="text-center py-8 px-4"
+      style={{ borderRight: !isLast ? "1px solid oklch(35% 0.1 145)" : "none" }}
     >
-      <div
-        className="text-2xl font-bold"
-        style={{ color: "oklch(92% 0.01 145)" }}
-      >
+      <div className="text-3xl md:text-4xl font-bold text-white mb-1">
         {count.toLocaleString()}
         {suffix}
       </div>
       <div
-        className="text-xs mt-1 font-medium"
-        style={{ color: "oklch(68% 0.04 145)" }}
+        className="text-xs font-medium uppercase tracking-wide"
+        style={{ color: "oklch(75% 0.12 145)" }}
       >
         {label}
       </div>
@@ -185,30 +202,25 @@ function StatsBand() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   const stats = [
+    { label: "Patients (2025)", value: 120388, suffix: "+" },
+    { label: "Active Sites", value: 17, suffix: "+" },
     { label: "Regions", value: 4, suffix: "" },
-    { label: "Sites", value: 17, suffix: "+" },
-    { label: "Psychologists", value: 3, suffix: "" },
-    { label: "MHOs", value: 34, suffix: "+" },
-    { label: "Patients (2025)", value: 120388, suffix: "" },
+    { label: "100% Free Service", value: 100, suffix: "%" },
   ];
 
   return (
-    <div
-      ref={ref}
-      className="border-y"
-      style={{
-        background: "oklch(20% 0.06 145)",
-        borderColor: "oklch(28% 0.08 145)",
-      }}
-    >
+    <div ref={ref} style={{ background: "oklch(25% 0.15 145)" }}>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4">
           {stats.map((s, i) => (
             <StatItem
               key={s.label}
-              {...s}
+              label={s.label}
+              value={s.value}
+              suffix={s.suffix}
               isInView={isInView}
               delay={i * 0.1}
+              isLast={i === stats.length - 1}
             />
           ))}
         </div>
@@ -217,7 +229,7 @@ function StatsBand() {
   );
 }
 
-// ─── Appointment Form ─────────────────────────────────────────────────────────
+// ─── Appointment Form ───────────────────────────────────────────────────────────────────────────
 interface ApptForm {
   fullName: string;
   phone: string;
@@ -263,18 +275,7 @@ function AppointmentSection() {
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault();
     if (validate()) {
-      const mailBody = `Appointment Request - Pur Umeed Zindagi
-====================================
-Full Name: ${form.fullName}
-Phone: ${form.phone}
-Age: ${form.age}
-Gender: ${form.gender}
-City / Region: ${form.region}
-Preferred Date: ${form.preferredDate}
-Preferred Time: ${form.preferredTime}
-Concern / Complaint: ${form.complaint}
-====================================
-Submitted via Pur Umeed Zindagi website.`;
+      const mailBody = `Appointment Request - Pur Umeed Zindagi\n====================================\nFull Name: ${form.fullName}\nPhone: ${form.phone}\nAge: ${form.age}\nGender: ${form.gender}\nCity / Region: ${form.region}\nPreferred Date: ${form.preferredDate}\nPreferred Time: ${form.preferredTime}\nConcern / Complaint: ${form.complaint}\n====================================\nSubmitted via Pur Umeed Zindagi website.`;
       const subject = encodeURIComponent(
         "Appointment Request - Pur Umeed Zindagi",
       );
@@ -288,14 +289,8 @@ Submitted via Pur Umeed Zindagi website.`;
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
-  const inputStyle = (hasError: boolean) => ({
-    background: "oklch(18% 0.05 145)",
-    borderColor: hasError ? "oklch(55% 0.22 25)" : "oklch(30% 0.08 145)",
-    color: "oklch(92% 0.01 145)",
-  });
-
   return (
-    <section className="py-20" style={{ background: "oklch(13% 0.045 145)" }}>
+    <section className="py-20" style={{ background: "oklch(96% 0.01 145)" }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -306,26 +301,26 @@ Submitted via Pur Umeed Zindagi website.`;
         >
           <div
             className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-4"
-            style={{ background: "oklch(58% 0.22 145 / 0.15)" }}
+            style={{ background: "oklch(35% 0.2 145 / 0.1)" }}
           >
             <CalendarCheck
               className="w-6 h-6"
-              style={{ color: "oklch(65% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             />
           </div>
           <p
             className="text-xs uppercase tracking-widest font-semibold mb-2"
-            style={{ color: "oklch(65% 0.22 145)" }}
+            style={{ color: "oklch(35% 0.2 145)" }}
           >
             Free Service
           </p>
           <h2
             className="text-3xl font-bold mb-2"
-            style={{ color: "oklch(94% 0.008 145)" }}
+            style={{ color: "oklch(20% 0.06 145)" }}
           >
             Book an Appointment
           </h2>
-          <p className="text-sm" style={{ color: "oklch(65% 0.025 145)" }}>
+          <p className="text-sm" style={{ color: "oklch(45% 0.04 145)" }}>
             Fill out the form below. Our team will contact you within 24 hours —
             completely free.
           </p>
@@ -336,31 +331,28 @@ Submitted via Pur Umeed Zindagi website.`;
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl p-10 text-center border"
-            style={{
-              background: "oklch(16% 0.05 145)",
-              borderColor: "oklch(28% 0.08 145)",
-            }}
+            className="bg-white rounded-2xl p-10 text-center border"
+            style={{ borderColor: "oklch(88% 0.03 145)" }}
             data-ocid="home.appointment.success_state"
           >
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ background: "oklch(65% 0.22 145 / 0.15)" }}
+              style={{ background: "oklch(35% 0.2 145 / 0.1)" }}
             >
               <CheckCircle
                 className="w-8 h-8"
-                style={{ color: "oklch(65% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               />
             </div>
             <h3
               className="text-2xl font-bold mb-2"
-              style={{ color: "oklch(94% 0.008 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
               Request Received!
             </h3>
             <p
               className="text-sm leading-relaxed mb-6 max-w-sm mx-auto"
-              style={{ color: "oklch(68% 0.025 145)" }}
+              style={{ color: "oklch(45% 0.04 145)" }}
             >
               Your appointment request has been received. Our team will contact
               you within 24 hours.
@@ -370,8 +362,8 @@ Submitted via Pur Umeed Zindagi website.`;
                 setSubmitted(false);
                 setForm(EMPTY_FORM);
               }}
-              className="px-6 py-2 rounded-xl font-semibold text-sm"
-              style={{ background: "oklch(55% 0.22 145)", color: "white" }}
+              className="px-6 py-2 rounded-xl font-semibold text-sm text-white"
+              style={{ background: "oklch(35% 0.2 145)" }}
               data-ocid="home.appointment.secondary_button"
             >
               Book Another Appointment
@@ -384,19 +376,18 @@ Submitted via Pur Umeed Zindagi website.`;
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="rounded-2xl p-6 sm:p-8 space-y-5 border"
+            className="bg-white rounded-2xl p-6 sm:p-8 space-y-5 border"
             style={{
-              background: "oklch(16% 0.05 145)",
-              borderColor: "oklch(28% 0.08 145)",
+              borderColor: "oklch(88% 0.03 145)",
+              boxShadow: "0 4px 20px oklch(50% 0.06 145 / 0.08)",
             }}
             data-ocid="home.appointment.modal"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Full Name */}
               <div className="sm:col-span-2 space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
                   Patient Full Name{" "}
-                  <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                  <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Input
                   type="text"
@@ -404,13 +395,12 @@ Submitted via Pur Umeed Zindagi website.`;
                   value={form.fullName}
                   onChange={(e) => handleChange("fullName", e.target.value)}
                   className="h-11"
-                  style={inputStyle(!!errors.fullName)}
                   data-ocid="home.appointment.input"
                 />
                 {errors.fullName && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.fullName}
@@ -418,11 +408,10 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Phone */}
               <div className="space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
                   Phone Number{" "}
-                  <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                  <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Input
                   type="tel"
@@ -430,13 +419,12 @@ Submitted via Pur Umeed Zindagi website.`;
                   value={form.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
                   className="h-11"
-                  style={inputStyle(!!errors.phone)}
                   data-ocid="home.appointment.input"
                 />
                 {errors.phone && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.phone}
@@ -444,10 +432,9 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Age */}
               <div className="space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
-                  Age <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
+                  Age <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Input
                   type="number"
@@ -457,13 +444,12 @@ Submitted via Pur Umeed Zindagi website.`;
                   value={form.age}
                   onChange={(e) => handleChange("age", e.target.value)}
                   className="h-11"
-                  style={inputStyle(!!errors.age)}
                   data-ocid="home.appointment.input"
                 />
                 {errors.age && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.age}
@@ -471,10 +457,9 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Gender */}
               <div className="space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
-                  Gender <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
+                  Gender <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Select
                   value={form.gender}
@@ -482,18 +467,11 @@ Submitted via Pur Umeed Zindagi website.`;
                 >
                   <SelectTrigger
                     className="h-11"
-                    style={inputStyle(!!errors.gender)}
                     data-ocid="home.appointment.select"
                   >
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
-                  <SelectContent
-                    style={{
-                      background: "oklch(18% 0.05 145)",
-                      borderColor: "oklch(28% 0.08 145)",
-                      color: "oklch(92% 0.01 145)",
-                    }}
-                  >
+                  <SelectContent>
                     <SelectItem value="Male">Male</SelectItem>
                     <SelectItem value="Female">Female</SelectItem>
                     <SelectItem value="Other">Other</SelectItem>
@@ -502,7 +480,7 @@ Submitted via Pur Umeed Zindagi website.`;
                 {errors.gender && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.gender}
@@ -510,11 +488,10 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Region */}
               <div className="space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
                   Region / City{" "}
-                  <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                  <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Input
                   type="text"
@@ -522,13 +499,12 @@ Submitted via Pur Umeed Zindagi website.`;
                   value={form.region}
                   onChange={(e) => handleChange("region", e.target.value)}
                   className="h-11"
-                  style={inputStyle(!!errors.region)}
                   data-ocid="home.appointment.input"
                 />
                 {errors.region && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.region}
@@ -536,11 +512,10 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Preferred Date */}
               <div className="space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
                   Preferred Date{" "}
-                  <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                  <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Input
                   type="date"
@@ -550,16 +525,12 @@ Submitted via Pur Umeed Zindagi website.`;
                     handleChange("preferredDate", e.target.value)
                   }
                   className="h-11"
-                  style={{
-                    ...inputStyle(!!errors.preferredDate),
-                    colorScheme: "dark",
-                  }}
                   data-ocid="home.appointment.input"
                 />
                 {errors.preferredDate && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.preferredDate}
@@ -567,11 +538,10 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Preferred Time */}
               <div className="sm:col-span-2 space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
                   Preferred Time{" "}
-                  <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                  <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Select
                   value={form.preferredTime}
@@ -579,18 +549,11 @@ Submitted via Pur Umeed Zindagi website.`;
                 >
                   <SelectTrigger
                     className="h-11"
-                    style={inputStyle(!!errors.preferredTime)}
                     data-ocid="home.appointment.select"
                   >
                     <SelectValue placeholder="Select time slot" />
                   </SelectTrigger>
-                  <SelectContent
-                    style={{
-                      background: "oklch(18% 0.05 145)",
-                      borderColor: "oklch(28% 0.08 145)",
-                      color: "oklch(92% 0.01 145)",
-                    }}
-                  >
+                  <SelectContent>
                     <SelectItem value="Morning 9am-12pm">
                       Morning — 9:00 AM to 12:00 PM
                     </SelectItem>
@@ -605,7 +568,7 @@ Submitted via Pur Umeed Zindagi website.`;
                 {errors.preferredTime && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.preferredTime}
@@ -613,27 +576,23 @@ Submitted via Pur Umeed Zindagi website.`;
                 )}
               </div>
 
-              {/* Complaint */}
               <div className="sm:col-span-2 space-y-1.5">
-                <Label style={{ color: "oklch(78% 0.02 145)" }}>
+                <Label style={{ color: "oklch(30% 0.06 145)" }}>
                   Reason / Chief Complaint{" "}
-                  <span style={{ color: "oklch(65% 0.22 145)" }}>*</span>
+                  <span style={{ color: "oklch(35% 0.2 145)" }}>*</span>
                 </Label>
                 <Textarea
                   rows={4}
                   placeholder="Briefly describe the reason for your appointment..."
                   value={form.complaint}
                   onChange={(e) => handleChange("complaint", e.target.value)}
-                  style={{
-                    ...inputStyle(!!errors.complaint),
-                    resize: "vertical",
-                  }}
+                  style={{ resize: "vertical" }}
                   data-ocid="home.appointment.textarea"
                 />
                 {errors.complaint && (
                   <p
                     className="text-xs"
-                    style={{ color: "oklch(55% 0.22 25)" }}
+                    style={{ color: "oklch(50% 0.22 25)" }}
                     data-ocid="home.appointment.error_state"
                   >
                     {errors.complaint}
@@ -645,12 +604,12 @@ Submitted via Pur Umeed Zindagi website.`;
             <div
               className="rounded-xl p-4 text-sm"
               style={{
-                background: "oklch(14% 0.04 145)",
-                border: "1px solid oklch(28% 0.08 145)",
-                color: "oklch(65% 0.025 145)",
+                background: "oklch(94% 0.04 145)",
+                border: "1px solid oklch(80% 0.08 145)",
+                color: "oklch(35% 0.08 145)",
               }}
             >
-              <strong style={{ color: "oklch(72% 0.18 145)" }}>
+              <strong style={{ color: "oklch(28% 0.15 145)" }}>
                 Important:
               </strong>{" "}
               All services are completely free of charge. Your information is
@@ -660,8 +619,8 @@ Submitted via Pur Umeed Zindagi website.`;
 
             <Button
               type="submit"
-              className="w-full h-11 text-sm font-semibold rounded-xl"
-              style={{ background: "oklch(55% 0.22 145)", color: "white" }}
+              className="w-full h-11 text-sm font-semibold rounded-xl text-white"
+              style={{ background: "oklch(35% 0.2 145)" }}
               data-ocid="home.appointment.submit_button"
             >
               Submit Appointment Request
@@ -673,275 +632,119 @@ Submitted via Pur Umeed Zindagi website.`;
   );
 }
 
-// ─── Staff Portal Banner ──────────────────────────────────────────────────────
-function StaffPortalBanner() {
-  return (
-    <div
-      className="py-5"
-      style={{
-        background: "oklch(14% 0.048 145)",
-        borderBottom: "1px solid oklch(24% 0.07 145)",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-            style={{ background: "oklch(25% 0.08 145)" }}
-          >
-            <Database
-              className="w-4.5 h-4.5"
-              style={{ color: "oklch(65% 0.22 145)" }}
-            />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <Lock
-                className="w-3 h-3"
-                style={{ color: "oklch(58% 0.025 145)" }}
-              />
-              <span
-                className="text-xs font-semibold uppercase tracking-wider"
-                style={{ color: "oklch(58% 0.025 145)" }}
-              >
-                For MHOs & Staff Only
-              </span>
-            </div>
-            <p
-              className="text-sm font-medium"
-              style={{ color: "oklch(86% 0.015 145)" }}
-            >
-              Staff Data Entry Portal — REDCap
-            </p>
-          </div>
-        </div>
-        <a
-          href="https://redcap.tih.org.pk/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2 rounded-lg font-semibold text-sm transition-opacity hover:opacity-85"
-          style={{ background: "oklch(55% 0.22 145)", color: "white" }}
-          data-ocid="home.staff_portal.primary_button"
-        >
-          <Database className="w-4 h-4" />
-          Open REDCap Portal
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
-      </div>
-    </div>
-  );
-}
-
-// ─── Main Export ──────────────────────────────────────────────────────────────
+// ─── Main Export ──────────────────────────────────────────────────────────────────────────────────
 export default function Home() {
+  const counterRef = useRef<HTMLDivElement>(null);
+  const counterInView = useInView(counterRef, { once: true, margin: "-100px" });
+  const count = useCountUp(120388, 2500, counterInView);
+
   return (
-    <div style={{ background: "oklch(10% 0.042 145)" }}>
-      {/* Staff Portal Top Banner */}
+    <div className="bg-white">
+      {/* Staff Portal Banner */}
       <StaffPortalBanner />
 
+      {/* Live Date Bar */}
+      <LiveDateBar />
+
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="hero-bg py-20 md:py-28 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <LiveDateBadge />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Text side */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
+      <section className="hero-bg py-24 md:py-32 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6 border"
+              style={{
+                background: "oklch(100% 0 0 / 0.12)",
+                borderColor: "oklch(100% 0 0 / 0.3)",
+                color: "oklch(92% 0.05 145)",
+              }}
             >
-              <div
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border"
-                style={{
-                  background: "oklch(17% 0.05 145)",
-                  borderColor: "oklch(35% 0.14 145)",
-                  color: "oklch(75% 0.18 145)",
-                }}
-              >
-                <Leaf className="w-3.5 h-3.5" />A Program of IHHN
-              </div>
+              A Program of Indus Hospital &amp; Health Network
+            </div>
 
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-3">
-                <span style={{ color: "oklch(95% 0.006 145)" }}>
-                  Pur Umeed{"\n"}
-                </span>
-                <span
-                  style={{ color: "oklch(65% 0.22 145)" }}
-                  className="emerald-glow"
-                >
-                  Zindagi
-                </span>
-              </h1>
-              <p
-                className="text-lg italic mb-3"
-                style={{ color: "oklch(72% 0.05 145)" }}
-              >
-                A Life Full of Hope
-              </p>
-              <p
-                className="text-base leading-relaxed mb-8"
-                style={{ color: "oklch(65% 0.025 145)" }}
-              >
-                Free, confidential mental health services for communities across
-                Pakistan. Psychological counseling, screening, and support at
-                17+ sites in 4 regions.
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90"
-                  style={{ background: "oklch(55% 0.22 145)", color: "white" }}
-                  data-ocid="home.primary_button"
-                >
-                  Get Appointment <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border transition-opacity hover:opacity-90"
-                  style={{
-                    borderColor: "oklch(35% 0.14 145)",
-                    color: "oklch(75% 0.18 145)",
-                  }}
-                  data-ocid="home.secondary_button"
-                >
-                  Learn More
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Stats panel */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-4 text-white">
+              Pur Umeed Zindagi
+            </h1>
+            <p
+              className="text-xl md:text-2xl mb-3 font-light"
+              style={{ color: "oklch(88% 0.06 145)" }}
             >
-              <div
-                className="rounded-2xl p-7 border"
-                style={{
-                  background: "oklch(15% 0.048 145)",
-                  borderColor: "oklch(24% 0.07 145)",
-                }}
+              Mental Health Program | Indus Hospital &amp; Health Network
+            </p>
+            <p
+              className="text-base max-w-2xl mx-auto mb-10 leading-relaxed"
+              style={{ color: "oklch(80% 0.04 145)" }}
+            >
+              Free, confidential psychological care across 17+ sites in 4
+              regions of Pakistan. Hope is real. Help is available.
+            </p>
+
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/appointment"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-base text-white transition-opacity hover:opacity-90"
+                style={{ background: "oklch(35% 0.2 145)" }}
+                data-ocid="home.primary_button"
               >
-                <h3
-                  className="text-base font-semibold mb-5"
-                  style={{ color: "oklch(92% 0.01 145)" }}
-                >
-                  Program Reach
-                </h3>
-                <div className="grid grid-cols-2 gap-3 mb-5">
-                  {[
-                    {
-                      icon: MapPin,
-                      label: "17+ Sites",
-                      desc: "Across Pakistan",
-                    },
-                    { icon: Users, label: "4 Regions", desc: "Nationwide" },
-                    {
-                      icon: Shield,
-                      label: "Free",
-                      desc: "No cost to patients",
-                    },
-                    {
-                      icon: HeartHandshake,
-                      label: "Confidential",
-                      desc: "Safe space",
-                    },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-xl p-4 border"
-                      style={{
-                        background: "oklch(18% 0.055 145)",
-                        borderColor: "oklch(26% 0.08 145)",
-                      }}
-                    >
-                      <item.icon
-                        className="w-5 h-5 mb-2"
-                        style={{ color: "oklch(65% 0.22 145)" }}
-                      />
-                      <div
-                        className="font-bold text-sm"
-                        style={{ color: "oklch(92% 0.01 145)" }}
-                      >
-                        {item.label}
-                      </div>
-                      <div
-                        className="text-xs"
-                        style={{ color: "oklch(62% 0.025 145)" }}
-                      >
-                        {item.desc}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="rounded-xl p-4 border text-center"
-                  style={{
-                    background: "oklch(12% 0.045 145)",
-                    borderColor: "oklch(32% 0.12 145)",
-                  }}
-                >
-                  <div
-                    className="text-3xl font-bold"
-                    style={{ color: "oklch(65% 0.22 145)" }}
-                  >
-                    120,388
-                  </div>
-                  <div
-                    className="text-xs mt-1"
-                    style={{ color: "oklch(78% 0.02 145)" }}
-                  >
-                    Patients Served in 2025
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+                Book Appointment <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-base border transition-opacity hover:opacity-90"
+                style={{
+                  borderColor: "oklch(100% 0 0 / 0.5)",
+                  color: "white",
+                  background: "oklch(100% 0 0 / 0.1)",
+                }}
+                data-ocid="home.secondary_button"
+              >
+                Learn More
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── Counter Band ─────────────────────────────────── */}
-      <CounterBand />
-
-      {/* ── Stats Band ───────────────────────────────────── */}
+      {/* ── Stats Band ──────────────────────────────────────── */}
       <StatsBand />
 
-      {/* ── Why PUZ Exists ───────────────────────────────── */}
-      <section className="py-20" style={{ background: "oklch(10% 0.042 145)" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── About Strip ─────────────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
               <p
                 className="text-xs uppercase tracking-widest font-semibold mb-3"
-                style={{ color: "oklch(65% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
                 Our Mission
               </p>
               <h2
-                className="text-3xl font-bold mb-5"
-                style={{ color: "oklch(94% 0.008 145)" }}
+                className="text-3xl md:text-4xl font-bold mb-5"
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Why Pur Umeed Zindagi?
               </h2>
               <p
-                className="text-sm leading-relaxed mb-4"
-                style={{ color: "oklch(65% 0.025 145)" }}
+                className="text-base leading-relaxed mb-4"
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
-                Mental health is a fundamental human right. Pur Umeed Zindagi
-                was established in 2018 under Indus Hospital &amp; Health
-                Network to bring accessible, stigma-free psychological care to
-                underserved communities across Pakistan.
+                Pur Umeed Zindagi was established in 2018 under Indus Hospital
+                &amp; Health Network to bring accessible, stigma-free
+                psychological care to underserved communities across Pakistan.
               </p>
               <p
-                className="text-sm leading-relaxed mb-6"
-                style={{ color: "oklch(65% 0.025 145)" }}
+                className="text-base leading-relaxed mb-6"
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 Our trained Mental Health Officers and Clinical Psychologists
                 work across 17 sites in Karachi, Sindh, Balochistan, and Punjab
@@ -959,9 +762,9 @@ export default function Home() {
                     key={tag}
                     className="px-3 py-1 rounded-full text-xs font-medium border"
                     style={{
-                      borderColor: "oklch(30% 0.1 145)",
-                      color: "oklch(72% 0.16 145)",
-                      background: "oklch(15% 0.045 145)",
+                      borderColor: "oklch(70% 0.12 145)",
+                      color: "oklch(35% 0.18 145)",
+                      background: "oklch(94% 0.04 145)",
                     }}
                   >
                     {tag}
@@ -971,11 +774,11 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="grid grid-cols-2 gap-3"
+              className="grid grid-cols-2 gap-4"
             >
               {[
                 { value: "2018", label: "Founded" },
@@ -985,21 +788,22 @@ export default function Home() {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-2xl p-6 border text-center"
+                  className="rounded-2xl p-8 border text-center card-hover"
                   style={{
-                    background: "oklch(15% 0.048 145)",
-                    borderColor: "oklch(24% 0.07 145)",
+                    background: "white",
+                    borderColor: "oklch(88% 0.03 145)",
+                    boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                   }}
                 >
                   <div
                     className="text-3xl font-bold mb-1"
-                    style={{ color: "oklch(65% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   >
                     {s.value}
                   </div>
                   <div
-                    className="text-xs"
-                    style={{ color: "oklch(65% 0.025 145)" }}
+                    className="text-sm"
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     {s.label}
                   </div>
@@ -1010,42 +814,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Psychologists ─────────────────────────────────── */}
-      <section className="py-20" style={{ background: "oklch(13% 0.045 145)" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
+      {/* ── Live Patient Counter ───────────────────────────── */}
+      <div
+        ref={counterRef}
+        className="py-16 text-center"
+        style={{ background: "oklch(96% 0.01 145)" }}
+      >
+        <div className="max-w-2xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={counterInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <p
+              className="text-xs uppercase tracking-widest font-semibold mb-3"
+              style={{ color: "oklch(35% 0.2 145)" }}
+            >
+              Live Counter — 2025
+            </p>
+            <div
+              className="text-6xl md:text-7xl font-bold tracking-tight mb-2"
+              style={{ color: "oklch(35% 0.2 145)" }}
+            >
+              {count.toLocaleString()}
+            </div>
+            <div
+              className="text-lg font-semibold mb-1"
+              style={{ color: "oklch(25% 0.08 145)" }}
+            >
+              Patients Seen in 2025
+            </div>
+            <div className="text-sm" style={{ color: "oklch(50% 0.04 145)" }}>
+              Across 4 regions · 17+ sites · Karachi, Sindh, Balochistan, Punjab
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── Psychologists ───────────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
             <p
               className="text-xs uppercase tracking-widest font-semibold mb-2"
-              style={{ color: "oklch(65% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
               Our Team
             </p>
             <h2
               className="text-3xl font-bold"
-              style={{ color: "oklch(94% 0.008 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
-              Meet Our Psychologists
+              Regional Psychologists
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                name: "Tasleem",
-                region: "Karachi",
+                name: "Tasleem Barkat",
+                region: "Karachi Region",
                 role: "Regional Psychologist",
-                color: "oklch(65% 0.22 145)",
+                photo: "/assets/generated/tasleem-barkat-photo.dim_400x400.jpg",
+                clinicInfo: null,
               },
               {
                 name: "Danish Khan",
-                region: "Sindh",
+                region: "Sindh Region",
                 role: "Regional Psychologist",
-                color: "oklch(60% 0.2 200)",
+                photo:
+                  "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
+                clinicInfo: "Clinic: Monday & Wednesday",
               },
               {
                 name: "Tariq Aziz",
-                region: "Balochistan",
+                region: "Balochistan Region",
                 role: "Regional Psychologist",
-                color: "oklch(62% 0.18 300)",
+                photo: "/assets/generated/tariq-aziz-photo.dim_400x400.jpg",
+                clinicInfo: null,
               },
             ].map((p, i) => (
               <motion.div
@@ -1054,78 +899,196 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12, duration: 0.5 }}
-                className="rounded-2xl p-6 border"
+                className="bg-white rounded-2xl p-6 border text-center card-hover"
                 style={{
-                  background: "oklch(16% 0.05 145)",
-                  borderColor: "oklch(24% 0.07 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.08)",
                 }}
                 data-ocid={`psychologists.item.${i + 1}`}
               >
-                <div
-                  className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
-                  style={{ background: `${p.color} / 0.12` }}
-                >
-                  <Brain className="w-7 h-7" style={{ color: p.color }} />
-                </div>
+                <img
+                  src={p.photo}
+                  alt={p.name}
+                  className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4"
+                  style={{ borderColor: "oklch(80% 0.12 145)" }}
+                />
                 <h3
                   className="text-lg font-bold mb-0.5"
-                  style={{ color: "oklch(94% 0.008 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   {p.name}
                 </h3>
                 <div
                   className="text-sm font-medium mb-1"
-                  style={{ color: p.color }}
+                  style={{ color: "oklch(35% 0.2 145)" }}
                 >
                   {p.role}
                 </div>
                 <div
-                  className="text-xs"
-                  style={{ color: "oklch(62% 0.025 145)" }}
+                  className="text-xs mb-3"
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
-                  {p.region} Region
+                  {p.region}
                 </div>
+                {p.clinicInfo && (
+                  <div
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold"
+                    style={{
+                      background: "oklch(92% 0.04 145)",
+                      color: "oklch(30% 0.15 145)",
+                    }}
+                  >
+                    {p.clinicInfo}
+                  </div>
+                )}
               </motion.div>
             ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              to="/psychologists"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold border transition-colors hover:bg-green-50"
+              style={{
+                borderColor: "oklch(70% 0.12 145)",
+                color: "oklch(35% 0.2 145)",
+              }}
+              data-ocid="home.psychologists.secondary_button"
+            >
+              View Full Profiles <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Psychological Videos ──────────────────────────── */}
-      <section className="py-20" style={{ background: "oklch(10% 0.042 145)" }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── Patient Data Preview ────────────────────────────── */}
+      <section className="py-16" style={{ background: "oklch(96% 0.01 145)" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <p
+                className="text-xs uppercase tracking-widest font-semibold"
+                style={{ color: "oklch(35% 0.2 145)" }}
+              >
+                MHO Patient Data
+              </p>
+              <span
+                className="w-2 h-2 rounded-full pulse-dot"
+                style={{ background: "oklch(40% 0.2 145)" }}
+              />
+            </div>
+            <h2
+              className="text-2xl font-bold mb-1"
+              style={{ color: "oklch(20% 0.06 145)" }}
+            >
+              Screening, Enrollment &amp; End of Treatment
+            </h2>
+            <p className="text-xs" style={{ color: "oklch(50% 0.04 145)" }}>
+              Numbers change daily — updated regularly
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                year: "2025",
+                data: [
+                  { label: "Screening", value: "250,000" },
+                  { label: "Enrolled", value: "13,000" },
+                  { label: "End of Treatment", value: "1,000" },
+                ],
+              },
+              {
+                year: "2026",
+                data: [
+                  { label: "Screening", value: "25,000" },
+                  { label: "Enrolled", value: "9,000" },
+                  { label: "End of Treatment", value: "1,000" },
+                ],
+              },
+            ].map((yr) => (
+              <div
+                key={yr.year}
+                className="bg-white rounded-2xl p-6 border"
+                style={{
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
+                }}
+              >
+                <div
+                  className="text-xs uppercase tracking-widest font-semibold mb-4"
+                  style={{ color: "oklch(35% 0.2 145)" }}
+                >
+                  Year {yr.year}
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {yr.data.map((d) => (
+                    <div key={d.label} className="text-center">
+                      <div
+                        className="text-xl font-bold mb-1"
+                        style={{ color: "oklch(25% 0.15 145)" }}
+                      >
+                        {d.value}
+                      </div>
+                      <div
+                        className="text-xs"
+                        style={{ color: "oklch(50% 0.04 145)" }}
+                      >
+                        {d.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Link
+              to="/patient-data"
+              className="inline-flex items-center gap-2 text-sm font-semibold"
+              style={{ color: "oklch(35% 0.2 145)" }}
+              data-ocid="home.patient_data.link"
+            >
+              View Full Patient Data <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Videos ─────────────────────────────────────────── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div
               className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3"
-              style={{ background: "oklch(65% 0.22 145 / 0.15)" }}
+              style={{ background: "oklch(94% 0.04 145)" }}
             >
               <Play
                 className="w-5 h-5"
-                style={{ color: "oklch(65% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               />
             </div>
             <p
               className="text-xs uppercase tracking-widest font-semibold mb-2"
-              style={{ color: "oklch(65% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
-              Awareness & Education
+              Awareness &amp; Education
             </p>
             <h2
               className="text-3xl font-bold mb-3"
-              style={{ color: "oklch(94% 0.008 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
               Mental Health Awareness
             </h2>
             <p
               className="text-sm max-w-xl mx-auto"
-              style={{ color: "oklch(65% 0.025 145)" }}
+              style={{ color: "oklch(45% 0.04 145)" }}
             >
               Educational videos on anxiety and depression — understand the
               causes, symptoms, and paths to recovery.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 id: "ZidGozDhOjg",
@@ -1144,10 +1107,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="rounded-2xl overflow-hidden border"
+                className="rounded-2xl overflow-hidden border card-hover"
                 style={{
-                  background: "oklch(14% 0.048 145)",
-                  borderColor: "oklch(22% 0.07 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid={`videos.item.${i + 1}`}
               >
@@ -1160,16 +1123,16 @@ export default function Home() {
                     allowFullScreen
                   />
                 </div>
-                <div className="p-4">
+                <div className="p-5">
                   <h3
                     className="text-sm font-bold mb-1"
-                    style={{ color: "oklch(92% 0.01 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     {video.title}
                   </h3>
                   <p
                     className="text-xs leading-relaxed"
-                    style={{ color: "oklch(62% 0.025 145)" }}
+                    style={{ color: "oklch(50% 0.04 145)" }}
                   >
                     {video.desc}
                   </p>
@@ -1180,45 +1143,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── MHO Team CTA Banner ───────────────────────────── */}
+      {/* ── MHO Team CTA ─────────────────────────────────────── */}
       <section
         className="py-10"
         style={{
-          background: "oklch(16% 0.055 145)",
-          borderTop: "1px solid oklch(24% 0.07 145)",
-          borderBottom: "1px solid oklch(24% 0.07 145)",
+          background: "oklch(96% 0.01 145)",
+          borderTop: "1px solid oklch(88% 0.03 145)",
+          borderBottom: "1px solid oklch(88% 0.03 145)",
         }}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-4">
             <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-              style={{ background: "oklch(22% 0.07 145)" }}
+              style={{ background: "oklch(35% 0.2 145)" }}
             >
-              <Users
-                className="w-6 h-6"
-                style={{ color: "oklch(65% 0.22 145)" }}
-              />
+              <Users className="w-6 h-6 text-white" />
             </div>
             <div>
               <h3
                 className="text-base font-bold"
-                style={{ color: "oklch(92% 0.01 145)" }}
+                style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Meet Our 34+ Mental Health Officers
               </h3>
-              <p className="text-sm" style={{ color: "oklch(65% 0.025 145)" }}>
+              <p className="text-sm" style={{ color: "oklch(45% 0.04 145)" }}>
                 Dedicated MHOs working across 17 sites in Karachi, Sindh,
                 Balochistan, and Punjab.
               </p>
             </div>
           </div>
           <Link
-            to="/psychologists"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-opacity hover:opacity-85 flex-shrink-0"
+            to="/mhos"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-green-50 flex-shrink-0"
             style={{
-              borderColor: "oklch(42% 0.16 145)",
-              color: "oklch(72% 0.2 145)",
+              borderColor: "oklch(65% 0.15 145)",
+              color: "oklch(35% 0.2 145)",
             }}
             data-ocid="home.mho_team.link"
           >
@@ -1229,8 +1189,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Director Quote ────────────────────────────────── */}
-      <section className="py-20" style={{ background: "oklch(10% 0.042 145)" }}>
+      {/* ── Quote ─────────────────────────────────────────── */}
+      <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -1240,18 +1200,18 @@ export default function Home() {
           >
             <div
               className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6"
-              style={{ background: "oklch(65% 0.22 145 / 0.12)" }}
+              style={{ background: "oklch(94% 0.04 145)" }}
             >
               <span
-                className="text-2xl"
-                style={{ color: "oklch(65% 0.22 145)" }}
+                className="text-2xl font-serif"
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
                 &ldquo;
               </span>
             </div>
             <blockquote
-              className="text-xl md:text-2xl font-medium leading-relaxed mb-8"
-              style={{ color: "oklch(86% 0.015 145)" }}
+              className="text-xl md:text-2xl font-medium leading-relaxed mb-8 italic"
+              style={{ color: "oklch(30% 0.06 145)" }}
             >
               Mental health is not a luxury — it is a right. Every person
               deserves access to compassionate, evidence-based care, regardless
@@ -1260,23 +1220,23 @@ export default function Home() {
             <div className="flex items-center justify-center gap-3">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center"
-                style={{ background: "oklch(22% 0.07 145)" }}
+                style={{ background: "oklch(94% 0.04 145)" }}
               >
                 <Brain
                   className="w-5 h-5"
-                  style={{ color: "oklch(65% 0.22 145)" }}
+                  style={{ color: "oklch(35% 0.2 145)" }}
                 />
               </div>
               <div className="text-left">
                 <div
                   className="font-bold text-sm"
-                  style={{ color: "oklch(92% 0.01 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   Dr. Hiba Ashraf
                 </div>
                 <div
                   className="text-xs"
-                  style={{ color: "oklch(62% 0.025 145)" }}
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
                   Director, Primary Care Program · Indus Hospital &amp; Health
                   Network
@@ -1287,17 +1247,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Appointment Form ──────────────────────────────── */}
+      {/* ── Appointment Form ──────────────────────────────────── */}
       <AppointmentSection />
 
-      {/* ── Get Help CTA ─────────────────────────────────── */}
-      <section
-        className="py-20"
-        style={{
-          background:
-            "linear-gradient(135deg, oklch(14% 0.05 145), oklch(18% 0.07 155))",
-        }}
-      >
+      {/* ── Get Help CTA ─────────────────────────────────────── */}
+      <section className="py-20" style={{ background: "oklch(25% 0.15 145)" }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -1307,22 +1261,16 @@ export default function Home() {
           >
             <div
               className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5"
-              style={{ background: "oklch(65% 0.22 145 / 0.15)" }}
+              style={{ background: "oklch(35% 0.2 145)" }}
             >
-              <HeartHandshake
-                className="w-7 h-7"
-                style={{ color: "oklch(65% 0.22 145)" }}
-              />
+              <HeartHandshake className="w-7 h-7 text-white" />
             </div>
-            <h2
-              className="text-3xl md:text-4xl font-bold mb-3"
-              style={{ color: "oklch(94% 0.008 145)" }}
-            >
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">
               You Don&apos;t Have to Face It Alone
             </h2>
             <p
               className="text-base leading-relaxed mb-8 max-w-xl mx-auto"
-              style={{ color: "oklch(68% 0.025 145)" }}
+              style={{ color: "oklch(80% 0.08 145)" }}
             >
               Our trained professionals are here to listen, support, and guide
               you. All services are completely free and confidential.
@@ -1330,19 +1278,15 @@ export default function Home() {
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90"
-                style={{ background: "oklch(55% 0.22 145)", color: "white" }}
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm bg-white transition-opacity hover:opacity-90"
+                style={{ color: "oklch(25% 0.15 145)" }}
                 data-ocid="home.get_help.primary_button"
               >
                 Get Help Now <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm border transition-opacity hover:opacity-90"
-                style={{
-                  borderColor: "oklch(35% 0.14 145)",
-                  color: "oklch(72% 0.18 145)",
-                }}
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm border border-white/30 text-white transition-opacity hover:opacity-90"
                 data-ocid="home.get_help.secondary_button"
               >
                 Our Services
@@ -1352,30 +1296,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Footer ───────────────────────────────────────── */}
-      <footer
-        className="py-8 text-center text-xs"
+      {/* ── Mini Footer note ─────────────────────────────────── */}
+      <div
+        className="py-5 text-center text-xs"
         style={{
-          background: "oklch(8% 0.038 145)",
-          borderTop: "1px solid oklch(18% 0.06 145)",
-          color: "oklch(52% 0.02 145)",
+          background: "oklch(96% 0.01 145)",
+          borderTop: "1px solid oklch(88% 0.03 145)",
+          color: "oklch(50% 0.04 145)",
         }}
       >
-        <p>
-          &copy; {new Date().getFullYear()} Pur Umeed Zindagi &mdash; Indus
-          Hospital &amp; Health Network. Built with{" "}
-          <span style={{ color: "oklch(65% 0.22 145)" }}>&#10084;</span> using{" "}
-          <a
-            href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(typeof window !== "undefined" ? window.location.hostname : "")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:opacity-80"
-            style={{ color: "oklch(60% 0.06 145)" }}
-          >
-            caffeine.ai
-          </a>
-        </p>
-      </footer>
+        <Shield
+          className="w-3.5 h-3.5 inline mr-1.5"
+          style={{ color: "oklch(45% 0.15 145)" }}
+        />
+        All services are free, confidential, and evidence-based. IHHN Mental
+        Health Program.
+      </div>
     </div>
   );
 }

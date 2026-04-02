@@ -1,16 +1,16 @@
 import { Award, Calendar, MapPin, Star, Users } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -73,18 +73,18 @@ const events = [
 
 export default function Workshops() {
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Workshops & Events"
         subtitle="Training, conferences, and community engagement"
       />
 
       {/* Featured: ICON Conference */}
-      <section className="py-16" style={{ background: "oklch(11% 0.045 145)" }}>
+      <section className="py-16" style={{ background: "oklch(96% 0.01 145)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className="uppercase tracking-widest text-xs font-semibold mb-6 text-center"
-            style={{ color: "oklch(58% 0.22 145)" }}
+            style={{ color: "oklch(35% 0.2 145)" }}
           >
             Featured Event
           </div>
@@ -93,12 +93,13 @@ export default function Workshops() {
             animate={{ opacity: 1, y: 0 }}
             className="rounded-2xl overflow-hidden border"
             style={{
-              background: "oklch(14% 0.045 145)",
-              borderColor: "oklch(35% 0.14 145)",
+              background: "white",
+              borderColor: "oklch(88% 0.03 145)",
+              boxShadow: "0 4px 20px oklch(50% 0.06 145 / 0.1)",
             }}
             data-ocid="workshops.item.1"
           >
-            <div className="green-gradient p-6">
+            <div className="p-6" style={{ background: "oklch(25% 0.15 145)" }}>
               <div className="flex items-center gap-2 text-white/80 text-sm mb-2">
                 <Star className="w-4 h-4" />
                 Flagship International Conference
@@ -107,7 +108,7 @@ export default function Workshops() {
                 8th Biennial ICON Conference 2026
               </h2>
               <p className="text-white/80">
-                International Conference on Neurosciences & Mental Health
+                International Conference on Neurosciences &amp; Mental Health
               </p>
             </div>
             <div className="p-8">
@@ -115,18 +116,18 @@ export default function Workshops() {
                 <div className="flex items-center gap-3">
                   <Calendar
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                   <div>
                     <div
                       className="text-xs"
-                      style={{ color: "oklch(68% 0.025 145)" }}
+                      style={{ color: "oklch(50% 0.04 145)" }}
                     >
                       Date
                     </div>
                     <div
                       className="font-semibold"
-                      style={{ color: "oklch(96% 0.005 145)" }}
+                      style={{ color: "oklch(20% 0.06 145)" }}
                     >
                       2026 (TBA)
                     </div>
@@ -135,18 +136,18 @@ export default function Workshops() {
                 <div className="flex items-center gap-3">
                   <MapPin
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                   <div>
                     <div
                       className="text-xs"
-                      style={{ color: "oklch(68% 0.025 145)" }}
+                      style={{ color: "oklch(50% 0.04 145)" }}
                     >
                       Location
                     </div>
                     <div
                       className="font-semibold"
-                      style={{ color: "oklch(96% 0.005 145)" }}
+                      style={{ color: "oklch(20% 0.06 145)" }}
                     >
                       Pakistan (TBA)
                     </div>
@@ -155,18 +156,18 @@ export default function Workshops() {
                 <div className="flex items-center gap-3">
                   <Users
                     className="w-5 h-5"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                   <div>
                     <div
                       className="text-xs"
-                      style={{ color: "oklch(68% 0.025 145)" }}
+                      style={{ color: "oklch(50% 0.04 145)" }}
                     >
                       Expected
                     </div>
                     <div
                       className="font-semibold"
-                      style={{ color: "oklch(96% 0.005 145)" }}
+                      style={{ color: "oklch(20% 0.06 145)" }}
                     >
                       500+ Attendees
                     </div>
@@ -175,7 +176,7 @@ export default function Workshops() {
               </div>
               <p
                 className="text-sm leading-relaxed"
-                style={{ color: "oklch(68% 0.025 145)" }}
+                style={{ color: "oklch(40% 0.04 145)" }}
               >
                 The biennial ICON Conference brings together mental health
                 professionals, researchers, and policymakers from across
@@ -189,20 +190,20 @@ export default function Workshops() {
       </section>
 
       {/* Other Events */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div
               className="uppercase tracking-widest text-xs font-semibold mb-3"
-              style={{ color: "oklch(58% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
               Recent Events
             </div>
             <h2
               className="text-3xl font-bold"
-              style={{ color: "oklch(96% 0.005 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
-              Workshops & Training Sessions
+              Workshops &amp; Training Sessions
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -213,35 +214,35 @@ export default function Workshops() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="rounded-2xl p-6 border card-hover"
+                className="rounded-2xl p-6 border card-hover bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
                 data-ocid={`workshops.item.${i + 2}`}
               >
                 <div
                   className="flex items-center gap-2 text-xs mb-3"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
                   <Calendar className="w-3.5 h-3.5" />
                   {ev.date}
                 </div>
                 <h3
                   className="font-bold text-lg mb-2"
-                  style={{ color: "oklch(96% 0.005 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   {ev.title}
                 </h3>
                 <p
                   className="text-sm leading-relaxed mb-4"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(40% 0.04 145)" }}
                 >
                   {ev.desc}
                 </p>
                 <div
                   className="flex items-center gap-3 text-xs mb-4"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
@@ -258,8 +259,8 @@ export default function Workshops() {
                       key={tag}
                       className="px-2 py-0.5 rounded-full text-xs font-medium"
                       style={{
-                        background: "oklch(20% 0.07 145)",
-                        color: "oklch(75% 0.18 145)",
+                        background: "oklch(92% 0.04 145)",
+                        color: "oklch(30% 0.15 145)",
                       }}
                     >
                       {tag}
@@ -273,12 +274,12 @@ export default function Workshops() {
       </section>
 
       {/* Recognition */}
-      <section className="py-16 green-gradient">
+      <section className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <Award className="w-10 h-10 text-white mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-white mb-2">Recognition</h2>
-            <p className="text-white/80">
+            <p className="text-white/70">
               Acknowledging exceptional contributions to the PUZ program
             </p>
           </div>
@@ -300,7 +301,7 @@ export default function Workshops() {
               <div
                 key={r.name}
                 className="rounded-2xl p-6"
-                style={{ background: "rgba(255,255,255,0.12)" }}
+                style={{ background: "oklch(100% 0 0 / 0.1)" }}
               >
                 <Award className="w-6 h-6 text-white mb-3" />
                 <h3 className="font-bold text-lg text-white mb-1">{r.name}</h3>

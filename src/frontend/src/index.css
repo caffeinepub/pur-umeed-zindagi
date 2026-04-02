@@ -32,39 +32,39 @@
 
 @layer base {
   :root {
-    --background: 8 0.04 145;
-    --foreground: 96 0.005 145;
-    --card: 14 0.045 145;
-    --card-foreground: 96 0.005 145;
-    --popover: 14 0.045 145;
-    --popover-foreground: 96 0.005 145;
-    --primary: 58 0.22 145;
-    --primary-foreground: 98 0.002 145;
-    --secondary: 17 0.05 145;
-    --secondary-foreground: 82 0.02 145;
-    --muted: 15 0.04 145;
-    --muted-foreground: 68 0.025 145;
-    --accent: 58 0.22 145;
-    --accent-foreground: 98 0.002 145;
+    --background: 98 0.005 145;
+    --foreground: 20 0.06 145;
+    --card: 100 0 0;
+    --card-foreground: 20 0.06 145;
+    --popover: 100 0 0;
+    --popover-foreground: 20 0.06 145;
+    --primary: 35 0.2 145;
+    --primary-foreground: 99 0.005 145;
+    --secondary: 92 0.04 145;
+    --secondary-foreground: 30 0.1 145;
+    --muted: 94 0.02 145;
+    --muted-foreground: 50 0.05 145;
+    --accent: 35 0.2 145;
+    --accent-foreground: 99 0.005 145;
     --destructive: 50 0.22 25;
     --destructive-foreground: 99 0 0;
-    --border: 22 0.06 145;
-    --input: 20 0.05 145;
-    --ring: 58 0.22 145;
-    --radius: 0.625rem;
-    --chart-1: 58 0.22 145;
-    --chart-2: 65 0.2 160;
-    --chart-3: 52 0.18 145;
-    --chart-4: 72 0.18 145;
+    --border: 88 0.03 145;
+    --input: 90 0.025 145;
+    --ring: 35 0.2 145;
+    --radius: 0.5rem;
+    --chart-1: 40 0.2 145;
+    --chart-2: 50 0.18 160;
+    --chart-3: 32 0.16 145;
+    --chart-4: 55 0.18 145;
     --chart-5: 45 0.15 145;
-    --sidebar: 12 0.045 145;
-    --sidebar-foreground: 96 0.005 145;
-    --sidebar-primary: 58 0.22 145;
-    --sidebar-primary-foreground: 98 0.002 145;
-    --sidebar-accent: 17 0.05 145;
-    --sidebar-accent-foreground: 82 0.02 145;
-    --sidebar-border: 22 0.06 145;
-    --sidebar-ring: 58 0.22 145;
+    --sidebar: 96 0.01 145;
+    --sidebar-foreground: 20 0.06 145;
+    --sidebar-primary: 35 0.2 145;
+    --sidebar-primary-foreground: 99 0.005 145;
+    --sidebar-accent: 92 0.04 145;
+    --sidebar-accent-foreground: 30 0.1 145;
+    --sidebar-border: 88 0.03 145;
+    --sidebar-ring: 35 0.2 145;
   }
 }
 
@@ -73,13 +73,15 @@
     @apply border-border;
   }
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
     @apply bg-background text-foreground font-sans;
+    background: white;
   }
 }
 
+/* Light theme gradient for section headers */
 .green-gradient {
   background: linear-gradient(
     135deg,
@@ -89,42 +91,41 @@
   );
 }
 
+/* Hero with new hospital banner */
 .hero-bg {
   background-image: linear-gradient(
       160deg,
-      oklch(4% 0.03 145 / 0.75) 0%,
-      oklch(8% 0.06 148 / 0.6) 40%,
-      oklch(5% 0.04 145 / 0.72) 100%
-    ), url("/assets/generated/hero-background.dim_1920x1080.jpg");
+      oklch(15% 0.08 145 / 0.75) 0%,
+      oklch(20% 0.1 148 / 0.65) 40%,
+      oklch(15% 0.08 145 / 0.75) 100%
+    ), url("/assets/generated/hero-hospital-banner.dim_1920x700.jpg");
   background-size: cover;
-  background-position: center top;
+  background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
+/* Light alternate section */
 .section-alt {
-  background: oklch(11% 0.045 145);
+  background: oklch(96% 0.01 145);
 }
 
+/* Light header */
 .header-bg {
-  background: oklch(10% 0.05 145 / 0.95);
-  backdrop-filter: blur(12px);
+  background: white;
+  box-shadow: 0 1px 3px oklch(70% 0.02 145 / 0.15);
 }
 
-.emerald-glow {
-  text-shadow: 0 0 40px oklch(58% 0.22 145 / 0.7), 0 0 80px
-    oklch(58% 0.22 145 / 0.3);
-}
-
+/* Card hover for light theme */
 .card-hover {
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s
     ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 48px oklch(58% 0.22 145 / 0.25);
-  border-color: oklch(35% 0.14 145) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px oklch(40% 0.12 145 / 0.12);
+  border-color: oklch(55% 0.18 145) !important;
 }
 
 @keyframes pulse-dot {
@@ -155,10 +156,10 @@
 .shimmer-text {
   background: linear-gradient(
     90deg,
-    oklch(58% 0.22 145) 0%,
-    oklch(75% 0.25 155) 40%,
-    oklch(65% 0.22 145) 60%,
-    oklch(58% 0.22 145) 100%
+    oklch(35% 0.2 145) 0%,
+    oklch(50% 0.22 155) 40%,
+    oklch(42% 0.2 145) 60%,
+    oklch(35% 0.2 145) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;

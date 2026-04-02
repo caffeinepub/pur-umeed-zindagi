@@ -6,6 +6,7 @@ import Appointment from "@/pages/Appointment";
 import Awareness from "@/pages/Awareness";
 import Contact from "@/pages/Contact";
 import Feedback from "@/pages/Feedback";
+import Gallery from "@/pages/Gallery";
 import Home from "@/pages/Home";
 import Impact from "@/pages/Impact";
 import Leadership from "@/pages/Leadership";
@@ -119,6 +120,12 @@ const feedbackRoute = createRoute({
   component: Feedback,
 });
 
+const galleryRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/gallery",
+  component: Gallery,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -135,6 +142,7 @@ const routeTree = rootRoute.addChildren([
   patientDataRoute,
   appointmentRoute,
   feedbackRoute,
+  galleryRoute,
 ]);
 
 const router = createRouter({ routeTree });

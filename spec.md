@@ -1,36 +1,39 @@
-# Pur Umeed Zindagi
+# Pur Umeed Zindagi - Complete Website Redesign
 
 ## Current State
-The website has a sticky header (Layout.tsx) with logo, navigation links, and mobile menu. The header does NOT display the current date. There is no Appointment booking form anywhere on the site. The App.tsx has routes for 12 pages.
+The website currently uses a dark forest green theme (dark backgrounds, oklch dark values). The user wants a complete visual overhaul to match indushospital.org.pk which uses: clean white/light backgrounds, professional blue-teal accents, modern corporate hospital aesthetic, clean typography, light cards with subtle shadows, white header with logo, and a professional top utility bar.
 
 ## Requested Changes (Diff)
 
 ### Add
-- **Live Date Display in Header**: Show today's date (auto-updating daily) in the header bar -- visible on desktop. Format: e.g. "Thursday, 02 April 2026" in Urdu or English. Updates automatically every day without manual changes.
-- **Appointment Form Page** (`/appointment`): A dedicated appointment booking form page with fields:
-  - Patient Name (full name)
-  - Phone Number
-  - Age
-  - Gender (Male/Female/Other)
-  - Region/City
-  - Preferred Date
-  - Preferred Time
-  - Reason / Chief Complaint (textarea)
-  - Submit button
-  - Success confirmation message on submit
-- **Navigation Link**: Add "Appointment" link to the header navigation and mobile menu.
-- **Route**: Add `/appointment` route in App.tsx.
+- Light/white background theme throughout (like indushospital.org.pk)
+- Top utility bar above header (with social links / contact info styled like IHHN)
+- Clean white header with logo, horizontal nav links in dark text
+- Professional hero section with large image slider / banner area
+- Clean stat counter section (patients served, sites, etc.) with dark green accent
+- Cards with white backgrounds, subtle box-shadows, dark green accent borders on hover
+- Footer matching IHHN style: dark footer with logo, quick links columns, contact info
+- Mobile-responsive hamburger menu
+- Smooth scroll and subtle fade-in animations
 
 ### Modify
-- Layout.tsx: Add live date display in the header (top right area near nav, or in a thin top bar above header). Import `useState` and `useEffect` for live date.
-- App.tsx: Import and register the new Appointment page route.
+- index.css: Switch from dark OKLCH theme to light theme. White backgrounds (#fff / oklch 98%), dark green text accents (oklch 35% 0.2 145), blue-teal secondary (oklch 50% 0.15 200)
+- All pages: Remove dark backgrounds, apply light card styles
+- Header/Layout: Change from dark sticky header to white sticky header with colored accent line at top
+- Hero section on Home: Use new hospital hero image with light overlay, white text headline
+- All page section headers (GreenHeader): Change to white section with dark green text or a clean teal gradient
+- Navigation: Horizontal desktop nav with dropdowns, clean white bg
 
 ### Remove
-- Nothing removed.
+- Dark `.header-bg` dark glass effect
+- `section-alt` dark section pattern
+- Dark card backgrounds throughout
+- `.green-gradient` dark gradient header sections
+- `hero-bg` dark overlay
 
 ## Implementation Plan
-1. Add `LiveDate` component inside Layout.tsx that uses `useEffect` to update once per minute (or on mount) and formats today's date fully (e.g. "Thursday, 2 April 2026").
-2. Place the live date display in the header, right side or in a thin announcement bar above the main nav.
-3. Create `/src/frontend/src/pages/Appointment.tsx` with the appointment booking form. On submit, show a success message (no backend required -- local state only).
-4. Add `/appointment` route to App.tsx.
-5. Add "Appointment" nav link to Layout.tsx desktop nav and mobile menu.
+1. Update `index.css` -- light color tokens, white bg, dark green primary, clean typography
+2. Update `Layout.tsx` -- white header, utility top bar, IHHN-style footer with columns
+3. Update `Home.tsx` -- light hero with new image, white stat cards, clean sections
+4. Update all page files -- replace dark backgrounds/cards with light equivalents
+5. Ensure all existing content (MHOs, Patient Data, Psychologists, Leadership, Regions, Workshops, Awareness, Gallery, Feedback, Contact) is preserved, just restyled

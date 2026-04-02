@@ -9,16 +9,16 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -78,8 +78,8 @@ export default function Services() {
   ];
 
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Our Services"
         subtitle="Comprehensive mental health care, free for all"
       />
@@ -94,12 +94,13 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="rounded-2xl p-8 border card-hover relative overflow-hidden"
+                className="rounded-2xl p-8 border card-hover relative overflow-hidden bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
                   borderColor: s.comingSoon
-                    ? "oklch(30% 0.08 145)"
-                    : "oklch(22% 0.06 145)",
+                    ? "oklch(88% 0.03 145)"
+                    : "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
+                  opacity: s.comingSoon ? 0.75 : 1,
                 }}
                 data-ocid={`services.item.${i + 1}`}
               >
@@ -107,8 +108,8 @@ export default function Services() {
                   <div
                     className="absolute top-4 right-4 px-2 py-0.5 rounded-full text-xs font-medium"
                     style={{
-                      background: "oklch(22% 0.06 145)",
-                      color: "oklch(68% 0.025 145)",
+                      background: "oklch(92% 0.02 145)",
+                      color: "oklch(50% 0.04 145)",
                     }}
                   >
                     Coming Soon
@@ -116,22 +117,22 @@ export default function Services() {
                 )}
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <s.icon
                     className="w-7 h-7"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <h3
                   className="text-xl font-bold mb-3"
-                  style={{ color: "oklch(96% 0.005 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   {s.title}
                 </h3>
                 <p
                   className="text-sm leading-relaxed mb-5"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(45% 0.04 145)" }}
                 >
                   {s.desc}
                 </p>
@@ -141,8 +142,8 @@ export default function Services() {
                       key={tag}
                       className="px-2 py-1 rounded-full text-xs font-medium"
                       style={{
-                        background: "oklch(20% 0.07 145)",
-                        color: "oklch(75% 0.18 145)",
+                        background: "oklch(92% 0.04 145)",
+                        color: "oklch(30% 0.15 145)",
                       }}
                     >
                       {tag}
@@ -156,25 +157,22 @@ export default function Services() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-16" style={{ background: "oklch(11% 0.045 145)" }}>
+      <section className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2
-            className="text-3xl font-bold mb-4"
-            style={{ color: "oklch(96% 0.005 145)" }}
-          >
+          <h2 className="text-3xl font-bold mb-4 text-white">
             Ready to Get Help?
           </h2>
           <p
             className="text-base mb-6"
-            style={{ color: "oklch(68% 0.025 145)" }}
+            style={{ color: "oklch(80% 0.08 145)" }}
           >
             All our services are free. Contact us today or visit your nearest
             site.
           </p>
           <a
             href="tel:+92297330160"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:opacity-90"
-            style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg bg-white transition-all hover:opacity-90"
+            style={{ color: "oklch(25% 0.15 145)" }}
             data-ocid="services.primary_button"
           >
             <Phone className="w-5 h-5" />

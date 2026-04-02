@@ -1,16 +1,16 @@
 import { Download, FileText } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -57,8 +57,8 @@ const reports = [
 
 export default function AnnualReports() {
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="Annual Reports"
         subtitle="Transparent documentation of our program impact"
       />
@@ -73,31 +73,31 @@ export default function AnnualReports() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="rounded-2xl p-8 border card-hover text-center"
+                className="rounded-2xl p-8 border card-hover text-center bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.08)",
                 }}
                 data-ocid={`reports.item.${i + 1}`}
               >
                 <div
                   className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
-                  style={{ background: "oklch(22% 0.08 145)" }}
+                  style={{ background: "oklch(94% 0.04 145)" }}
                 >
                   <FileText
                     className="w-8 h-8"
-                    style={{ color: "oklch(58% 0.22 145)" }}
+                    style={{ color: "oklch(35% 0.2 145)" }}
                   />
                 </div>
                 <div
                   className="text-3xl font-bold mb-1"
-                  style={{ color: "oklch(96% 0.005 145)" }}
+                  style={{ color: "oklch(20% 0.06 145)" }}
                 >
                   {r.year}
                 </div>
                 <div
                   className="text-xs mb-5"
-                  style={{ color: "oklch(68% 0.025 145)" }}
+                  style={{ color: "oklch(50% 0.04 145)" }}
                 >
                   Annual Report · {r.pages}
                 </div>
@@ -106,11 +106,11 @@ export default function AnnualReports() {
                     <li
                       key={h}
                       className="text-xs flex items-center gap-2"
-                      style={{ color: "oklch(75% 0.15 145)" }}
+                      style={{ color: "oklch(35% 0.12 145)" }}
                     >
                       <div
                         className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                        style={{ background: "oklch(58% 0.22 145)" }}
+                        style={{ background: "oklch(35% 0.2 145)" }}
                       />
                       {h}
                     </li>
@@ -118,10 +118,10 @@ export default function AnnualReports() {
                 </ul>
                 <button
                   type="button"
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-all hover:opacity-80"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-all hover:bg-green-50"
                   style={{
-                    borderColor: "oklch(35% 0.14 145)",
-                    color: "oklch(75% 0.18 145)",
+                    borderColor: "oklch(70% 0.12 145)",
+                    color: "oklch(35% 0.2 145)",
                   }}
                   data-ocid={`reports.download_button.${i + 1}`}
                 >
@@ -136,20 +136,23 @@ export default function AnnualReports() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mt-12 rounded-2xl p-8 border text-center"
+            className="mt-12 rounded-2xl p-8 border text-center bg-white"
             style={{
-              background: "oklch(14% 0.045 145)",
-              borderColor: "oklch(22% 0.06 145)",
+              borderColor: "oklch(88% 0.03 145)",
+              boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
             }}
           >
             <p
               className="text-base mb-2"
-              style={{ color: "oklch(82% 0.02 145)" }}
+              style={{ color: "oklch(35% 0.05 145)" }}
             >
               Annual reports are published for transparency and accountability.
               For physical copies or inquiries:
             </p>
-            <p className="text-sm" style={{ color: "oklch(58% 0.22 145)" }}>
+            <p
+              className="text-sm font-semibold"
+              style={{ color: "oklch(35% 0.2 145)" }}
+            >
               Contact us at +92 297330160
             </p>
           </motion.div>

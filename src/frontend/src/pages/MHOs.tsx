@@ -1,16 +1,16 @@
 import { Users } from "lucide-react";
 import { motion } from "motion/react";
 
-const GreenHeader = ({
+const PageHeader = ({
   title,
   subtitle,
 }: { title: string; subtitle?: string }) => (
-  <div className="py-16 green-gradient">
+  <div className="py-16" style={{ background: "oklch(25% 0.15 145)" }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-5xl font-bold text-white mb-3"
+        className="text-4xl md:text-5xl font-bold text-white mb-3"
       >
         {title}
       </motion.h1>
@@ -31,14 +31,14 @@ const GreenHeader = ({
 const programTeam = [
   {
     section: "Program Oversight",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     members: [
       { name: "Dr. Hiba Ashraf", role: "Director, Primary Care Program (PCP)" },
     ],
   },
   {
     section: "Core PUZ Team",
-    color: "oklch(60% 0.2 200)",
+    color: "oklch(35% 0.18 200)",
     members: [
       { name: "Ayesha Kasiri", role: "Assistant Manager, PUZ" },
       { name: "Danish Khan", role: "CHD Core" },
@@ -48,7 +48,7 @@ const programTeam = [
   },
   {
     section: "Regional & Technical Leads",
-    color: "oklch(62% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     members: [
       { name: "Danish Khan", role: "Sindh Region" },
       { name: "Tasleem Barkat", role: "Karachi Region" },
@@ -57,7 +57,7 @@ const programTeam = [
   },
   {
     section: "Program Support",
-    color: "oklch(65% 0.18 60)",
+    color: "oklch(45% 0.15 60)",
     members: [
       { name: "Manahil Saif", role: "Program Data Analyst" },
       { name: "Brnicay Boaz", role: "Program Associate" },
@@ -69,19 +69,19 @@ const mhoSites = [
   {
     site: "Korangi Campus",
     region: "Karachi",
-    color: "oklch(58% 0.2 200)",
+    color: "oklch(35% 0.18 200)",
     mhos: ["Shahbano", "Adeel", "Fahim Noor", "Ghazala Kanwal"],
   },
   {
     site: "Baba Island",
     region: "Karachi",
-    color: "oklch(58% 0.2 200)",
+    color: "oklch(35% 0.18 200)",
     mhos: ["Rukhsar Faizan"],
   },
   {
     site: "CHB (Civil Hospital Badin)",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: [
       "Nayab Suhail",
       "Arshad Khuwaja",
@@ -93,55 +93,55 @@ const mhoSites = [
   {
     site: "Matli",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: ["Bilquees Bano Shah", "Meer Hassan"],
   },
   {
     site: "Sehwan",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: ["Hameeda Burdi"],
   },
   {
     site: "MMB (Medical Mobile Bus)",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: ["Raheela Kashif"],
   },
   {
     site: "Khorwah",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: ["Zubaida Jamali", "Tafseer Memon"],
   },
   {
     site: "Shadi Large",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: ["Muqadas Ansari", "Ahmer Ali"],
   },
   {
     site: "Makli",
     region: "Sindh",
-    color: "oklch(58% 0.22 145)",
+    color: "oklch(35% 0.2 145)",
     mhos: ["Samren Shahani", "Lal Bux"],
   },
   {
     site: "Saranan",
     region: "Balochistan",
-    color: "oklch(75% 0.18 60)",
+    color: "oklch(45% 0.15 60)",
     mhos: ["Bibi Safia"],
   },
   {
     site: "Nokundi",
     region: "Balochistan",
-    color: "oklch(75% 0.18 60)",
+    color: "oklch(45% 0.15 60)",
     mhos: ["Asiya Nawab"],
   },
   {
     site: "Bhong",
     region: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     mhos: [
       "Ayesha Akram",
       "Yasmin Hanif",
@@ -153,58 +153,63 @@ const mhoSites = [
   {
     site: "Gurmani",
     region: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     mhos: ["Sumiea Altaf"],
   },
   {
     site: "RTEH (Recep Tayyip Erdogan Hospital)",
     region: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     mhos: ["Rehana Afzal", "Zeshan Haider", "Tehmina Iqbal"],
   },
   {
     site: "Rajanpur",
     region: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     mhos: ["Salma Khalil", "Ahsan Bashir"],
   },
   {
     site: "Samundri",
     region: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     mhos: ["Ali Husnain", "Khadija Abid"],
   },
   {
     site: "Kot Addu",
     region: "Punjab",
-    color: "oklch(70% 0.18 300)",
+    color: "oklch(40% 0.15 300)",
     mhos: ["Manahil Fatima", "Adnan Javed"],
   },
 ];
 
-const regions = ["Karachi", "Sindh", "Balochistan", "Punjab"];
+const regionsMeta = [
+  { name: "Karachi", color: "oklch(35% 0.18 200)" },
+  { name: "Sindh", color: "oklch(35% 0.2 145)" },
+  { name: "Balochistan", color: "oklch(45% 0.15 60)" },
+  { name: "Punjab", color: "oklch(40% 0.15 300)" },
+];
 
 export default function MHOs() {
   return (
-    <div style={{ background: "oklch(8% 0.04 145)" }}>
-      <GreenHeader
+    <div className="bg-white">
+      <PageHeader
         title="MHO Team Directory"
         subtitle="Mental Health Officers across all PUZ sites"
       />
 
       {/* Program Team */}
-      <section className="py-16">
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p
               className="text-xs uppercase tracking-widest font-semibold mb-2"
-              style={{ color: "oklch(65% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
-              Pur Umeed Zindagi — Indus Hospital & Health Network
+              Pur Umeed Zindagi — Indus Hospital &amp; Health Network
             </p>
             <h2
               className="text-3xl font-bold"
-              style={{ color: "oklch(94% 0.008 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
               Welcome to PUZ Program Team
             </h2>
@@ -218,10 +223,11 @@ export default function MHOs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: gi * 0.1 }}
-                className="rounded-2xl p-6 border"
+                className="rounded-2xl p-6 border bg-white"
                 style={{
-                  background: "oklch(14% 0.045 145)",
-                  borderColor: "oklch(22% 0.06 145)",
+                  borderColor: "oklch(88% 0.03 145)",
+                  borderLeft: `4px solid ${group.color}`,
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-4">
@@ -241,27 +247,24 @@ export default function MHOs() {
                     <div
                       key={m.name}
                       className="flex items-center gap-3 py-2 border-b last:border-0"
-                      style={{ borderColor: "oklch(20% 0.06 145)" }}
+                      style={{ borderColor: "oklch(92% 0.02 145)" }}
                     >
                       <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold"
-                        style={{
-                          background: `${group.color}22`,
-                          color: group.color,
-                        }}
+                        className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold text-white"
+                        style={{ background: group.color }}
                       >
                         {m.name.charAt(0)}
                       </div>
                       <div>
                         <div
                           className="font-semibold text-sm"
-                          style={{ color: "oklch(92% 0.01 145)" }}
+                          style={{ color: "oklch(20% 0.06 145)" }}
                         >
                           {m.name}
                         </div>
                         <div
                           className="text-xs"
-                          style={{ color: "oklch(62% 0.025 145)" }}
+                          style={{ color: "oklch(50% 0.04 145)" }}
                         >
                           {m.role}
                         </div>
@@ -276,36 +279,35 @@ export default function MHOs() {
       </section>
 
       {/* MHOs by Region */}
-      <section className="py-16" style={{ background: "oklch(11% 0.045 145)" }}>
+      <section className="py-16" style={{ background: "oklch(96% 0.01 145)" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div
               className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-4"
-              style={{ background: "oklch(58% 0.22 145 / 0.15)" }}
+              style={{ background: "oklch(94% 0.04 145)" }}
             >
               <Users
                 className="w-6 h-6"
-                style={{ color: "oklch(65% 0.22 145)" }}
+                style={{ color: "oklch(35% 0.2 145)" }}
               />
             </div>
             <p
               className="text-xs uppercase tracking-widest font-semibold mb-2"
-              style={{ color: "oklch(65% 0.22 145)" }}
+              style={{ color: "oklch(35% 0.2 145)" }}
             >
               Field Team
             </p>
             <h2
               className="text-3xl font-bold"
-              style={{ color: "oklch(94% 0.008 145)" }}
+              style={{ color: "oklch(20% 0.06 145)" }}
             >
-              Our MHOs — By Site & Region
+              Our MHOs — By Site &amp; Region
             </h2>
           </div>
 
-          {regions.map((region) => {
+          {regionsMeta.map(({ name: region, color: regionColor }) => {
             const sitesInRegion = mhoSites.filter((s) => s.region === region);
             if (sitesInRegion.length === 0) return null;
-            const regionColor = sitesInRegion[0].color;
             return (
               <div key={region} className="mb-12">
                 <div className="flex items-center gap-3 mb-5">
@@ -315,14 +317,14 @@ export default function MHOs() {
                   />
                   <h3
                     className="text-xl font-bold"
-                    style={{ color: "oklch(92% 0.01 145)" }}
+                    style={{ color: "oklch(20% 0.06 145)" }}
                   >
                     {region}
                   </h3>
                   <span
                     className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{
-                      background: `${regionColor}20`,
+                      background: "oklch(92% 0.04 145)",
                       color: regionColor,
                     }}
                   >
@@ -338,10 +340,10 @@ export default function MHOs() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: si * 0.06 }}
-                      className="rounded-xl p-5 border"
+                      className="rounded-xl p-5 border bg-white"
                       style={{
-                        background: "oklch(14% 0.045 145)",
-                        borderColor: "oklch(22% 0.06 145)",
+                        borderColor: "oklch(88% 0.03 145)",
+                        boxShadow: "0 1px 8px oklch(50% 0.04 145 / 0.06)",
                       }}
                       data-ocid={`mhos.item.${si + 1}`}
                     >
@@ -352,7 +354,7 @@ export default function MHOs() {
                         />
                         <h4
                           className="font-bold text-sm"
-                          style={{ color: "oklch(92% 0.01 145)" }}
+                          style={{ color: "oklch(20% 0.06 145)" }}
                         >
                           {site.site}
                         </h4>
@@ -363,9 +365,9 @@ export default function MHOs() {
                             key={mho}
                             className="px-2 py-1 rounded-lg text-xs font-medium"
                             style={{
-                              background: `${site.color}18`,
-                              color: "oklch(82% 0.02 145)",
-                              border: `1px solid ${site.color}30`,
+                              background: "oklch(94% 0.03 145)",
+                              color: "oklch(30% 0.08 145)",
+                              border: "1px solid oklch(85% 0.04 145)",
                             }}
                           >
                             {mho}
