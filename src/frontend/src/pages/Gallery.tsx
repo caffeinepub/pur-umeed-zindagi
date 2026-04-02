@@ -47,6 +47,20 @@ const categories = [
 
 const galleryItems: GalleryItem[] = [
   {
+    src: "/assets/snapchat-847966840-019d4f5c-4194-72ae-8b29-1624330cdd15.jpg",
+    title: "PUZ Program Photo",
+    category: "Events",
+    description:
+      "Pur Umeed Zindagi program -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/snapchat-1948415730-019d4f5c-443f-701e-bf5a-86238153fcc8.jpg",
+    title: "PUZ Program Photo",
+    category: "Events",
+    description:
+      "Pur Umeed Zindagi program -- Indus Hospital & Health Network.",
+  },
+  {
     src: "/assets/img-20260326-wa0053-019d4f54-c37f-73d8-8021-1ef555c6a95c.jpg",
     title: "PUZ Program Activity",
     category: "Events",
