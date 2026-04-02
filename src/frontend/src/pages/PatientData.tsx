@@ -36,12 +36,148 @@ export default function PatientData() {
       />
 
       <section className="py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* 2025 Data */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          {/* 2025 MHO Data */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl p-8 border mb-10"
+            transition={{ delay: 0.05 }}
+            className="rounded-2xl p-8 border"
+            style={{
+              background: "oklch(14% 0.045 145)",
+              borderColor: "oklch(30% 0.12 145)",
+            }}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <span
+                className="uppercase tracking-widest text-xs font-semibold"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              >
+                Year 2025
+              </span>
+              <span
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium"
+                style={{
+                  background: "oklch(20% 0.06 145)",
+                  color: "oklch(75% 0.18 145)",
+                  border: "1px solid oklch(30% 0.1 145)",
+                }}
+              >
+                Numbers change daily
+              </span>
+            </div>
+            <h2
+              className="text-3xl font-bold mb-2"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              MHO Patient Data — 2025
+            </h2>
+            <p
+              className="text-sm mb-8"
+              style={{ color: "oklch(68% 0.025 145)" }}
+            >
+              Data collected by Mental Health Officers (MHOs) — as of March
+              2025. Numbers are updated daily.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="rounded-xl p-6 border text-center"
+                style={{
+                  background: "oklch(11% 0.04 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid="patient_data.stat.1"
+              >
+                <div className="text-4xl mb-2">&#128203;</div>
+                <div
+                  className="text-4xl font-bold mb-2"
+                  style={{ color: "oklch(58% 0.22 145)" }}
+                >
+                  250,000
+                </div>
+                <div
+                  className="text-base font-semibold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  Screening
+                </div>
+                <div
+                  className="text-xs"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  Total patients screened by MHOs
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="rounded-xl p-6 border text-center"
+                style={{
+                  background: "oklch(11% 0.04 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid="patient_data.stat.2"
+              >
+                <div className="text-4xl mb-2">&#128101;</div>
+                <div className="text-4xl font-bold mb-2 text-amber-400">
+                  13,000
+                </div>
+                <div
+                  className="text-base font-semibold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  Enrollments
+                </div>
+                <div
+                  className="text-xs"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  Patients enrolled in treatment
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="rounded-xl p-6 border text-center"
+                style={{
+                  background: "oklch(11% 0.04 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid="patient_data.stat.3"
+              >
+                <div className="text-4xl mb-2">&#9989;</div>
+                <div className="text-4xl font-bold mb-2 text-emerald-400">
+                  1,000
+                </div>
+                <div
+                  className="text-base font-semibold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  End of Treatment (EOT)
+                </div>
+                <div
+                  className="text-xs"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  Patients who completed full treatment
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* 2025 Total */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="rounded-2xl p-8 border"
             style={{
               background: "oklch(14% 0.045 145)",
               borderColor: "oklch(22% 0.06 145)",
@@ -52,7 +188,7 @@ export default function PatientData() {
                 className="uppercase tracking-widest text-xs font-semibold"
                 style={{ color: "oklch(58% 0.22 145)" }}
               >
-                Year 2025
+                2025 — Total Patients
               </span>
             </div>
             <h2
@@ -72,7 +208,7 @@ export default function PatientData() {
             </p>
           </motion.div>
 
-          {/* 2026 Data — MHO Screening / Enrollments / EOT */}
+          {/* 2026 Data */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -117,7 +253,6 @@ export default function PatientData() {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Screening */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -127,7 +262,7 @@ export default function PatientData() {
                   background: "oklch(11% 0.04 145)",
                   borderColor: "oklch(22% 0.06 145)",
                 }}
-                data-ocid="patient_data.stat.1"
+                data-ocid="patient_data.stat.4"
               >
                 <div className="text-4xl mb-2">&#128203;</div>
                 <div
@@ -150,7 +285,6 @@ export default function PatientData() {
                 </div>
               </motion.div>
 
-              {/* Enrollments */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -160,7 +294,7 @@ export default function PatientData() {
                   background: "oklch(11% 0.04 145)",
                   borderColor: "oklch(22% 0.06 145)",
                 }}
-                data-ocid="patient_data.stat.2"
+                data-ocid="patient_data.stat.5"
               >
                 <div className="text-4xl mb-2">&#128101;</div>
                 <div className="text-4xl font-bold mb-2 text-amber-400">
@@ -180,7 +314,6 @@ export default function PatientData() {
                 </div>
               </motion.div>
 
-              {/* EOT */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -190,7 +323,7 @@ export default function PatientData() {
                   background: "oklch(11% 0.04 145)",
                   borderColor: "oklch(22% 0.06 145)",
                 }}
-                data-ocid="patient_data.stat.3"
+                data-ocid="patient_data.stat.6"
               >
                 <div className="text-4xl mb-2">&#9989;</div>
                 <div className="text-4xl font-bold mb-2 text-emerald-400">

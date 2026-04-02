@@ -38,8 +38,13 @@ const regions = [
       {
         name: "KC (Korangi Campus)",
         address: "Indus Hospital, Korangi Campus, Karachi",
+        label: "PCP",
       },
-      { name: "Baba Island", address: "Baba Island Health Facility, Karachi" },
+      {
+        name: "Baba Island",
+        address: "Baba Island Health Facility, Karachi",
+        label: "PCP",
+      },
     ],
   },
   {
@@ -48,14 +53,40 @@ const regions = [
     color: "oklch(58% 0.22 145)",
     sites: [
       {
-        name: "CHB (Chandka Medical)",
-        address: "Chandka Medical College Hospital, Larkana",
+        name: "CHB (Civil Hospital Badin)",
+        address: "Civil Hospital Badin, Badin, Sindh",
+        label: "PCP",
       },
-      { name: "Makli", address: "Makli Health Facility, Thatta" },
-      { name: "Matli", address: "Matli District Hospital, Badin" },
-      { name: "Khorwah", address: "Khorwah Health Center, Sindh" },
-      { name: "Shadi Large", address: "Shadi Large, Sindh" },
-      { name: "Sehwan", address: "Sehwan Health Facility, Sindh" },
+      {
+        name: "Makli",
+        address: "Makli Health Facility, Thatta, Sindh",
+        label: "PCP",
+      },
+      {
+        name: "Matli",
+        address: "Matli District Hospital, Badin, Sindh",
+        label: "PCP",
+      },
+      {
+        name: "Khorwah",
+        address: "Khorwah Health Center, Sindh",
+        label: "PCP",
+      },
+      {
+        name: "Shadi Large",
+        address: "Shadi Large, Sindh",
+        label: "PCP",
+      },
+      {
+        name: "Sehwan",
+        address: "Sehwan Health Facility, Jamshoro, Sindh",
+        label: "PCP",
+      },
+      {
+        name: "MMB (Medical Mobile Bus)",
+        address: "Mobile Health Unit — Sindh Region",
+        label: "Mobile",
+      },
     ],
   },
   {
@@ -64,12 +95,14 @@ const regions = [
     color: "oklch(75% 0.18 60)",
     sites: [
       {
-        name: "Saranana (PCP)",
-        address: "Saranana Primary Care Program, Balochistan",
+        name: "Saranan",
+        address: "Saranan Primary Care Program, Balochistan",
+        label: "PCP",
       },
       {
-        name: "Nokundi (PCP)",
+        name: "Nokundi",
         address: "Nokundi Primary Care Program, Balochistan",
+        label: "PCP",
       },
     ],
   },
@@ -78,14 +111,31 @@ const regions = [
     name: "Punjab",
     color: "oklch(70% 0.18 300)",
     sites: [
-      { name: "Gurmani", address: "Gurmani Health Facility, Punjab" },
       {
-        name: "Recep Tayyip Erdogan Hospital",
-        address: "Recep Tayyip Erdogan Hospital, Punjab",
+        name: "Gurmani",
+        address: "Gurmani Health Facility, Punjab",
+        label: "PCP",
       },
-      { name: "Rajanpur", address: "Rajanpur District Hospital, Punjab" },
-      { name: "Samundari", address: "Samundari Health Center, Faisalabad" },
-      { name: "Kot Addu", address: "Kot Addu Hospital, Muzaffargarh" },
+      {
+        name: "Recep Tayyip Erdogan Hospital (RTEH)",
+        address: "Recep Tayyip Erdogan Hospital, Punjab",
+        label: "PCP",
+      },
+      {
+        name: "Rajanpur",
+        address: "Rajanpur District Hospital, Punjab",
+        label: "PCP",
+      },
+      {
+        name: "Samundri",
+        address: "Samundri Health Center, Faisalabad, Punjab",
+        label: "PCP",
+      },
+      {
+        name: "Kot Addu",
+        address: "Kot Addu Hospital, Muzaffargarh, Punjab",
+        label: "PCP",
+      },
     ],
   },
 ];
@@ -178,13 +228,27 @@ export default function Regions() {
                         style={{ color: activeRegion.color }}
                       />
                     </div>
-                    <div>
-                      <h3
-                        className="font-bold text-base mb-1"
-                        style={{ color: "oklch(96% 0.005 145)" }}
-                      >
-                        {site.name}
-                      </h3>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3
+                          className="font-bold text-base"
+                          style={{ color: "oklch(96% 0.005 145)" }}
+                        >
+                          {site.name}
+                        </h3>
+                        {site.label && (
+                          <span
+                            className="px-2 py-0.5 rounded text-xs font-semibold"
+                            style={{
+                              background: `${activeRegion.color}22`,
+                              color: activeRegion.color,
+                              border: `1px solid ${activeRegion.color}44`,
+                            }}
+                          >
+                            {site.label}
+                          </span>
+                        )}
+                      </div>
                       <p
                         className="text-sm"
                         style={{ color: "oklch(68% 0.025 145)" }}

@@ -644,6 +644,7 @@ packages:
 
   '@dfinity/auth-client@3.3.1':
     resolution: {integrity: sha512-Cxf8dlWzxG9mgRzEesuf4cRVCAMrIhlRKw54bc1CNceSobkhpo9Hbz4bSqD02zddKD+G69KAQR3z5r43wKi8CA==}
+    deprecated: This package has been deprecated. Its functionality is now part of `@icp-sdk/auth` (https://js.icp.build/auth), under the `client` submodule.
     peerDependencies:
       '@dfinity/agent': 3.3.1
       '@dfinity/identity': 3.3.1
@@ -2351,6 +2352,7 @@ packages:
 
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glsl-noise@0.0.0:

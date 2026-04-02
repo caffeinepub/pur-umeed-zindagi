@@ -5,9 +5,11 @@ import AnnualReports from "@/pages/AnnualReports";
 import Appointment from "@/pages/Appointment";
 import Awareness from "@/pages/Awareness";
 import Contact from "@/pages/Contact";
+import Feedback from "@/pages/Feedback";
 import Home from "@/pages/Home";
 import Impact from "@/pages/Impact";
 import Leadership from "@/pages/Leadership";
+import MHOs from "@/pages/MHOs";
 import PatientData from "@/pages/PatientData";
 import Psychologists from "@/pages/Psychologists";
 import Regions from "@/pages/Regions";
@@ -63,6 +65,12 @@ const psychologistsRoute = createRoute({
   component: Psychologists,
 });
 
+const mhosRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/mhos",
+  component: MHOs,
+});
+
 const workshopsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/workshops",
@@ -105,6 +113,12 @@ const appointmentRoute = createRoute({
   component: Appointment,
 });
 
+const feedbackRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/feedback",
+  component: Feedback,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -112,6 +126,7 @@ const routeTree = rootRoute.addChildren([
   regionsRoute,
   leadershipRoute,
   psychologistsRoute,
+  mhosRoute,
   workshopsRoute,
   awarenessRoute,
   impactRoute,
@@ -119,6 +134,7 @@ const routeTree = rootRoute.addChildren([
   contactRoute,
   patientDataRoute,
   appointmentRoute,
+  feedbackRoute,
 ]);
 
 const router = createRouter({ routeTree });

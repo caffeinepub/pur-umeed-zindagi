@@ -262,7 +262,25 @@ function AppointmentSection() {
 
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault();
-    if (validate()) setSubmitted(true);
+    if (validate()) {
+      const mailBody = `Appointment Request - Pur Umeed Zindagi
+====================================
+Full Name: ${form.fullName}
+Phone: ${form.phone}
+Age: ${form.age}
+Gender: ${form.gender}
+City / Region: ${form.region}
+Preferred Date: ${form.preferredDate}
+Preferred Time: ${form.preferredTime}
+Concern / Complaint: ${form.complaint}
+====================================
+Submitted via Pur Umeed Zindagi website.`;
+      const subject = encodeURIComponent(
+        "Appointment Request - Pur Umeed Zindagi",
+      );
+      window.location.href = `mailto:Purumeedzindagi@outlook.com?subject=${subject}&body=${encodeURIComponent(mailBody)}`;
+      setSubmitted(true);
+    }
   };
 
   const handleChange = (field: keyof ApptForm, value: string) => {
@@ -1096,48 +1114,28 @@ export default function Home() {
               className="text-3xl font-bold mb-3"
               style={{ color: "oklch(94% 0.008 145)" }}
             >
-              Psychological Health Videos
+              Mental Health Awareness
             </h2>
             <p
               className="text-sm max-w-xl mx-auto"
               style={{ color: "oklch(65% 0.025 145)" }}
             >
-              Educational videos to help you understand mental health,
-              psychological well-being, and evidence-based coping strategies.
+              Educational videos on anxiety and depression — understand the
+              causes, symptoms, and paths to recovery.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {[
               {
-                id: "dRkVTxG1oOE",
-                title: "What is Mental Health?",
-                desc: "A WHO overview of mental health, its importance, and how it affects daily life.",
-              },
-              {
-                id: "rkZl2gsLUp4",
-                title: "Mental Health Awareness",
-                desc: "Understanding mental health awareness and breaking the stigma surrounding mental illness.",
+                id: "ZidGozDhOjg",
+                title: "Understanding Anxiety",
+                desc: "Learn about anxiety disorder — its causes, symptoms, and evidence-based coping strategies.",
               },
               {
                 id: "XiCrniLQGYc",
-                title: "Psychology of Stress",
-                desc: "How stress affects the mind and body, and effective strategies to manage it.",
-              },
-              {
-                id: "2zvjW9arAZ0",
                 title: "Understanding Depression",
-                desc: "Recognizing the signs of depression and available treatment options.",
-              },
-              {
-                id: "oHgr6OmRy-E",
-                title: "Anxiety Explained",
-                desc: "What anxiety is, how it manifests, and science-backed approaches to find relief.",
-              },
-              {
-                id: "nJmGrNdJ5Ys",
-                title: "Mindfulness & Mental Health",
-                desc: "How mindfulness practices support psychological resilience and overall well-being.",
+                desc: "Recognizing the signs of depression and available treatment options for recovery.",
               },
             ].map((video, i) => (
               <motion.div

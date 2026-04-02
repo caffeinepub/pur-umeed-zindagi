@@ -30,8 +30,9 @@ const GreenHeader = ({
 
 const psychologists = [
   {
-    name: "Tasleem",
+    name: "Tasleem Barkat",
     region: "Karachi",
+    photo: null,
     color: "oklch(58% 0.22 145)",
     sites: ["Korangi Campus (KC)", "Baba Island"],
     specializations: [
@@ -50,14 +51,17 @@ const psychologists = [
   {
     name: "Danish Khan",
     region: "Sindh",
+    photo:
+      "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
     color: "oklch(58% 0.2 200)",
     sites: [
-      "CHB Larkana",
+      "CHB (Civil Hospital Badin)",
       "Makli",
       "Matli",
       "Khorwah",
       "Shadi Large",
       "Sehwan",
+      "MMB (Medical Mobile Bus)",
     ],
     specializations: [
       "CBT & Behavioral Interventions",
@@ -75,8 +79,9 @@ const psychologists = [
   {
     name: "Tariq Aziz",
     region: "Balochistan",
+    photo: null,
     color: "oklch(60% 0.18 300)",
-    sites: ["Saranana", "Nokundi"],
+    sites: ["Saranan (PCP)", "Nokundi (PCP)"],
     specializations: [
       "Cultural Adaptation of Therapy",
       "Grief & Loss Counseling",
@@ -119,12 +124,25 @@ export default function Psychologists() {
               >
                 <div className="p-8">
                   <div className="flex items-start gap-6 mb-8">
-                    <div
-                      className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${p.color}20` }}
-                    >
-                      <Brain className="w-10 h-10" style={{ color: p.color }} />
-                    </div>
+                    {/* Photo or Initials Avatar */}
+                    {p.photo ? (
+                      <img
+                        src={p.photo}
+                        alt={p.name}
+                        className="w-20 h-20 rounded-full object-cover flex-shrink-0 border-2"
+                        style={{ borderColor: p.color }}
+                      />
+                    ) : (
+                      <div
+                        className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{ background: `${p.color}20` }}
+                      >
+                        <Brain
+                          className="w-10 h-10"
+                          style={{ color: p.color }}
+                        />
+                      </div>
+                    )}
                     <div>
                       <h2
                         className="text-3xl font-bold mb-1"

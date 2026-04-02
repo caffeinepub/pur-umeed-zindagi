@@ -29,26 +29,38 @@ const GreenHeader = ({
 );
 
 const leaders = [
-  { name: "President", org: "IHHN", icon: Crown, tier: 1 },
-  { name: "CEO", org: "IHHN", icon: Crown, tier: 1 },
+  {
+    name: "Dr. Bari Khan",
+    role: "President",
+    org: "Indus Hospital & Health Network",
+    icon: Crown,
+    tier: 1,
+  },
+  {
+    name: "Dr. Zafar Zaidi",
+    role: "Chief Executive Officer (CEO)",
+    org: "Indus Hospital & Health Network",
+    icon: Crown,
+    tier: 1,
+  },
   {
     name: "Dr. Hiba Ashraf",
-    role: "Director PCP",
-    org: "IHHN",
+    role: "Director, Primary Care Program (PCP)",
+    org: "Indus Hospital & Health Network",
     icon: User,
     tier: 2,
   },
   {
     name: "Ayesha Kasiri",
-    role: "Program Lead",
-    org: "PUZ",
+    role: "Assistant Manager, Pur Umeed Zindagi (PUZ)",
+    org: "Pur Umeed Zindagi Program",
     icon: User,
     tier: 3,
   },
 ];
 
 const psychologists = [
-  { name: "Tasleem", role: "Regional Psychologist", region: "Karachi" },
+  { name: "Tasleem Barkat", role: "Regional Psychologist", region: "Karachi" },
   { name: "Danish Khan", role: "Regional Psychologist", region: "Sindh" },
   { name: "Tariq Aziz", role: "Regional Psychologist", region: "Balochistan" },
 ];
@@ -114,21 +126,19 @@ export default function Leadership() {
                     style={{ color: "oklch(58% 0.22 145)" }}
                   />
                 </div>
-                <div>
+                <div className="flex-1">
                   <div
                     className="font-bold text-lg"
                     style={{ color: "oklch(96% 0.005 145)" }}
                   >
                     {leader.name}
                   </div>
-                  {leader.role && (
-                    <div
-                      className="text-sm font-medium"
-                      style={{ color: "oklch(58% 0.22 145)" }}
-                    >
-                      {leader.role}
-                    </div>
-                  )}
+                  <div
+                    className="text-sm font-medium"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  >
+                    {leader.role}
+                  </div>
                   <div
                     className="text-sm"
                     style={{ color: "oklch(68% 0.025 145)" }}

@@ -8,6 +8,8 @@ const programDropdown = [
   { label: "Regions & Sites", to: "/regions" },
   { label: "Program Impact", to: "/impact" },
   { label: "Psychologists", to: "/psychologists" },
+  { label: "MHO Team Directory", to: "/mhos" },
+  { label: "Feedback", to: "/feedback" },
 ];
 
 export default function Layout() {
@@ -142,7 +144,7 @@ export default function Layout() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-1 w-52 rounded-xl border overflow-hidden shadow-xl"
+                      className="absolute top-full left-0 mt-1 w-56 rounded-xl border overflow-hidden shadow-xl"
                       style={{
                         background: "oklch(14% 0.045 145)",
                         borderColor: "oklch(22% 0.06 145)",
@@ -264,6 +266,7 @@ export default function Layout() {
                   { to: "/regions", label: "Regions & Sites" },
                   { to: "/impact", label: "Program Impact" },
                   { to: "/psychologists", label: "Psychologists" },
+                  { to: "/mhos", label: "MHO Team Directory" },
                   { to: "/leadership", label: "Leadership" },
                   { to: "/workshops", label: "Workshops" },
                   { to: "/awareness", label: "Awareness" },
@@ -271,6 +274,7 @@ export default function Layout() {
                   { to: "/patient-data", label: "Patient Data" },
                   { to: "/contact", label: "Contact" },
                   { to: "/appointment", label: "Appointment" },
+                  { to: "/feedback", label: "Feedback" },
                 ].map((item) => (
                   <Link
                     key={item.to}
@@ -388,8 +392,10 @@ export default function Layout() {
                   { to: "/leadership", label: "Leadership" },
                   { to: "/workshops", label: "Workshops & Events" },
                   { to: "/awareness", label: "Awareness Programs" },
+                  { to: "/mhos", label: "MHO Team Directory" },
                   { to: "/patient-data", label: "Patient Data" },
                   { to: "/appointment", label: "Book Appointment" },
+                  { to: "/feedback", label: "Feedback" },
                   { to: "/contact", label: "Contact Us" },
                 ].map((item) => (
                   <li key={item.to}>
@@ -486,6 +492,31 @@ export default function Layout() {
                       style={{ color: "oklch(68% 0.025 145)" }}
                     >
                       Badin Office: Dr. Sam Civil Hospital, Badin
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-4 h-4 mt-0.5 flex-shrink-0 flex items-center justify-center">
+                    <div
+                      className="w-2 h-2 rounded-full"
+                      style={{ background: "oklch(58% 0.22 145)" }}
+                    />
+                  </div>
+                  <div>
+                    <a
+                      href="https://www.indushospital.org.pk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium hover:underline"
+                      style={{ color: "oklch(82% 0.02 145)" }}
+                    >
+                      www.indushospital.org.pk
+                    </a>
+                    <div
+                      className="text-xs"
+                      style={{ color: "oklch(68% 0.025 145)" }}
+                    >
+                      IHHN Official Website
                     </div>
                   </div>
                 </div>
