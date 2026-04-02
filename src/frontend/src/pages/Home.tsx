@@ -882,7 +882,7 @@ export default function Home() {
                 region: "Sindh Region",
                 role: "Regional Psychologist",
                 photo:
-                  "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
+                  "/assets/generated/danish-khan-psychologist.dim_400x400.jpg",
                 clinicInfo: "Clinic: Monday & Wednesday",
               },
               {

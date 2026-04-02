@@ -52,8 +52,7 @@ const psychologists = [
   {
     name: "Danish Khan",
     region: "Sindh",
-    photo:
-      "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
+    photo: "/assets/generated/danish-khan-psychologist.dim_400x400.jpg",
     accentColor: "oklch(35% 0.18 200)",
     clinicDays: ["Monday", "Wednesday"],
     sites: [
