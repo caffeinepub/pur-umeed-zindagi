@@ -16,5 +16,12 @@ export interface Inquiry {
 }
 export interface backendInterface {
     getAllInquiries(): Promise<Array<Inquiry>>;
+    getDonationInfo(): Promise<string>;
+    getFrontPageServiceList(): Promise<string>;
+    getFullServiceList(): Promise<Array<[string, string]>>;
+    getMissionText(): Promise<string>;
+    getOfficeDetails(): Promise<string>;
+    getResources(): Promise<Array<[string, string]>>;
+    getVolunteerInfo(): Promise<string>;
     submitInquiry(name: string, phone: string, email: string, message: string): Promise<void>;
 }

@@ -18,6 +18,21 @@ export const Inquiry = IDL.Record({
 
 export const idlService = IDL.Service({
   'getAllInquiries' : IDL.Func([], [IDL.Vec(Inquiry)], ['query']),
+  'getDonationInfo' : IDL.Func([], [IDL.Text], ['query']),
+  'getFrontPageServiceList' : IDL.Func([], [IDL.Text], ['query']),
+  'getFullServiceList' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text))],
+      ['query'],
+    ),
+  'getMissionText' : IDL.Func([], [IDL.Text], ['query']),
+  'getOfficeDetails' : IDL.Func([], [IDL.Text], ['query']),
+  'getResources' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text))],
+      ['query'],
+    ),
+  'getVolunteerInfo' : IDL.Func([], [IDL.Text], ['query']),
   'submitInquiry' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [], []),
 });
 
@@ -34,6 +49,21 @@ export const idlFactory = ({ IDL }) => {
   
   return IDL.Service({
     'getAllInquiries' : IDL.Func([], [IDL.Vec(Inquiry)], ['query']),
+    'getDonationInfo' : IDL.Func([], [IDL.Text], ['query']),
+    'getFrontPageServiceList' : IDL.Func([], [IDL.Text], ['query']),
+    'getFullServiceList' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text))],
+        ['query'],
+      ),
+    'getMissionText' : IDL.Func([], [IDL.Text], ['query']),
+    'getOfficeDetails' : IDL.Func([], [IDL.Text], ['query']),
+    'getResources' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text))],
+        ['query'],
+      ),
+    'getVolunteerInfo' : IDL.Func([], [IDL.Text], ['query']),
     'submitInquiry' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [],

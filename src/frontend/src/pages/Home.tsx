@@ -1,530 +1,950 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  BookOpen,
+  Brain,
   CheckCircle,
-  Heart,
+  FileText,
+  HeartHandshake,
+  Leaf,
   MapPin,
   Phone,
   Shield,
   Star,
   Users,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
-const services = [
-  {
-    icon: Shield,
-    title: "Mental Health Screening",
-    desc: "PHQ-2/GAD-2 initial screening with detailed follow-up assessments for at-risk individuals.",
-  },
-  {
-    icon: Heart,
-    title: "Psychological Counseling",
-    desc: "Individual and group therapy sessions by trained psychologists and Mental Health Officers.",
-  },
-  {
-    icon: Users,
-    title: "Psychiatric Referral",
-    desc: "Seamless referral pathway to psychiatrists for cases requiring advanced clinical care.",
-  },
-  {
-    icon: CheckCircle,
-    title: "Follow-up & Case Management",
-    desc: "Ongoing monitoring, outcome tracking, and sustained support through the recovery journey.",
-  },
-];
+// Count-up hook using requestAnimationFrame
+function useCountUp(target: number, duration: number, active: boolean) {
+  const [count, setCount] = useState(0);
+  const rafRef = useRef<number>(0);
 
-const steps = [
-  {
-    n: "01",
-    title: "Initial Screening",
-    desc: "PHQ-2 / GAD-2 brief tools administered by trained MHOs.",
-  },
-  {
-    n: "02",
-    title: "Detailed Assessment",
-    desc: "If score ≥3, comprehensive PHQ-9 / GAD-7 evaluation conducted.",
-  },
-  {
-    n: "03",
-    title: "Enrollment into PUZ",
-    desc: "Patient is enrolled into the program and given a care plan.",
-  },
-  {
-    n: "04",
-    title: "Counseling or Referral",
-    desc: "Counseling by psychologist or referral to psychiatry as needed.",
-  },
-  {
-    n: "05",
-    title: "Follow-up Sessions",
-    desc: "Regular follow-ups to track progress and adjust interventions.",
-  },
-];
+  useEffect(() => {
+    if (!active) return;
+    const start = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOut cubic
+      const eased = 1 - (1 - progress) ** 3;
+      setCount(Math.floor(eased * target));
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+      }
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [active, target, duration]);
 
-const stats = [
-  { value: "4", label: "Regions Covered" },
-  { value: "17", label: "Active Sites" },
-  { value: "34", label: "Mental Health Officers" },
-  { value: "2018", label: "Free Services Since" },
-];
+  return count;
+}
 
-const reports = [
-  { year: "2022", color: "from-primary/10 to-primary/5" },
-  { year: "2023", color: "from-accent/10 to-accent/5" },
-  { year: "2024", color: "from-primary/10 to-primary/5" },
-  { year: "2025", color: "from-accent/10 to-accent/5" },
-];
+function CounterBand() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const count = useCountUp(120388, 2500, isInView);
+
+  return (
+    <div
+      ref={ref}
+      className="py-16 text-center"
+      style={{ background: "oklch(11% 0.045 145)" }}
+    >
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <div
+            className="text-7xl md:text-8xl font-bold tracking-tight mb-3 emerald-glow"
+            style={{ color: "oklch(58% 0.22 145)" }}
+          >
+            {count.toLocaleString()}
+          </div>
+          <div
+            className="text-xl font-medium mb-2"
+            style={{ color: "oklch(96% 0.005 145)" }}
+          >
+            Patients Seen in 2025
+          </div>
+          <div className="text-sm" style={{ color: "oklch(68% 0.025 145)" }}>
+            Across 4 regions · 17+ sites · Karachi, Sindh, Balochistan, Punjab
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function StatsBand() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const stats = [
+    { label: "Regions", value: 4, suffix: "" },
+    { label: "Sites", value: 17, suffix: "+" },
+    { label: "Psychologists", value: 3, suffix: "" },
+    { label: "MHOs", value: 34, suffix: "+" },
+    { label: "Patients (2025)", value: 120388, suffix: "" },
+  ];
+
+  return (
+    <div ref={ref} className="py-8 green-gradient">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {stats.map((s, i) => (
+            <StatItem
+              key={s.label}
+              {...s}
+              isInView={isInView}
+              delay={i * 0.1}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatItem({
+  label,
+  value,
+  suffix,
+  isInView,
+  delay,
+}: {
+  label: string;
+  value: number;
+  suffix: string;
+  isInView: boolean;
+  delay: number;
+}) {
+  const count = useCountUp(value, 1800, isInView);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay, duration: 0.5 }}
+      className="text-center py-4"
+    >
+      <div className="text-3xl font-bold" style={{ color: "white" }}>
+        {count.toLocaleString()}
+        {suffix}
+      </div>
+      <div
+        className="text-xs mt-1 font-medium"
+        style={{ color: "oklch(90% 0.05 145)" }}
+      >
+        {label}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Home() {
   return (
-    <div>
-      {/* Hero */}
-      <section className="relative overflow-hidden hero-gradient min-h-[88vh] flex items-center">
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              "url('/assets/generated/hero-puz-banner.dim_1400x600.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-transparent" />
-        <div className="container max-w-7xl mx-auto px-4 relative z-10 py-20">
-          <div className="max-w-2xl">
+    <div style={{ background: "oklch(8% 0.04 145)" }}>
+      {/* Hero Section */}
+      <section className="hero-bg py-20 md:py-28 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Hero Text */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                <Star className="w-3.5 h-3.5" />A Program of Indus Hospital
-                &amp; Health Network
-              </span>
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display text-5xl md:text-6xl lg:text-7xl text-foreground leading-tight mb-6"
-            >
-              Pur Umeed
-              <br />
-              <span className="text-primary">Zindagi</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl text-muted-foreground mb-3 font-display italic"
-            >
-              A Life Full of Hope
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-base text-muted-foreground mb-8 leading-relaxed max-w-xl"
-            >
-              Pakistan&apos;s free, confidential mental health program.
-              Evidence-based screening, counseling, and psychiatric care &mdash;
-              accessible to everyone, everywhere.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-wrap gap-3"
-            >
-              <Button
-                asChild
-                size="lg"
-                className="teal-gradient text-primary-foreground font-semibold gap-2 shadow-soft"
-                data-ocid="hero.primary_button"
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border"
+                style={{
+                  background: "oklch(17% 0.05 145)",
+                  borderColor: "oklch(35% 0.14 145)",
+                  color: "oklch(75% 0.18 145)",
+                }}
               >
-                <a href="tel:+92297330160">
-                  <Phone className="w-4 h-4" />
-                  Get Appointment
-                </a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="gap-2 border-primary/30 hover:bg-primary/5"
-                data-ocid="hero.secondary_button"
+                <Leaf className="w-3.5 h-3.5" />A Program of IHHN
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-4">
+                <span style={{ color: "oklch(96% 0.005 145)" }}>
+                  Pur Umeed{"\n"}
+                </span>
+                <span
+                  style={{ color: "oklch(58% 0.22 145)" }}
+                  className="emerald-glow"
+                >
+                  Zindagi
+                </span>
+              </h1>
+              <p
+                className="text-lg italic mb-4"
+                style={{ color: "oklch(75% 0.05 145)" }}
               >
-                <Link to="/about">
-                  Learn More <ArrowRight className="w-4 h-4" />
+                A Life Full of Hope
+              </p>
+              <p
+                className="text-base leading-relaxed mb-8"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                Free, confidential mental health services for communities across
+                Pakistan. Psychological counseling, screening, and support —
+                available at 17+ sites in 4 regions.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/contact"
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:opacity-90"
+                  style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+                  data-ocid="home.primary_button"
+                >
+                  Get Appointment <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
+                <Link
+                  to="/about"
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border transition-all hover:opacity-90"
+                  style={{
+                    borderColor: "oklch(35% 0.14 145)",
+                    color: "oklch(75% 0.18 145)",
+                  }}
+                  data-ocid="home.secondary_button"
+                >
+                  Learn More
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Right: Stats Panel */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative"
+            >
+              <div
+                className="rounded-2xl p-8 border"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+              >
+                <h3
+                  className="text-lg font-semibold mb-6"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  Program Reach
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    {
+                      icon: MapPin,
+                      label: "17+ Sites",
+                      desc: "Across Pakistan",
+                    },
+                    { icon: Users, label: "4 Regions", desc: "Nationwide" },
+                    {
+                      icon: Shield,
+                      label: "Free",
+                      desc: "No cost to patients",
+                    },
+                    {
+                      icon: HeartHandshake,
+                      label: "Confidential",
+                      desc: "Safe space",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-xl p-4 border"
+                      style={{
+                        background: "oklch(17% 0.05 145)",
+                        borderColor: "oklch(22% 0.06 145)",
+                      }}
+                    >
+                      <item.icon
+                        className="w-6 h-6 mb-2"
+                        style={{ color: "oklch(58% 0.22 145)" }}
+                      />
+                      <div
+                        className="font-bold text-base"
+                        style={{ color: "oklch(96% 0.005 145)" }}
+                      >
+                        {item.label}
+                      </div>
+                      <div
+                        className="text-xs"
+                        style={{ color: "oklch(68% 0.025 145)" }}
+                      >
+                        {item.desc}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className="mt-6 rounded-xl p-4 border text-center"
+                  style={{
+                    background: "oklch(11% 0.045 145)",
+                    borderColor: "oklch(30% 0.12 145)",
+                  }}
+                >
+                  <div
+                    className="text-3xl font-bold"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  >
+                    120,388
+                  </div>
+                  <div
+                    className="text-xs mt-1"
+                    style={{ color: "oklch(82% 0.02 145)" }}
+                  >
+                    Patients Served in 2025
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="teal-gradient py-8">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="font-display text-4xl text-primary-foreground font-bold">
+      {/* Counter Band */}
+      <CounterBand />
+
+      {/* Stats Bar */}
+      <StatsBand />
+
+      {/* Why PUZ */}
+      <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div
+                className="uppercase tracking-widest text-xs font-semibold mb-3"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              >
+                Our Mission
+              </div>
+              <h2
+                className="text-4xl font-bold mb-6"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
+                Why Pur Umeed Zindagi?
+              </h2>
+              <p
+                className="text-base leading-relaxed mb-6"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                Mental health is a fundamental human right. Pur Umeed Zindagi
+                was established in 2018 under Indus Hospital &amp; Health
+                Network to bring accessible, stigma-free psychological care to
+                underserved communities across Pakistan.
+              </p>
+              <p
+                className="text-base leading-relaxed"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                Our trained Mental Health Officers (MHOs) and Clinical
+                Psychologists work across 17 sites in Karachi, Sindh,
+                Balochistan, and Punjab — providing screenings, counseling, and
+                follow-up care completely free of charge.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {[
+                  "Evidence-Based",
+                  "Culturally Sensitive",
+                  "Trauma-Informed",
+                  "Community-Led",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 rounded-full text-xs font-medium border"
+                    style={{
+                      borderColor: "oklch(30% 0.1 145)",
+                      color: "oklch(75% 0.18 145)",
+                      background: "oklch(14% 0.04 145)",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="grid grid-cols-2 gap-4"
+            >
+              {[
+                { value: "2018", label: "Founded" },
+                { value: "4", label: "Regions" },
+                { value: "17", label: "Sites" },
+                { value: "3", label: "Psychologists" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-2xl p-6 border text-center"
+                  style={{
+                    background: "oklch(14% 0.045 145)",
+                    borderColor: "oklch(22% 0.06 145)",
+                  }}
+                >
+                  <div
+                    className="text-4xl font-bold mb-1"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  >
+                    {s.value}
+                  </div>
+                  <div
+                    className="text-sm"
+                    style={{ color: "oklch(68% 0.025 145)" }}
+                  >
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+              <div
+                className="col-span-2 rounded-2xl p-4 border text-center"
+                style={{
+                  background: "oklch(17% 0.05 145)",
+                  borderColor: "oklch(30% 0.12 145)",
+                }}
+              >
+                <div className="flex items-center justify-center gap-3">
+                  <Shield
+                    className="w-5 h-5"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  />
+                  <span
+                    className="font-semibold text-sm"
+                    style={{ color: "oklch(82% 0.02 145)" }}
+                  >
+                    Always Free &amp; Confidential
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Psychologists */}
+      <section className="py-20" style={{ background: "oklch(11% 0.045 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
+              Our Team
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Meet Our Psychologists
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Tasleem",
+                region: "Karachi",
+                role: "Regional Psychologist",
+                color: "oklch(58% 0.22 145)",
+              },
+              {
+                name: "Danish Khan",
+                region: "Sindh",
+                role: "Regional Psychologist",
+                color: "oklch(58% 0.2 200)",
+              },
+              {
+                name: "Tariq Aziz",
+                region: "Balochistan",
+                role: "Regional Psychologist",
+                color: "oklch(58% 0.18 300)",
+              },
+            ].map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="rounded-2xl p-6 border card-hover"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid={`psychologists.item.${i + 1}`}
+              >
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
+                  style={{ background: `${p.color}20` }}
+                >
+                  <Brain className="w-8 h-8" style={{ color: p.color }} />
+                </div>
+                <h3
+                  className="text-xl font-bold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  {p.name}
+                </h3>
+                <div
+                  className="text-sm font-medium mb-1"
+                  style={{ color: p.color }}
+                >
+                  {p.role}
+                </div>
+                <div
+                  className="text-sm"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  {p.region} Region
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Patient Data Callout */}
+      <section className="py-16 green-gradient">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Patient Outcomes 2025
+            </h2>
+            <p className="text-white/80 text-sm">
+              Data collected by Mental Health Officers (MHOs) across all sites
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {[
+              { label: "Screened", value: "2,130+" },
+              { label: "Enrolled", value: "476+" },
+              { label: "Completed Treatment", value: "372+" },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className="rounded-2xl p-6 text-center"
+                style={{ background: "rgba(255,255,255,0.12)" }}
+              >
+                <div className="text-4xl font-bold text-white mb-1">
                   {s.value}
                 </div>
-                <div className="text-primary-foreground/70 text-sm mt-1">
+                <div
+                  className="text-sm font-medium"
+                  style={{ color: "oklch(90% 0.06 145)" }}
+                >
                   {s.label}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Why PUZ */}
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+          <div className="text-center">
+            <Link
+              to="/patient-data"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:opacity-90"
+              style={{
+                background: "oklch(8% 0.04 145)",
+                color: "oklch(58% 0.22 145)",
+                border: "2px solid oklch(58% 0.22 145)",
+              }}
+              data-ocid="home.secondary_button"
             >
-              <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-                Why PUZ Exists
-              </span>
-              <h2 className="font-display text-4xl text-foreground mt-3 mb-5">
-                Bridging the Mental Health Gap in Pakistan
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Depression is the most prevalent mental health disorder in
-                Pakistan, affecting millions of people across all walks of life.
-                Yet due to deep-seated stigma, fear, and lack of accessible
-                care, the vast majority remain undiagnosed and untreated.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                PUZ was founded to bridge this gap &mdash; delivering free,
-                ethical, evidence-based mental health services at the community
-                level, where people need it most.
-              </p>
-              <div className="flex flex-col gap-3">
-                {[
-                  "Free and completely confidential",
-                  "Evidence-based, ethically delivered",
-                  "Integrated into primary healthcare",
-                  "Community-level outreach and awareness",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                    <span className="text-sm text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <Card className="border-0 shadow-card bg-secondary/40">
-                <CardContent className="p-8">
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="p-5 rounded-xl bg-card shadow-xs text-center">
-                      <div className="font-display text-3xl text-primary">
-                        2018
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        Program Launched
-                      </div>
-                    </div>
-                    <div className="p-5 rounded-xl bg-card shadow-xs text-center">
-                      <div className="font-display text-3xl text-primary">
-                        4
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        Regions
-                      </div>
-                    </div>
-                    <div className="p-5 rounded-xl bg-card shadow-xs text-center">
-                      <div className="font-display text-3xl text-primary">
-                        17
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        Active Sites
-                      </div>
-                    </div>
-                    <div className="p-5 rounded-xl bg-card shadow-xs text-center">
-                      <div className="font-display text-3xl text-primary">
-                        34
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        MHOs Deployed
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-6 p-4 rounded-xl bg-primary/8 border border-primary/15">
-                    <p className="text-sm text-foreground font-medium">
-                      Free &amp; Confidential
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      No cost to patients. All sessions are private and
-                      protected.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+              View Detailed Patient Data <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Services */}
-      <section className="py-20 bg-secondary/20">
-        <div className="container max-w-7xl mx-auto px-4">
+      <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-primary text-sm font-semibold uppercase tracking-wider">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
               What We Offer
-            </span>
-            <h2 className="font-display text-4xl text-foreground mt-3">
-              Our Core Services
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Our Services
             </h2>
-            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-              Comprehensive mental health support from screening to sustained
-              recovery.
-            </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((s, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                icon: Shield,
+                title: "Mental Health Screening",
+                desc: "PHQ-2, GAD-2 and comprehensive assessments by trained MHOs",
+              },
+              {
+                icon: Brain,
+                title: "Psychological Counseling",
+                desc: "Individual and group therapy sessions by qualified psychologists",
+              },
+              {
+                icon: ArrowRight,
+                title: "Psychiatric Referral",
+                desc: "Referral pathways to psychiatrists and specialist care",
+              },
+              {
+                icon: HeartHandshake,
+                title: "Follow-up & Case Management",
+                desc: "Ongoing tracking and support through the entire care journey",
+              },
+            ].map((s, i) => (
               <motion.div
                 key={s.title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="rounded-2xl p-6 border card-hover"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
               >
-                <Card
-                  className="h-full border-0 shadow-card hover:shadow-soft transition-shadow"
-                  data-ocid={`service.item.${i + 1}`}
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: "oklch(22% 0.08 145)" }}
                 >
-                  <CardHeader>
-                    <div className="w-10 h-10 rounded-lg teal-gradient flex items-center justify-center mb-3">
-                      <s.icon className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <CardTitle className="text-base font-semibold">
-                      {s.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {s.desc}
-                    </p>
-                  </CardContent>
-                </Card>
+                  <s.icon
+                    className="w-6 h-6"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  />
+                </div>
+                <h3
+                  className="font-bold text-base mb-2"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  {s.title}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  {s.desc}
+                </p>
               </motion.div>
             ))}
-          </div>
-          <div className="text-center mt-8">
-            <Button
-              asChild
-              variant="outline"
-              className="gap-2 border-primary/30 hover:bg-primary/5"
-            >
-              <Link to="/services">
-                View All Services <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
 
-      {/* Enrollment Steps */}
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
+      {/* Enrollment Timeline */}
+      <section className="py-20" style={{ background: "oklch(11% 0.045 145)" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-              How It Works
-            </span>
-            <h2 className="font-display text-4xl text-foreground mt-3">
-              Screening &amp; Enrollment Process
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
+              Process
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Enrollment Process
             </h2>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 relative">
-            {steps.map((step, i) => (
+          <div className="space-y-4">
+            {[
+              {
+                step: "01",
+                title: "Initial Screening",
+                desc: "Brief PHQ-2/GAD-2 screening by MHO at your local site",
+              },
+              {
+                step: "02",
+                title: "Assessment",
+                desc: "Comprehensive psychological assessment if screening positive",
+              },
+              {
+                step: "03",
+                title: "Treatment Planning",
+                desc: "Personalized care plan developed with the psychologist",
+              },
+              {
+                step: "04",
+                title: "Counseling Sessions",
+                desc: "Regular sessions with trained counselors (free of charge)",
+              },
+              {
+                step: "05",
+                title: "Follow-up",
+                desc: "Ongoing monitoring, support, and end-of-treatment evaluation",
+              },
+            ].map((item, i) => (
               <motion.div
-                key={step.n}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={item.step}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="flex-1 relative"
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="flex items-start gap-6 rounded-2xl p-5 border"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
               >
-                <div className="bg-card border border-border rounded-xl p-6 h-full shadow-xs">
-                  <div className="font-display text-3xl text-primary/20 mb-3">
-                    {step.n}
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">
-                    {step.title}
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0"
+                  style={{
+                    background: "oklch(22% 0.08 145)",
+                    color: "oklch(58% 0.22 145)",
+                  }}
+                >
+                  {item.step}
+                </div>
+                <div>
+                  <h3
+                    className="font-bold text-base mb-1"
+                    style={{ color: "oklch(96% 0.005 145)" }}
+                  >
+                    {item.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {step.desc}
+                  <p
+                    className="text-sm"
+                    style={{ color: "oklch(68% 0.025 145)" }}
+                  >
+                    {item.desc}
                   </p>
                 </div>
-                {i < steps.length - 1 && (
-                  <div className="hidden md:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-4 h-4 rounded-full bg-primary items-center justify-center">
-                    <ArrowRight className="w-2.5 h-2.5 text-primary-foreground" />
-                  </div>
-                )}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Director Message */}
-      <section className="py-20 teal-gradient">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="w-16 h-16 rounded-full bg-primary-foreground/20 flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-8 h-8 text-primary-foreground" />
-            </div>
-            <blockquote className="font-display text-2xl md:text-3xl text-primary-foreground italic leading-relaxed mb-6">
-              &ldquo;Every individual carries within them the strength,
-              resilience, and potential to lead a meaningful and hopeful life
-              &mdash; even in the face of challenges.&rdquo;
-            </blockquote>
-            <div className="text-primary-foreground/80 font-semibold">
-              Dr. Hiba Ashraf
-            </div>
-            <div className="text-primary-foreground/60 text-sm">
-              Director, Primary Care Program &middot; IHHN
-            </div>
+      {/* Director Quote */}
+      <section className="py-20 green-gradient">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Star className="w-10 h-10 text-white/50 mx-auto mb-6" />
+          <blockquote className="text-2xl md:text-3xl font-medium italic text-white leading-relaxed mb-8">
+            &ldquo;Mental health care is not a luxury — it is a fundamental
+            right. Pur Umeed Zindagi exists to ensure every individual,
+            regardless of their circumstances, can access quality psychological
+            support.&rdquo;
+          </blockquote>
+          <div className="text-white/90 font-semibold">Dr. Hiba Ashraf</div>
+          <div className="text-white/70 text-sm">
+            Director, Primary Care Program — Indus Hospital &amp; Health Network
           </div>
         </div>
       </section>
 
       {/* Annual Reports */}
-      <section className="py-20 bg-secondary/20">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <span className="text-primary text-sm font-semibold uppercase tracking-wider">
+      <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
               Transparency
-            </span>
-            <h2 className="font-display text-4xl text-foreground mt-3">
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
               Annual Reports
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {reports.map((r, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[2022, 2023, 2024, 2025].map((year, i) => (
               <motion.div
-                key={r.year}
-                initial={{ opacity: 0, y: 24 }}
+                key={year}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                data-ocid={`annual.report.item.${i + 1}`}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="rounded-2xl p-6 border card-hover text-center"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid={`reports.item.${i + 1}`}
               >
-                <Card
-                  className={`border-0 shadow-card hover:shadow-soft transition-all cursor-pointer hover:-translate-y-1 bg-gradient-to-br ${r.color}`}
+                <FileText
+                  className="w-10 h-10 mx-auto mb-3"
+                  style={{ color: "oklch(58% 0.22 145)" }}
+                />
+                <div
+                  className="text-2xl font-bold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
                 >
-                  <CardContent className="p-8 text-center">
-                    <BookOpen className="w-8 h-8 text-primary mx-auto mb-4" />
-                    <div className="font-display text-4xl text-primary mb-2">
-                      {r.year}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      Annual Report
-                    </div>
-                    <div className="mt-4 text-xs text-primary font-medium flex items-center justify-center gap-1">
-                      Download PDF <ArrowRight className="w-3 h-3" />
-                    </div>
-                  </CardContent>
-                </Card>
+                  {year}
+                </div>
+                <div
+                  className="text-xs mb-4"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  Annual Report
+                </div>
+                <Link
+                  to="/annual-reports"
+                  className="text-xs font-medium"
+                  style={{ color: "oklch(58% 0.22 145)" }}
+                >
+                  View Report →
+                </Link>
               </motion.div>
             ))}
-          </div>
-          <div className="text-center mt-8">
-            <Button
-              asChild
-              variant="outline"
-              className="gap-2 border-primary/30 hover:bg-primary/5"
-            >
-              <Link to="/annual-reports">
-                View All Reports <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
 
       {/* Who Can Access */}
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section className="py-20" style={{ background: "oklch(11% 0.045 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-                Open to All
-              </span>
-              <h2 className="font-display text-4xl text-foreground mt-3 mb-5">
-                Who Can Access PUZ Services?
+              <div
+                className="uppercase tracking-widest text-xs font-semibold mb-3"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              >
+                Eligibility
+              </div>
+              <h2
+                className="text-4xl font-bold mb-6"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
+                Who Can Access Our Services?
               </h2>
-              <div className="flex flex-col gap-4">
+              <div className="space-y-3">
                 {[
-                  {
-                    title: "Individuals facing stress, anxiety, or depression",
-                    desc: "Anyone experiencing emotional distress or mental health challenges.",
-                  },
-                  {
-                    title: "Patients & attendants of Indus Hospital",
-                    desc: "All patients at IHHN facilities and their accompanying family members.",
-                  },
-                  {
-                    title: "Adults and families",
-                    desc: "Services are available to adults of all ages and families seeking support.",
-                  },
+                  "Anyone experiencing sadness, anxiety, or emotional distress",
+                  "Patients or families at IHHN partner hospitals",
+                  "Community members in our service areas",
+                  "Individuals with no prior mental health diagnosis",
+                  "All ages — children, adults, and elders",
+                  "No referral letter required",
                 ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex gap-4 p-4 rounded-xl bg-card border border-border shadow-xs"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle className="w-4 h-4 text-primary" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-foreground text-sm">
-                        {item.title}
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {item.desc}
-                      </div>
-                    </div>
+                  <div key={item} className="flex items-start gap-3">
+                    <CheckCircle
+                      className="w-5 h-5 flex-shrink-0 mt-0.5"
+                      style={{ color: "oklch(58% 0.22 145)" }}
+                    />
+                    <span
+                      className="text-sm"
+                      style={{ color: "oklch(82% 0.02 145)" }}
+                    >
+                      {item}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-secondary/30 rounded-2xl p-8 text-center">
-              <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h3 className="font-display text-2xl text-foreground mb-3">
+            <div
+              className="rounded-2xl p-8 border"
+              style={{
+                background: "oklch(14% 0.045 145)",
+                borderColor: "oklch(22% 0.06 145)",
+              }}
+            >
+              <MapPin
+                className="w-8 h-8 mb-4"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              />
+              <h3
+                className="text-xl font-bold mb-3"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
                 Find Us Near You
               </h3>
-              <p className="text-muted-foreground text-sm mb-6">
-                PUZ operates across 4 regions and 17 sites throughout Pakistan.
-              </p>
-              <Button
-                asChild
-                className="teal-gradient text-primary-foreground gap-2"
+              <p
+                className="text-sm mb-6"
+                style={{ color: "oklch(68% 0.025 145)" }}
               >
-                <Link to="/regions">
-                  View Regions &amp; Sites <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
+                We operate across 4 regions with 17+ active sites. Visit the
+                Regions page to find a site near you.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {["Karachi", "Sindh", "Balochistan", "Punjab"].map((r) => (
+                  <div
+                    key={r}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg"
+                    style={{ background: "oklch(17% 0.05 145)" }}
+                  >
+                    <div
+                      className="w-2 h-2 rounded-full"
+                      style={{ background: "oklch(58% 0.22 145)" }}
+                    />
+                    <span
+                      className="text-sm"
+                      style={{ color: "oklch(82% 0.02 145)" }}
+                    >
+                      {r}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <Link
+                to="/regions"
+                className="mt-6 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm border transition-all hover:opacity-80"
+                style={{
+                  borderColor: "oklch(35% 0.14 145)",
+                  color: "oklch(75% 0.18 145)",
+                }}
+                data-ocid="home.secondary_button"
+              >
+                View All Sites <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              You Don&apos;t Have to Face This Alone
+            </h2>
+            <p
+              className="text-lg mb-8"
+              style={{ color: "oklch(68% 0.025 145)" }}
+            >
+              Reach out to our team today. Free, confidential, compassionate
+              care.
+            </p>
+            <a
+              href="tel:+92297330160"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:opacity-90"
+              style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+              data-ocid="home.primary_button"
+            >
+              <Phone className="w-5 h-5" />
+              +92 297330160
+            </a>
+          </motion.div>
         </div>
       </section>
     </div>

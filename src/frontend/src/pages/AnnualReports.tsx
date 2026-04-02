@@ -1,120 +1,158 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowDown, BookOpen } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 import { motion } from "motion/react";
+
+const GreenHeader = ({
+  title,
+  subtitle,
+}: { title: string; subtitle?: string }) => (
+  <div className="py-16 green-gradient">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-5xl font-bold text-white mb-3"
+      >
+        {title}
+      </motion.h1>
+      {subtitle && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-white/80 text-lg"
+        >
+          {subtitle}
+        </motion.p>
+      )}
+    </div>
+  </div>
+);
 
 const reports = [
   {
-    year: "2022",
-    desc: "Documenting PUZ's expansion across sites and the program's growing impact on community mental health.",
+    year: 2022,
     highlights: [
-      "Program expansion data",
-      "Screening outcomes",
-      "Counseling statistics",
+      "Program launch review",
+      "First year data",
+      "Site expansion plan",
     ],
-    badge: "",
+    pages: "48 pages",
   },
   {
-    year: "2023",
-    desc: "Reflecting on milestones achieved, challenges overcome, and the thousands of lives touched through free mental health services.",
-    highlights: [
-      "Patient enrollment trends",
-      "Regional reach",
-      "MHO training outcomes",
-    ],
-    badge: "",
+    year: 2023,
+    highlights: ["3 regions active", "MHO capacity built", "Training outcomes"],
+    pages: "62 pages",
   },
   {
-    year: "2024",
-    desc: "Highlighting program innovations, community impact, and our continuous commitment to evidence-based mental health care.",
-    highlights: [
-      "Innovation initiatives",
-      "Community outreach",
-      "Outcome tracking",
-    ],
-    badge: "",
+    year: 2024,
+    highlights: ["4th region added", "120K milestone", "Awareness impact"],
+    pages: "74 pages",
   },
   {
-    year: "2025",
-    desc: "The latest comprehensive review of PUZ's programs, impact, and vision for the future of accessible mental health in Pakistan.",
-    highlights: ["Future roadmap", "2025 impact data", "Vision & goals"],
-    badge: "Latest",
+    year: 2025,
+    highlights: ["Current year", "Live data", "Ongoing updates"],
+    pages: "In Progress",
   },
 ];
 
 export default function AnnualReports() {
   return (
-    <div>
-      <section className="teal-gradient py-20">
-        <div className="container max-w-7xl mx-auto px-4 text-center">
-          <h1 className="font-display text-5xl md:text-6xl text-primary-foreground mb-4">
-            Annual Reports
-          </h1>
-          <p className="text-primary-foreground/70 max-w-2xl mx-auto text-lg">
-            Transparent reporting on PUZ&apos;s programs, impact, and financial
-            stewardship.
-          </p>
-        </div>
-      </section>
+    <div style={{ background: "oklch(8% 0.04 145)" }}>
+      <GreenHeader
+        title="Annual Reports"
+        subtitle="Transparent documentation of our program impact"
+      />
 
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {reports.map((r, i) => (
               <motion.div
                 key={r.year}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                data-ocid={`annual.report.item.${i + 1}`}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="rounded-2xl p-8 border card-hover text-center"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid={`reports.item.${i + 1}`}
               >
-                <Card className="border-0 shadow-card hover:shadow-soft transition-all h-full hover:-translate-y-0.5">
-                  <CardContent className="p-8">
-                    <div className="flex items-start gap-5">
-                      <div className="w-16 h-16 rounded-2xl teal-gradient flex items-center justify-center flex-shrink-0">
-                        <BookOpen className="w-8 h-8 text-primary-foreground" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="font-display text-4xl text-primary">
-                            {r.year}
-                          </div>
-                          {r.badge && (
-                            <span className="px-2.5 py-1 rounded-full bg-accent/20 text-accent-foreground text-xs font-semibold">
-                              {r.badge}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                          {r.desc}
-                        </p>
-                        <ul className="flex flex-col gap-1.5 mb-5">
-                          {r.highlights.map((h) => (
-                            <li
-                              key={h}
-                              className="flex items-center gap-2 text-xs text-muted-foreground"
-                            >
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                              {h}
-                            </li>
-                          ))}
-                        </ul>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="gap-2 border-primary/30 hover:bg-primary/5 text-primary"
-                        >
-                          <ArrowDown className="w-3.5 h-3.5" />
-                          Download Report
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                  style={{ background: "oklch(22% 0.08 145)" }}
+                >
+                  <FileText
+                    className="w-8 h-8"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  />
+                </div>
+                <div
+                  className="text-3xl font-bold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  {r.year}
+                </div>
+                <div
+                  className="text-xs mb-5"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  Annual Report · {r.pages}
+                </div>
+                <ul className="text-left space-y-2 mb-6">
+                  {r.highlights.map((h) => (
+                    <li
+                      key={h}
+                      className="text-xs flex items-center gap-2"
+                      style={{ color: "oklch(75% 0.15 145)" }}
+                    >
+                      <div
+                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{ background: "oklch(58% 0.22 145)" }}
+                      />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-all hover:opacity-80"
+                  style={{
+                    borderColor: "oklch(35% 0.14 145)",
+                    color: "oklch(75% 0.18 145)",
+                  }}
+                  data-ocid={`reports.download_button.${i + 1}`}
+                >
+                  <Download className="w-4 h-4" />
+                  {r.year === 2025 ? "Coming Soon" : "Download PDF"}
+                </button>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-12 rounded-2xl p-8 border text-center"
+            style={{
+              background: "oklch(14% 0.045 145)",
+              borderColor: "oklch(22% 0.06 145)",
+            }}
+          >
+            <p
+              className="text-base mb-2"
+              style={{ color: "oklch(82% 0.02 145)" }}
+            >
+              Annual reports are published for transparency and accountability.
+              For physical copies or inquiries:
+            </p>
+            <p className="text-sm" style={{ color: "oklch(58% 0.22 145)" }}>
+              Contact us at +92 297330160
+            </p>
+          </motion.div>
         </div>
       </section>
     </div>

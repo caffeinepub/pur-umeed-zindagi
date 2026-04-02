@@ -1,0 +1,131 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("/assets/fonts/DMSerifDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    /* Dark Navy Base */
+    --background: 16 0.02 240;
+    --foreground: 96 0.008 220;
+
+    /* Cards slightly lighter than background */
+    --card: 20 0.025 235;
+    --card-foreground: 96 0.008 220;
+    --popover: 20 0.025 235;
+    --popover-foreground: 96 0.008 220;
+
+    /* Teal Primary — bright & visible on dark */
+    --primary: 70 0.2 192;
+    --primary-foreground: 12 0.01 240;
+
+    /* Secondary — subtle dark surface */
+    --secondary: 24 0.03 232;
+    --secondary-foreground: 88 0.01 215;
+
+    /* Muted — for subdued text/surfaces */
+    --muted: 22 0.025 235;
+    --muted-foreground: 68 0.04 215;
+
+    /* Accent — warm amber for contrast */
+    --accent: 78 0.17 75;
+    --accent-foreground: 14 0.01 240;
+
+    /* Destructive */
+    --destructive: 50 0.22 25;
+    --destructive-foreground: 99 0 0;
+
+    /* Borders & Inputs */
+    --border: 30 0.03 230;
+    --input: 26 0.03 232;
+    --ring: 70 0.2 192;
+
+    --radius: 0.625rem;
+
+    /* Charts */
+    --chart-1: 70 0.2 192;
+    --chart-2: 78 0.17 75;
+    --chart-3: 68 0.16 160;
+    --chart-4: 62 0.15 280;
+    --chart-5: 72 0.14 30;
+
+    /* Sidebar */
+    --sidebar: 18 0.02 238;
+    --sidebar-foreground: 96 0.008 220;
+    --sidebar-primary: 70 0.2 192;
+    --sidebar-primary-foreground: 12 0.01 240;
+    --sidebar-accent: 24 0.03 232;
+    --sidebar-accent-foreground: 88 0.01 215;
+    --sidebar-border: 30 0.03 230;
+    --sidebar-ring: 70 0.2 192;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(70% 0.2 192 / 0.12) 0%,
+    oklch(78% 0.17 75 / 0.06) 50%,
+    oklch(16% 0.02 240) 100%
+  );
+}
+
+.teal-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(36% 0.16 192) 0%,
+    oklch(44% 0.14 200) 100%
+  );
+}
+
+.stat-card-glow {
+  box-shadow: 0 4px 32px oklch(70% 0.2 192 / 0.3);
+}

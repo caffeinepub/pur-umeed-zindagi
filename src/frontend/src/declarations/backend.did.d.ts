@@ -19,6 +19,13 @@ export interface Inquiry {
 }
 export interface _SERVICE {
   'getAllInquiries' : ActorMethod<[], Array<Inquiry>>,
+  'getDonationInfo' : ActorMethod<[], string>,
+  'getFrontPageServiceList' : ActorMethod<[], string>,
+  'getFullServiceList' : ActorMethod<[], Array<[string, string]>>,
+  'getMissionText' : ActorMethod<[], string>,
+  'getOfficeDetails' : ActorMethod<[], string>,
+  'getResources' : ActorMethod<[], Array<[string, string]>>,
+  'getVolunteerInfo' : ActorMethod<[], string>,
   'submitInquiry' : ActorMethod<[string, string, string, string], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;

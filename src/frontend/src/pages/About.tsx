@@ -1,206 +1,296 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, Eye, Heart, Target } from "lucide-react";
+import { Brain, Heart, Leaf, Shield, Star, Target } from "lucide-react";
 import { motion } from "motion/react";
 
-const coreValues = [
-  {
-    icon: Heart,
-    title: "Compassion",
-    desc: "We approach every individual with empathy, dignity, and non-judgment.",
-  },
-  {
-    icon: CheckCircle,
-    title: "Confidentiality",
-    desc: "All interactions are strictly private and protected.",
-  },
-  {
-    icon: Target,
-    title: "Accessibility",
-    desc: "Free services delivered where people live and seek healthcare.",
-  },
-  {
-    icon: Eye,
-    title: "Evidence-based Practice",
-    desc: "Interventions grounded in validated clinical tools and research.",
-  },
-  {
-    icon: CheckCircle,
-    title: "Ethical Care",
-    desc: "Highest standards of professional ethics in every interaction.",
-  },
-];
+const GreenHeader = ({
+  title,
+  subtitle,
+}: { title: string; subtitle?: string }) => (
+  <div className="py-16 green-gradient">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-5xl font-bold text-white mb-3"
+      >
+        {title}
+      </motion.h1>
+      {subtitle && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-white/80 text-lg"
+        >
+          {subtitle}
+        </motion.p>
+      )}
+    </div>
+  </div>
+);
 
 export default function About() {
   return (
-    <div>
-      <section className="teal-gradient py-20">
-        <div className="container max-w-7xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/20 text-primary-foreground text-sm font-medium mb-4">
-              Our Story
-            </span>
-            <h1 className="font-display text-5xl md:text-6xl text-primary-foreground mb-4">
-              About PUZ
-            </h1>
-            <p className="text-primary-foreground/70 max-w-2xl mx-auto text-lg">
-              Learn about the history, mission, and values driving
-              Pakistan&apos;s most accessible mental health program.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <div style={{ background: "oklch(8% 0.04 145)" }}>
+      <GreenHeader
+        title="About Us"
+        subtitle="The story behind Pur Umeed Zindagi"
+      />
 
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-              History
-            </span>
-            <h2 className="font-display text-4xl text-foreground mt-3 mb-6">
-              Our Journey Since 2018
-            </h2>
-            <div className="space-y-4">
-              <p className="text-muted-foreground leading-relaxed">
-                Pur Umeed Zindagi was launched in 2018 as a pioneering mental
-                health initiative under the Indus Hospital &amp; Health
-                Network&apos;s Primary Care Program. Built on the World Health
-                Organization&apos;s Task Shifting Model, PUZ trained lay
-                counselors &mdash; called Mental Health Officers (MHOs) &mdash;
-                to deliver frontline mental health support in communities that
-                lacked access to specialized care.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                The program rapidly expanded from its origins in Karachi to
-                cover four regions across Pakistan: Karachi, Sindh, Balochistan,
-                and Punjab. Today, PUZ operates across 17 sites with 34
-                dedicated MHOs working to identify, screen, enroll, and support
-                individuals facing mental health challenges.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Psychologists serve as regional supervisors, run dedicated
-                clinics, and oversee the continuous training and professional
-                development of MHOs &mdash; ensuring quality care at every level
-                of the program.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
-            {[
-              { value: "2018", label: "Year Founded" },
-              { value: "4", label: "Regions" },
-              { value: "17", label: "Sites" },
-              { value: "34", label: "MHOs" },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+      {/* History */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div
+                className="uppercase tracking-widest text-xs font-semibold mb-3"
+                style={{ color: "oklch(58% 0.22 145)" }}
               >
-                <Card className="border-0 shadow-card text-center">
-                  <CardContent className="py-8">
-                    <div className="font-display text-4xl text-primary mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-muted-foreground text-sm">
-                      {stat.label}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                Our Story
+              </div>
+              <h2
+                className="text-4xl font-bold mb-6"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
+                A Program Born from Community Need
+              </h2>
+              <p
+                className="text-base leading-relaxed mb-4"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                Pur Umeed Zindagi (PUZ) — meaning &ldquo;A Life Full of
+                Hope&rdquo; — was launched in 2018 as a flagship mental health
+                initiative of Indus Hospital &amp; Health Network (IHHN). It was
+                designed to bridge the critical gap in accessible,
+                community-based psychological care in Pakistan.
+              </p>
+              <p
+                className="text-base leading-relaxed mb-4"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                Recognizing that mental health conditions affect millions yet
+                remain deeply stigmatized and undertreated, PUZ embedded trained
+                Mental Health Officers (MHOs) directly into community hospitals
+                and clinics.
+              </p>
+              <p
+                className="text-base leading-relaxed"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                From its origins in Karachi, the program has expanded across
+                Sindh, Balochistan, and Punjab, now serving over 120,000
+                patients annually through 17+ active sites.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="grid grid-cols-2 gap-4"
+            >
+              {[
+                { value: "2018", label: "Year Founded" },
+                { value: "4", label: "Regions" },
+                { value: "17+", label: "Active Sites" },
+                { value: "120K+", label: "Patients (2025)" },
+              ].map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-2xl p-6 border text-center"
+                  style={{
+                    background: "oklch(14% 0.045 145)",
+                    borderColor: "oklch(22% 0.06 145)",
+                  }}
+                >
+                  <div
+                    className="text-4xl font-bold mb-1"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  >
+                    {s.value}
+                  </div>
+                  <div
+                    className="text-sm"
+                    style={{ color: "oklch(68% 0.025 145)" }}
+                  >
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-secondary/20">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <Card className="border-0 shadow-card h-full">
-                <CardContent className="p-10">
-                  <div className="w-12 h-12 rounded-xl teal-gradient flex items-center justify-center mb-5">
-                    <Target className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <h2 className="font-display text-3xl text-foreground mb-4">
-                    Our Mission
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed text-lg italic">
-                    &ldquo;To promote mental well-being through early screening,
-                    counseling, and psychosocial support.&rdquo;
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <Card className="border-0 shadow-card h-full">
-                <CardContent className="p-10">
-                  <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mb-5">
-                    <Eye className="w-6 h-6 text-accent-foreground" />
-                  </div>
-                  <h2 className="font-display text-3xl text-foreground mb-4">
-                    Our Vision
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed text-lg italic">
-                    &ldquo;A society where mental health care is accessible,
-                    stigma-free, and integrated into every level of
-                    healthcare.&rdquo;
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
+      {/* Mission & Vision */}
+      <section className="py-20" style={{ background: "oklch(11% 0.045 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-              What Guides Us
-            </span>
-            <h2 className="font-display text-4xl text-foreground mt-3">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
+              Direction
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Mission &amp; Vision
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-2xl p-8 border"
+              style={{
+                background: "oklch(14% 0.045 145)",
+                borderColor: "oklch(35% 0.14 145)",
+              }}
+            >
+              <Target
+                className="w-8 h-8 mb-4"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              />
+              <h3
+                className="text-2xl font-bold mb-4"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
+                Our Mission
+              </h3>
+              <p
+                className="text-base leading-relaxed"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                To provide accessible, evidence-based, and stigma-free mental
+                health services to underserved communities across Pakistan
+                through integrated care at community hospitals and health
+                facilities.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="rounded-2xl p-8 border"
+              style={{
+                background: "oklch(14% 0.045 145)",
+                borderColor: "oklch(35% 0.14 145)",
+              }}
+            >
+              <Star
+                className="w-8 h-8 mb-4"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              />
+              <h3
+                className="text-2xl font-bold mb-4"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
+                Our Vision
+              </h3>
+              <p
+                className="text-base leading-relaxed"
+                style={{ color: "oklch(68% 0.025 145)" }}
+              >
+                A Pakistan where every individual has access to quality mental
+                health care, free from stigma and financial barriers, integrated
+                into the primary healthcare system.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Values */}
+      <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
+              Principles
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
               Core Values
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {coreValues.map((v, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                icon: Heart,
+                title: "Compassion",
+                desc: "Every patient is treated with dignity, empathy, and respect regardless of their background.",
+              },
+              {
+                icon: Shield,
+                title: "Confidentiality",
+                desc: "All information shared remains strictly private between patient and healthcare provider.",
+              },
+              {
+                icon: Leaf,
+                title: "Accessibility",
+                desc: "Services are completely free and available to all community members without barriers.",
+              },
+              {
+                icon: Brain,
+                title: "Evidence-Based",
+                desc: "All treatments follow internationally recognized, research-backed clinical guidelines.",
+              },
+              {
+                icon: Star,
+                title: "Excellence",
+                desc: "We continuously improve our services through training, supervision, and quality audits.",
+              },
+              {
+                icon: Target,
+                title: "Community-Centered",
+                desc: "Programs are designed around the specific needs and cultural context of each community.",
+              },
+            ].map((v, i) => (
               <motion.div
                 key={v.title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="rounded-2xl p-6 border card-hover"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
               >
-                <Card className="border-0 shadow-card hover:shadow-soft transition-shadow h-full">
-                  <CardContent className="p-7">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <v.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-2">
-                      {v.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {v.desc}
-                    </p>
-                  </CardContent>
-                </Card>
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: "oklch(22% 0.08 145)" }}
+                >
+                  <v.icon
+                    className="w-6 h-6"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  />
+                </div>
+                <h3
+                  className="font-bold text-lg mb-2"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  {v.title}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  {v.desc}
+                </p>
               </motion.div>
             ))}
           </div>

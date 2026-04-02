@@ -1,115 +1,211 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { motion } from "motion/react";
+import { useState } from "react";
+
+const GreenHeader = ({
+  title,
+  subtitle,
+}: { title: string; subtitle?: string }) => (
+  <div className="py-16 green-gradient">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-5xl font-bold text-white mb-3"
+      >
+        {title}
+      </motion.h1>
+      {subtitle && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-white/80 text-lg"
+        >
+          {subtitle}
+        </motion.p>
+      )}
+    </div>
+  </div>
+);
 
 const regions = [
   {
+    id: "karachi",
     name: "Karachi",
-    province: "Sindh — Metropolitan",
-    sites: ["Korangi Campus", "RTEH (Rescue Trust Eye Hospital)"],
-    count: 2,
-    desc: "The program's founding region, covering urban Karachi through two major hospital campuses.",
+    color: "oklch(58% 0.2 200)",
+    sites: [
+      {
+        name: "KC (Korangi Campus)",
+        address: "Indus Hospital, Korangi Campus, Karachi",
+      },
+      { name: "Baba Island", address: "Baba Island Health Facility, Karachi" },
+    ],
   },
   {
+    id: "sindh",
     name: "Sindh",
-    province: "Sindh — Rural",
-    sites: ["Badin Campus", "Makli", "Matli", "Baba Island"],
-    count: 4,
-    desc: "Reaching rural and semi-urban communities across the Sindh interior.",
+    color: "oklch(58% 0.22 145)",
+    sites: [
+      {
+        name: "CHB (Chandka Medical)",
+        address: "Chandka Medical College Hospital, Larkana",
+      },
+      { name: "Makli", address: "Makli Health Facility, Thatta" },
+      { name: "Matli", address: "Matli District Hospital, Badin" },
+      { name: "Khorwah", address: "Khorwah Health Center, Sindh" },
+      { name: "Shadi Large", address: "Shadi Large, Sindh" },
+      { name: "Sehwan", address: "Sehwan Health Facility, Sindh" },
+    ],
   },
   {
+    id: "balochistan",
     name: "Balochistan",
-    province: "Balochistan Province",
-    sites: ["Khorwah"],
-    count: 1,
-    desc: "Extending mental health care to one of Pakistan's most underserved provinces.",
+    color: "oklch(75% 0.18 60)",
+    sites: [
+      { name: "Saranana", address: "Saranana Health Center, Balochistan" },
+      { name: "Nokundi", address: "Nokundi Health Facility, Balochistan" },
+    ],
   },
   {
+    id: "punjab",
     name: "Punjab",
-    province: "Punjab Province",
-    sites: ["Bhong", "Kot Addu", "Shadi Large"],
-    count: 3,
-    desc: "Serving communities across central Punjab with trained MHOs and psychologist support.",
+    color: "oklch(70% 0.18 300)",
+    sites: [
+      { name: "Gurmani", address: "Gurmani Health Facility, Punjab" },
+      {
+        name: "Recep Tayyip Erdogan Hospital",
+        address: "Recep Tayyip Erdogan Hospital, Punjab",
+      },
+      { name: "Rajanpur", address: "Rajanpur District Hospital, Punjab" },
+      { name: "Samundari", address: "Samundari Health Center, Faisalabad" },
+      { name: "Kot Addu", address: "Kot Addu Hospital, Muzaffargarh" },
+    ],
   },
 ];
 
 export default function Regions() {
-  return (
-    <div>
-      <section className="teal-gradient py-20">
-        <div className="container max-w-7xl mx-auto px-4 text-center">
-          <h1 className="font-display text-5xl md:text-6xl text-primary-foreground mb-4">
-            Regions &amp; Sites
-          </h1>
-          <p className="text-primary-foreground/70 max-w-2xl mx-auto text-lg">
-            PUZ operates across 4 regions and 17 sites in Pakistan, bringing
-            mental health care to communities far and near.
-          </p>
-        </div>
-      </section>
+  const [active, setActive] = useState("karachi");
+  const activeRegion = regions.find((r) => r.id === active)!;
 
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            {regions.map((region, i) => (
-              <motion.div
-                key={region.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                data-ocid={`region.item.${i + 1}`}
+  return (
+    <div style={{ background: "oklch(8% 0.04 145)" }}>
+      <GreenHeader
+        title="Regions & Sites"
+        subtitle="17+ active sites across 4 regions of Pakistan"
+      />
+
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Region Tabs */}
+          <div className="flex flex-wrap gap-3 mb-10" data-ocid="regions.tab">
+            {regions.map((r) => (
+              <button
+                type="button"
+                key={r.id}
+                onClick={() => setActive(r.id)}
+                className="px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all"
+                style={{
+                  background:
+                    active === r.id ? r.color : "oklch(14% 0.045 145)",
+                  borderColor:
+                    active === r.id ? r.color : "oklch(22% 0.06 145)",
+                  color: active === r.id ? "white" : "oklch(82% 0.02 145)",
+                }}
+                data-ocid="regions.tab"
               >
-                <Card className="border-0 shadow-card hover:shadow-soft transition-all h-full">
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl teal-gradient flex items-center justify-center flex-shrink-0">
-                        <MapPin className="w-6 h-6 text-primary-foreground" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-2xl font-display">
-                          {region.name}
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {region.province}
-                        </p>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-                      {region.desc}
-                    </p>
-                    <div>
-                      <p className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">
-                        {region.count} {region.count === 1 ? "Site" : "Sites"}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {region.sites.map((site) => (
-                          <span
-                            key={site}
-                            className="px-3 py-1.5 rounded-lg bg-secondary text-foreground text-sm font-medium"
-                          >
-                            {site}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                {r.name} ({r.sites.length} sites)
+              </button>
             ))}
           </div>
 
-          <div className="mt-14 bg-secondary/30 rounded-2xl p-8 text-center">
-            <div className="font-display text-3xl text-foreground mb-3">
-              17 Sites Across Pakistan
+          {/* Sites Grid */}
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="mb-6 flex items-center gap-3">
+              <div
+                className="w-3 h-3 rounded-full"
+                style={{ background: activeRegion.color }}
+              />
+              <h2
+                className="text-2xl font-bold"
+                style={{ color: "oklch(96% 0.005 145)" }}
+              >
+                {activeRegion.name} Region
+              </h2>
+              <span
+                className="px-3 py-1 rounded-full text-xs font-medium"
+                style={{
+                  background: "oklch(17% 0.05 145)",
+                  color: "oklch(68% 0.025 145)",
+                }}
+              >
+                {activeRegion.sites.length} sites
+              </span>
             </div>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              From urban hospitals in Karachi to remote communities in
-              Balochistan, PUZ brings hope and healing to those who need it
-              most.
-            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {activeRegion.sites.map((site, i) => (
+                <motion.div
+                  key={site.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08, duration: 0.4 }}
+                  className="rounded-2xl p-6 border card-hover"
+                  style={{
+                    background: "oklch(14% 0.045 145)",
+                    borderColor: "oklch(22% 0.06 145)",
+                  }}
+                  data-ocid={`regions.item.${i + 1}`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: `${activeRegion.color}20` }}
+                    >
+                      <MapPin
+                        className="w-5 h-5"
+                        style={{ color: activeRegion.color }}
+                      />
+                    </div>
+                    <div>
+                      <h3
+                        className="font-bold text-base mb-1"
+                        style={{ color: "oklch(96% 0.005 145)" }}
+                      >
+                        {site.name}
+                      </h3>
+                      <p
+                        className="text-sm"
+                        style={{ color: "oklch(68% 0.025 145)" }}
+                      >
+                        {site.address}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Summary */}
+      <section className="py-12 green-gradient">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {regions.map((r) => (
+              <div key={r.id}>
+                <div className="text-3xl font-bold text-white">
+                  {r.sites.length}
+                </div>
+                <div className="text-white/80 text-sm">{r.name}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

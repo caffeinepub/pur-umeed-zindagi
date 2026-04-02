@@ -98,6 +98,13 @@ export interface Inquiry {
 }
 export interface backendInterface {
     getAllInquiries(): Promise<Array<Inquiry>>;
+    getDonationInfo(): Promise<string>;
+    getFrontPageServiceList(): Promise<string>;
+    getFullServiceList(): Promise<Array<[string, string]>>;
+    getMissionText(): Promise<string>;
+    getOfficeDetails(): Promise<string>;
+    getResources(): Promise<Array<[string, string]>>;
+    getVolunteerInfo(): Promise<string>;
     submitInquiry(name: string, phone: string, email: string, message: string): Promise<void>;
 }
 export class Backend implements backendInterface {
@@ -113,6 +120,104 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllInquiries();
+            return result;
+        }
+    }
+    async getDonationInfo(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDonationInfo();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDonationInfo();
+            return result;
+        }
+    }
+    async getFrontPageServiceList(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getFrontPageServiceList();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getFrontPageServiceList();
+            return result;
+        }
+    }
+    async getFullServiceList(): Promise<Array<[string, string]>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getFullServiceList();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getFullServiceList();
+            return result;
+        }
+    }
+    async getMissionText(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMissionText();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMissionText();
+            return result;
+        }
+    }
+    async getOfficeDetails(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getOfficeDetails();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getOfficeDetails();
+            return result;
+        }
+    }
+    async getResources(): Promise<Array<[string, string]>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getResources();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getResources();
+            return result;
+        }
+    }
+    async getVolunteerInfo(): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getVolunteerInfo();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getVolunteerInfo();
             return result;
         }
     }

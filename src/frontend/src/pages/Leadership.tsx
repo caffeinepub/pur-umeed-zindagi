@@ -1,131 +1,217 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Quote, User } from "lucide-react";
+import { Brain, Crown, User } from "lucide-react";
 import { motion } from "motion/react";
 
+const GreenHeader = ({
+  title,
+  subtitle,
+}: { title: string; subtitle?: string }) => (
+  <div className="py-16 green-gradient">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-5xl font-bold text-white mb-3"
+      >
+        {title}
+      </motion.h1>
+      {subtitle && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-white/80 text-lg"
+        >
+          {subtitle}
+        </motion.p>
+      )}
+    </div>
+  </div>
+);
+
 const leaders = [
-  {
-    name: "Dr. Abdul Bari Khan",
-    role: "President",
-    org: "Indus Hospital & Health Network",
-    featured: false,
-  },
-  {
-    name: "Dr. Zafar Zaidi",
-    role: "Chief Executive Officer",
-    org: "Indus Hospital & Health Network",
-    featured: false,
-  },
+  { name: "President", org: "IHHN", icon: Crown, tier: 1 },
+  { name: "CEO", org: "IHHN", icon: Crown, tier: 1 },
   {
     name: "Dr. Hiba Ashraf",
-    role: "Director, Primary Care Program",
-    org: "Indus Hospital & Health Network",
-    featured: true,
+    role: "Director PCP",
+    org: "IHHN",
+    icon: User,
+    tier: 2,
   },
+  {
+    name: "Ayesha Kasiri",
+    role: "Program Lead",
+    org: "PUZ",
+    icon: User,
+    tier: 3,
+  },
+];
+
+const psychologists = [
+  { name: "Tasleem", role: "Regional Psychologist", region: "Karachi" },
+  { name: "Danish Khan", role: "Regional Psychologist", region: "Sindh" },
+  { name: "Tariq Aziz", role: "Regional Psychologist", region: "Balochistan" },
 ];
 
 export default function Leadership() {
   return (
-    <div>
-      <section className="teal-gradient py-20">
-        <div className="container max-w-7xl mx-auto px-4 text-center">
-          <h1 className="font-display text-5xl md:text-6xl text-primary-foreground mb-4">
-            Leadership
-          </h1>
-          <p className="text-primary-foreground/70 max-w-2xl mx-auto text-lg">
-            The dedicated leaders steering PUZ&apos;s mission of accessible,
-            compassionate mental health care.
-          </p>
-        </div>
-      </section>
+    <div style={{ background: "oklch(8% 0.04 145)" }}>
+      <GreenHeader
+        title="Leadership"
+        subtitle="The team guiding Pur Umeed Zindagi"
+      />
 
-      <section className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
+      <section className="py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
+              Organizational Leadership
+            </div>
+            <h2
+              className="text-4xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Program Hierarchy
+            </h2>
+          </div>
+
+          <div className="space-y-4">
             {leaders.map((leader, i) => (
               <motion.div
-                key={leader.name}
-                initial={{ opacity: 0, y: 24 }}
+                key={`${leader.name}-${i}`}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl p-6 border flex items-center gap-5"
+                style={{
+                  background:
+                    leader.tier === 1
+                      ? "oklch(17% 0.07 145)"
+                      : "oklch(14% 0.045 145)",
+                  borderColor:
+                    leader.tier === 1
+                      ? "oklch(35% 0.14 145)"
+                      : "oklch(22% 0.06 145)",
+                  marginLeft: `${(leader.tier - 1) * 24}px`,
+                }}
+                data-ocid={`leadership.item.${i + 1}`}
               >
-                <Card
-                  className={`border-0 shadow-card h-full text-center ${leader.featured ? "ring-2 ring-primary/20" : ""}`}
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background:
+                      leader.tier === 1
+                        ? "oklch(30% 0.12 145)"
+                        : "oklch(22% 0.08 145)",
+                  }}
                 >
-                  <CardContent className="p-8">
+                  <leader.icon
+                    className="w-7 h-7"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  />
+                </div>
+                <div>
+                  <div
+                    className="font-bold text-lg"
+                    style={{ color: "oklch(96% 0.005 145)" }}
+                  >
+                    {leader.name}
+                  </div>
+                  {leader.role && (
                     <div
-                      className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 ${leader.featured ? "teal-gradient" : "bg-secondary"}`}
+                      className="text-sm font-medium"
+                      style={{ color: "oklch(58% 0.22 145)" }}
                     >
-                      <User
-                        className={`w-10 h-10 ${leader.featured ? "text-primary-foreground" : "text-muted-foreground"}`}
-                      />
-                    </div>
-                    <h3 className="font-display text-xl text-foreground mb-1">
-                      {leader.name}
-                    </h3>
-                    <p className="text-primary font-semibold text-sm">
                       {leader.role}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {leader.org}
-                    </p>
-                  </CardContent>
-                </Card>
+                    </div>
+                  )}
+                  <div
+                    className="text-sm"
+                    style={{ color: "oklch(68% 0.025 145)" }}
+                  >
+                    {leader.org}
+                  </div>
+                </div>
+                {leader.tier === 1 && (
+                  <div className="ml-auto">
+                    <Crown
+                      className="w-5 h-5"
+                      style={{ color: "oklch(58% 0.22 145)" }}
+                    />
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="bg-secondary/30 rounded-2xl p-8 md:p-12 relative">
-              <Quote className="absolute top-8 left-8 w-10 h-10 text-primary/15" />
-              <div className="text-center mb-8">
-                <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-                  Message from the Director
-                </span>
-                <h2 className="font-display text-3xl text-foreground mt-3">
-                  Dr. Hiba Ashraf
-                </h2>
-                <p className="text-muted-foreground text-sm mt-1">
-                  Director, Primary Care Program &middot; IHHN
-                </p>
-              </div>
-              <div className="max-w-3xl mx-auto space-y-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  The Pur Umeed Zindagi Program is founded on the belief that
-                  every individual carries within them the strength, resilience,
-                  and potential to lead a meaningful and hopeful life &mdash;
-                  even in the face of challenges. Our mission is to empower
-                  people emotionally, mentally, and socially so they can move
-                  forward with confidence and purpose.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Through PCP, we are committed to promoting mental well-being,
-                  emotional awareness, and practical life skills that help
-                  individuals cope with stress, grief, uncertainty, and life
-                  transitions. We believe that healing is not just about the
-                  absence of illness &mdash; it is about rediscovering purpose,
-                  connection, and the ability to live fully.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Our trained Mental Health Officers and Psychologists work
-                  tirelessly at the grassroots level, breaking barriers of
-                  stigma and geography to bring care to those who need it most.
-                  Every screening, every counseling session, every follow-up is
-                  a step toward a more hopeful tomorrow.
-                </p>
-                <p className="text-foreground font-medium leading-relaxed italic">
-                  &ldquo;Hope is not just a feeling &mdash; it is a process
-                  &mdash; and together, we aim to turn hope into action and
-                  positive change.&rdquo;
-                </p>
-              </div>
+      {/* Regional Psychologists */}
+      <section className="py-20" style={{ background: "oklch(11% 0.045 145)" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            >
+              Clinical Team
             </div>
-          </motion.div>
+            <h2
+              className="text-3xl font-bold"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Regional Psychologists
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {psychologists.map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl p-6 border text-center card-hover"
+                style={{
+                  background: "oklch(14% 0.045 145)",
+                  borderColor: "oklch(22% 0.06 145)",
+                }}
+                data-ocid={`leadership.item.${i + 6}`}
+              >
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                  style={{ background: "oklch(22% 0.08 145)" }}
+                >
+                  <Brain
+                    className="w-8 h-8"
+                    style={{ color: "oklch(58% 0.22 145)" }}
+                  />
+                </div>
+                <h3
+                  className="font-bold text-lg mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  {p.name}
+                </h3>
+                <div
+                  className="text-sm font-medium mb-1"
+                  style={{ color: "oklch(58% 0.22 145)" }}
+                >
+                  {p.role}
+                </div>
+                <div
+                  className="text-sm"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  {p.region}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

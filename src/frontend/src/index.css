@@ -3,13 +3,6 @@
 @import "tailwindcss/utilities";
 
 @font-face {
-  font-family: "DM Serif Display";
-  src: url("/assets/fonts/DMSerifDisplay-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Plus Jakarta Sans";
   src: url("/assets/fonts/PlusJakartaSans-Regular.woff2") format("woff2");
   font-weight: 400;
@@ -39,39 +32,39 @@
 
 @layer base {
   :root {
-    --background: 97 0.008 90;
-    --foreground: 18 0.015 240;
-    --card: 99.5 0.004 80;
-    --card-foreground: 18 0.015 240;
-    --popover: 99.5 0.004 80;
-    --popover-foreground: 18 0.015 240;
-    --primary: 42 0.13 198;
-    --primary-foreground: 98 0.004 80;
-    --secondary: 93 0.012 190;
-    --secondary-foreground: 30 0.02 220;
-    --muted: 94 0.008 190;
-    --muted-foreground: 50 0.025 220;
-    --accent: 72 0.14 68;
-    --accent-foreground: 18 0.015 240;
-    --destructive: 55 0.2 25;
-    --destructive-foreground: 98 0 0;
-    --border: 88 0.01 200;
-    --input: 88 0.01 200;
-    --ring: 42 0.13 198;
-    --radius: 0.5rem;
-    --chart-1: 42 0.13 198;
-    --chart-2: 72 0.14 68;
-    --chart-3: 60 0.12 160;
-    --chart-4: 55 0.1 280;
-    --chart-5: 65 0.1 30;
-    --sidebar: 97 0.008 90;
-    --sidebar-foreground: 18 0.015 240;
-    --sidebar-primary: 42 0.13 198;
-    --sidebar-primary-foreground: 98 0.004 80;
-    --sidebar-accent: 93 0.012 190;
-    --sidebar-accent-foreground: 30 0.02 220;
-    --sidebar-border: 88 0.01 200;
-    --sidebar-ring: 42 0.13 198;
+    --background: 8 0.04 145;
+    --foreground: 96 0.005 145;
+    --card: 14 0.045 145;
+    --card-foreground: 96 0.005 145;
+    --popover: 14 0.045 145;
+    --popover-foreground: 96 0.005 145;
+    --primary: 58 0.22 145;
+    --primary-foreground: 98 0.002 145;
+    --secondary: 17 0.05 145;
+    --secondary-foreground: 82 0.02 145;
+    --muted: 15 0.04 145;
+    --muted-foreground: 68 0.025 145;
+    --accent: 58 0.22 145;
+    --accent-foreground: 98 0.002 145;
+    --destructive: 50 0.22 25;
+    --destructive-foreground: 99 0 0;
+    --border: 22 0.06 145;
+    --input: 20 0.05 145;
+    --ring: 58 0.22 145;
+    --radius: 0.625rem;
+    --chart-1: 58 0.22 145;
+    --chart-2: 65 0.2 160;
+    --chart-3: 52 0.18 145;
+    --chart-4: 72 0.18 145;
+    --chart-5: 45 0.15 145;
+    --sidebar: 12 0.045 145;
+    --sidebar-foreground: 96 0.005 145;
+    --sidebar-primary: 58 0.22 145;
+    --sidebar-primary-foreground: 98 0.002 145;
+    --sidebar-accent: 17 0.05 145;
+    --sidebar-accent-foreground: 82 0.02 145;
+    --sidebar-border: 22 0.06 145;
+    --sidebar-ring: 58 0.22 145;
   }
 }
 
@@ -79,33 +72,67 @@
   * {
     @apply border-border;
   }
+  html {
+    color-scheme: dark;
+  }
   body {
     @apply bg-background text-foreground font-sans;
   }
-  h1,
-  h2,
-  h3 {
-    @apply font-display;
+}
+
+.green-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(32% 0.18 145) 0%,
+    oklch(42% 0.2 148) 100%
+  );
+}
+
+.hero-bg {
+  background-image: linear-gradient(
+      135deg,
+      oklch(5% 0.04 145 / 0.92) 0%,
+      oklch(10% 0.07 148 / 0.85) 50%,
+      oklch(7% 0.05 145 / 0.9) 100%
+    ), url("/assets/generated/hero-background.dim_1920x1080.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.section-alt {
+  background: oklch(11% 0.045 145);
+}
+
+.header-bg {
+  background: oklch(12% 0.05 145);
+}
+
+.emerald-glow {
+  text-shadow: 0 0 30px oklch(58% 0.22 145 / 0.6);
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px oklch(58% 0.22 145 / 0.2);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.4);
   }
 }
 
-.hero-gradient {
-  background: linear-gradient(
-    135deg,
-    oklch(42% 0.13 198 / 0.08) 0%,
-    oklch(72% 0.14 68 / 0.06) 50%,
-    oklch(97% 0.008 90) 100%
-  );
-}
-
-.teal-gradient {
-  background: linear-gradient(
-    135deg,
-    oklch(38% 0.13 198) 0%,
-    oklch(47% 0.12 210) 100%
-  );
-}
-
-.stat-card-glow {
-  box-shadow: 0 4px 24px oklch(42% 0.13 198 / 0.12);
+.pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
 }

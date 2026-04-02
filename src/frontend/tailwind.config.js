@@ -16,7 +16,6 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["DM Serif Display", "Georgia", "serif"],
         sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
       },
       colors: {
@@ -80,6 +79,7 @@ export default {
         xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
         soft: "0 4px 24px 0 rgba(0,0,0,0.06)",
         card: "0 2px 12px 0 rgba(0,0,0,0.07)",
+        green: "0 4px 32px oklch(58% 0.22 145 / 0.3)",
       },
       keyframes: {
         "accordion-down": {
