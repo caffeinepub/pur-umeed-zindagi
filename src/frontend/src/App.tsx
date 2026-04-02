@@ -14,6 +14,7 @@ import MHOs from "@/pages/MHOs";
 import PatientData from "@/pages/PatientData";
 import Psychologists from "@/pages/Psychologists";
 import Regions from "@/pages/Regions";
+import SelfScreening from "@/pages/SelfScreening";
 import Services from "@/pages/Services";
 import Workshops from "@/pages/Workshops";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -126,6 +127,12 @@ const galleryRoute = createRoute({
   component: Gallery,
 });
 
+const selfScreeningRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/self-screening",
+  component: SelfScreening,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -143,6 +150,7 @@ const routeTree = rootRoute.addChildren([
   appointmentRoute,
   feedbackRoute,
   galleryRoute,
+  selfScreeningRoute,
 ]);
 
 const router = createRouter({ routeTree });

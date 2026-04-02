@@ -13,6 +13,7 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Brain,
+  Calendar,
   CalendarCheck,
   CheckCircle,
   Clock,
@@ -25,6 +26,7 @@ import {
   Shield,
   Sparkles,
   Users,
+  X,
 } from "lucide-react";
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
@@ -633,10 +635,98 @@ function AppointmentSection() {
 }
 
 // ─── Main Export ──────────────────────────────────────────────────────────────────────────────────
+// ─── Psychologist profile data ─────────────────────────────────────────────────────────────────
+const homePsychologists = [
+  {
+    name: "Tasleem Barkat",
+    region: "Karachi",
+    role: "Regional Psychologist",
+    photo: "/assets/generated/tasleem-barkat-photo.dim_400x400.jpg",
+    clinicDays: null as string[] | null,
+    accentColor: "oklch(35% 0.2 145)",
+    sites: ["Korangi Campus (KC)", "Baba Island"],
+    specializations: [
+      "Depression & Mood Disorders",
+      "Anxiety Management",
+      "Trauma-Informed Care",
+      "Family Counseling",
+    ],
+    services: [
+      "Individual Counseling",
+      "Psychological Assessment",
+      "Group Therapy",
+      "Supervision of MHOs",
+    ],
+  },
+  {
+    name: "Danish Khan",
+    region: "Sindh",
+    role: "Regional Psychologist",
+    photo: "/assets/generated/danish-khan-psychologist.dim_400x400.jpg",
+    clinicDays: ["Monday", "Wednesday"] as string[] | null,
+    accentColor: "oklch(35% 0.18 200)",
+    sites: [
+      "CHB (Civil Hospital Badin)",
+      "Makli",
+      "Matli",
+      "Khorwah",
+      "Shadi Large",
+      "Sehwan",
+      "MMB (Medical Mobile Bus)",
+    ],
+    specializations: [
+      "CBT & Behavioral Interventions",
+      "Stress & Burnout",
+      "Community Mental Health",
+      "MHO Training",
+    ],
+    services: [
+      "Psychological Counseling",
+      "Training Workshops",
+      "Case Supervision",
+      "Awareness Programs",
+    ],
+  },
+  {
+    name: "Tariq Aziz",
+    region: "Balochistan",
+    role: "Regional Psychologist",
+    photo: "/assets/generated/tariq-aziz-photo.dim_400x400.jpg",
+    clinicDays: null as string[] | null,
+    accentColor: "oklch(40% 0.16 300)",
+    sites: ["Saranan (PCP)", "Nokundi (PCP)"],
+    specializations: [
+      "Cultural Adaptation of Therapy",
+      "Grief & Loss Counseling",
+      "Crisis Intervention",
+      "Psychoeducation",
+    ],
+    services: [
+      "Individual & Group Therapy",
+      "Psychiatric Referral Support",
+      "Community Outreach",
+      "End-of-Treatment Evaluation",
+    ],
+  },
+];
+
+type PsychProfile = (typeof homePsychologists)[0];
+
 export default function Home() {
   const counterRef = useRef<HTMLDivElement>(null);
   const counterInView = useInView(counterRef, { once: true, margin: "-100px" });
   const count = useCountUp(120388, 2500, counterInView);
+  const [selectedPsychologist, setSelectedPsychologist] =
+    useState<PsychProfile | null>(null);
+
+  useEffect(() => {
+    if (!selectedPsychologist) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedPsychologist(null);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [selectedPsychologist]);
 
   return (
     <div className="bg-white">
@@ -711,6 +801,79 @@ export default function Home() {
 
       {/* ── Stats Band ──────────────────────────────────────── */}
       <StatsBand />
+
+      {/* ── Self Screening Banner ───────────────────────────── */}
+      <section className="py-10 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl p-8 border-2"
+            style={{
+              borderColor: "oklch(70% 0.12 145)",
+              background: "oklch(97% 0.03 145)",
+            }}
+          >
+            <div className="flex items-center gap-4">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ background: "oklch(35% 0.2 145)" }}
+              >
+                <svg
+                  role="img"
+                  aria-label="Self screening form icon"
+                  className="w-7 h-7 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3
+                  className="text-xl font-bold"
+                  style={{ color: "oklch(20% 0.06 145)" }}
+                >
+                  Self Screening
+                </h3>
+                <p
+                  className="text-sm mt-0.5"
+                  style={{ color: "oklch(45% 0.05 145)" }}
+                >
+                  PHQ-4 &mdash; Check your mental health in 2 minutes. English,
+                  Roman Urdu aur Urdu mein
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/self-screening"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-bold text-white text-sm transition-all hover:opacity-90 flex-shrink-0"
+              style={{ background: "oklch(35% 0.2 145)" }}
+            >
+              Start Screening{" "}
+              <svg
+                role="img"
+                aria-label="Arrow right"
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ── About Strip ─────────────────────────────────────── */}
       <section className="py-20 bg-white">
@@ -869,48 +1032,27 @@ export default function Home() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Tasleem Barkat",
-                region: "Karachi Region",
-                role: "Regional Psychologist",
-                photo: "/assets/generated/tasleem-barkat-photo.dim_400x400.jpg",
-                clinicInfo: null,
-              },
-              {
-                name: "Danish Khan",
-                region: "Sindh Region",
-                role: "Regional Psychologist",
-                photo:
-                  "/assets/generated/danish-khan-psychologist.dim_400x400.jpg",
-                clinicInfo: "Clinic: Monday & Wednesday",
-              },
-              {
-                name: "Tariq Aziz",
-                region: "Balochistan Region",
-                role: "Regional Psychologist",
-                photo: "/assets/generated/tariq-aziz-photo.dim_400x400.jpg",
-                clinicInfo: null,
-              },
-            ].map((p, i) => (
-              <motion.div
+            {homePsychologists.map((p, i) => (
+              <motion.button
                 key={p.name}
+                type="button"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12, duration: 0.5 }}
-                className="bg-white rounded-2xl p-6 border text-center card-hover"
+                className="bg-white rounded-2xl p-6 border text-center card-hover cursor-pointer group w-full"
                 style={{
                   borderColor: "oklch(88% 0.03 145)",
                   boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.08)",
                 }}
+                onClick={() => setSelectedPsychologist(p)}
                 data-ocid={`psychologists.item.${i + 1}`}
               >
                 <img
                   src={p.photo}
                   alt={p.name}
                   className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4"
-                  style={{ borderColor: "oklch(80% 0.12 145)" }}
+                  style={{ borderColor: p.accentColor }}
                 />
                 <h3
                   className="text-lg font-bold mb-0.5"
@@ -920,7 +1062,7 @@ export default function Home() {
                 </h3>
                 <div
                   className="text-sm font-medium mb-1"
-                  style={{ color: "oklch(35% 0.2 145)" }}
+                  style={{ color: p.accentColor }}
                 >
                   {p.role}
                 </div>
@@ -928,22 +1070,204 @@ export default function Home() {
                   className="text-xs mb-3"
                   style={{ color: "oklch(50% 0.04 145)" }}
                 >
-                  {p.region}
+                  {p.region} Region
                 </div>
-                {p.clinicInfo && (
+                {p.clinicDays && (
                   <div
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold mb-3"
                     style={{
                       background: "oklch(92% 0.04 145)",
                       color: "oklch(30% 0.15 145)",
                     }}
                   >
-                    {p.clinicInfo}
+                    Clinic: {p.clinicDays.join(" & ")}
                   </div>
                 )}
-              </motion.div>
+                <div
+                  className="mt-3 flex items-center justify-center gap-1 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ color: p.accentColor }}
+                >
+                  <ArrowRight className="w-3 h-3" />
+                  View Profile
+                </div>
+              </motion.button>
             ))}
           </div>
+
+          {/* ── Psychologist Profile Modal ─────────────────────────── */}
+          {selectedPsychologist && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              style={{ background: "rgba(0,0,0,0.55)" }}
+              onClick={() => setSelectedPsychologist(null)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setSelectedPsychologist(null);
+              }}
+              data-ocid="psychologists.modal"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button */}
+                <button
+                  type="button"
+                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10"
+                  onClick={() => setSelectedPsychologist(null)}
+                  data-ocid="psychologists.modal.close_button"
+                  aria-label="Close profile"
+                >
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
+
+                {/* Header */}
+                <div
+                  className="p-8 pb-6 text-center border-b"
+                  style={{ borderColor: "oklch(92% 0.03 145)" }}
+                >
+                  <img
+                    src={selectedPsychologist.photo}
+                    alt={selectedPsychologist.name}
+                    className="w-32 h-32 rounded-2xl object-cover mx-auto mb-4 border-4"
+                    style={{ borderColor: selectedPsychologist.accentColor }}
+                  />
+                  <h2
+                    className="text-3xl font-bold mb-1"
+                    style={{ color: "oklch(15% 0.06 145)" }}
+                  >
+                    {selectedPsychologist.name}
+                  </h2>
+                  <p
+                    className="text-base font-medium mb-1"
+                    style={{ color: selectedPsychologist.accentColor }}
+                  >
+                    {selectedPsychologist.role}
+                  </p>
+                  <div
+                    className="flex items-center justify-center gap-1.5 text-sm"
+                    style={{ color: "oklch(45% 0.04 145)" }}
+                  >
+                    <MapPin
+                      className="w-4 h-4"
+                      style={{ color: selectedPsychologist.accentColor }}
+                    />
+                    {selectedPsychologist.region} Region
+                  </div>
+                  {selectedPsychologist.clinicDays && (
+                    <div
+                      className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-xl text-sm font-semibold"
+                      style={{
+                        background: "oklch(93% 0.04 145)",
+                        color: "oklch(28% 0.15 145)",
+                      }}
+                    >
+                      <Calendar className="w-4 h-4" />
+                      Clinic Days: {selectedPsychologist.clinicDays.join(" & ")}
+                    </div>
+                  )}
+                </div>
+
+                {/* Details */}
+                <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Sites */}
+                  <div>
+                    <h4
+                      className="text-sm font-bold uppercase tracking-wide mb-3"
+                      style={{ color: selectedPsychologist.accentColor }}
+                    >
+                      Sites Covered
+                    </h4>
+                    <ul className="space-y-2">
+                      {selectedPsychologist.sites.map((site) => (
+                        <li
+                          key={site}
+                          className="flex items-start gap-2 text-sm"
+                          style={{ color: "oklch(30% 0.04 145)" }}
+                        >
+                          <MapPin
+                            className="w-4 h-4 mt-0.5 shrink-0"
+                            style={{ color: selectedPsychologist.accentColor }}
+                          />
+                          {site}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Specializations */}
+                  <div>
+                    <h4
+                      className="text-sm font-bold uppercase tracking-wide mb-3"
+                      style={{ color: selectedPsychologist.accentColor }}
+                    >
+                      Specializations
+                    </h4>
+                    <ul className="space-y-2">
+                      {selectedPsychologist.specializations.map((spec) => (
+                        <li
+                          key={spec}
+                          className="flex items-start gap-2 text-sm"
+                          style={{ color: "oklch(30% 0.04 145)" }}
+                        >
+                          <CheckCircle
+                            className="w-4 h-4 mt-0.5 shrink-0"
+                            style={{ color: selectedPsychologist.accentColor }}
+                          />
+                          {spec}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Services */}
+                  <div>
+                    <h4
+                      className="text-sm font-bold uppercase tracking-wide mb-3"
+                      style={{ color: selectedPsychologist.accentColor }}
+                    >
+                      Services Offered
+                    </h4>
+                    <ul className="space-y-2">
+                      {selectedPsychologist.services.map((svc) => (
+                        <li
+                          key={svc}
+                          className="flex items-start gap-2 text-sm"
+                          style={{ color: "oklch(30% 0.04 145)" }}
+                        >
+                          <CheckCircle
+                            className="w-4 h-4 mt-0.5 shrink-0"
+                            style={{ color: selectedPsychologist.accentColor }}
+                          />
+                          {svc}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="px-8 pb-8 text-center">
+                  <Link
+                    to="/psychologists"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-green-50"
+                    style={{
+                      borderColor: selectedPsychologist.accentColor,
+                      color: selectedPsychologist.accentColor,
+                    }}
+                    onClick={() => setSelectedPsychologist(null)}
+                    data-ocid="psychologists.modal.link"
+                  >
+                    View Full Psychologists Page{" "}
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+          )}
           <div className="mt-8 text-center">
             <Link
               to="/psychologists"
