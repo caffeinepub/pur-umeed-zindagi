@@ -47,6 +47,20 @@ const categories = [
 
 const galleryItems: GalleryItem[] = [
   {
+    src: "/assets/img-20260326-wa0053-019d4f54-c37f-73d8-8021-1ef555c6a95c.jpg",
+    title: "PUZ Program Activity",
+    category: "Events",
+    description:
+      "Pur Umeed Zindagi program activity -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/img-20260326-wa0054-019d4f54-c3ba-722f-87dc-c6a4ea3aa52c.jpg",
+    title: "PUZ Program Activity",
+    category: "Events",
+    description:
+      "Pur Umeed Zindagi program activity -- Indus Hospital & Health Network.",
+  },
+  {
     src: "/assets/generated/gallery-awareness-session.dim_800x500.jpg",
     title: "Mental Health Awareness Session",
     category: "Awareness",
