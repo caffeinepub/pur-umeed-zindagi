@@ -82,7 +82,7 @@ export default function Layout() {
               data-ocid="nav.link"
             >
               <img
-                src="/assets/generated/puz-logo-transparent.dim_400x400.png"
+                src="/assets/pur_umeed_zindagi_logo-019d4e6f-6c29-72ef-aaee-b3a513835820.png"
                 alt="Pur Umeed Zindagi Logo"
                 className="w-10 h-10 rounded-full object-cover flex-shrink-0"
               />
@@ -328,7 +328,7 @@ export default function Layout() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img
-                  src="/assets/generated/puz-logo-transparent.dim_400x400.png"
+                  src="/assets/pur_umeed_zindagi_logo-019d4e6f-6c29-72ef-aaee-b3a513835820.png"
                   alt="Pur Umeed Zindagi Logo"
                   className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                 />
@@ -353,7 +353,7 @@ export default function Layout() {
                 regions.
               </p>
               <img
-                src="/assets/generated/ihhn-logo-transparent.dim_400x200.png"
+                src="/assets/indus-hospital-logo-019d4e6f-f12b-74e4-abdc-8bbca25cd561.png"
                 alt="Indus Hospital & Health Network"
                 className="h-10 object-contain"
                 style={{ filter: "brightness(1.8) saturate(0.4)" }}
