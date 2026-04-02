@@ -7,6 +7,7 @@ import Contact from "@/pages/Contact";
 import Home from "@/pages/Home";
 import Impact from "@/pages/Impact";
 import Leadership from "@/pages/Leadership";
+import MHOs from "@/pages/MHOs";
 import PatientData from "@/pages/PatientData";
 import Psychologists from "@/pages/Psychologists";
 import Regions from "@/pages/Regions";
@@ -98,6 +99,12 @@ const patientDataRoute = createRoute({
   component: PatientData,
 });
 
+const mhosRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/mhos",
+  component: MHOs,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -111,6 +118,7 @@ const routeTree = rootRoute.addChildren([
   annualReportsRoute,
   contactRoute,
   patientDataRoute,
+  mhosRoute,
 ]);
 
 const router = createRouter({ routeTree });

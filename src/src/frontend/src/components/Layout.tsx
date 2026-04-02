@@ -120,6 +120,15 @@ export default function Layout() {
                       Psychologists
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/mhos"
+                      className="cursor-pointer"
+                      data-ocid="nav.mhos.link"
+                    >
+                      MHO Team Directory
+                    </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -227,6 +236,14 @@ export default function Layout() {
                 data-ocid="nav.psychologists.link"
               >
                 Psychologists
+              </Link>
+              <Link
+                to="/mhos"
+                className="py-2 px-3 text-sm font-medium hover:text-primary rounded-md hover:bg-secondary"
+                onClick={() => setMobileOpen(false)}
+                data-ocid="nav.mhos.link"
+              >
+                MHO Directory
               </Link>
               <Link
                 to="/workshops"
@@ -349,6 +366,12 @@ export default function Layout() {
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Psychologists
+                </Link>
+                <Link
+                  to="/mhos"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  MHO Directory
                 </Link>
                 <Link
                   to="/workshops"
