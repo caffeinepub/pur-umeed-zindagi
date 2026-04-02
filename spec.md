@@ -1,39 +1,30 @@
-# Pur Umeed Zindagi - Complete Website Redesign
+# Pur Umeed Zindagi
 
 ## Current State
-The website currently uses a dark forest green theme (dark backgrounds, oklch dark values). The user wants a complete visual overhaul to match indushospital.org.pk which uses: clean white/light backgrounds, professional blue-teal accents, modern corporate hospital aesthetic, clean typography, light cards with subtle shadows, white header with logo, and a professional top utility bar.
+Blogs page (`/blogs`) currently shows 8 articles all authored by Danish Niaz Babbar from danishniazbabbar.blogspot.com. Topics span multiple mental health subjects (OCD, psychosis, digital addiction, family, etc.).
 
 ## Requested Changes (Diff)
 
 ### Add
-- Light/white background theme throughout (like indushospital.org.pk)
-- Top utility bar above header (with social links / contact info styled like IHHN)
-- Clean white header with logo, horizontal nav links in dark text
-- Professional hero section with large image slider / banner area
-- Clean stat counter section (patients served, sites, etc.) with dark green accent
-- Cards with white backgrounds, subtle box-shadows, dark green accent borders on hover
-- Footer matching IHHN style: dark footer with logo, quick links columns, contact info
-- Mobile-responsive hamburger menu
-- Smooth scroll and subtle fade-in animations
+- New blog articles focused specifically on: Stress, Anxiety, Depression
+- New blog articles specifically about rural areas (dihati ilaqe) and mental health challenges faced there
+- New source attribution -- articles sourced/referenced from credible external sources (WHO, Dawn Health, medical journals, Umang Pakistan, etc.)
+- New categories: "Stress", "Anxiety", "Depression", "Rural Mental Health"
+- Rural Areas specific section/badge on relevant articles
 
 ### Modify
-- index.css: Switch from dark OKLCH theme to light theme. White backgrounds (#fff / oklch 98%), dark green text accents (oklch 35% 0.2 145), blue-teal secondary (oklch 50% 0.15 200)
-- All pages: Remove dark backgrounds, apply light card styles
-- Header/Layout: Change from dark sticky header to white sticky header with colored accent line at top
-- Hero section on Home: Use new hospital hero image with light overlay, white text headline
-- All page section headers (GreenHeader): Change to white section with dark green text or a clean teal gradient
-- Navigation: Horizontal desktop nav with dropdowns, clean white bg
+- Replace existing 8 articles with new curated content (stress, anxiety, depression, rural focus)
+- Update category filters to reflect new topics
+- Update blog hero description to reflect new focus
+- Keep same card/modal UI, just update content and source attributions
 
 ### Remove
-- Dark `.header-bg` dark glass effect
-- `section-alt` dark section pattern
-- Dark card backgrounds throughout
-- `.green-gradient` dark gradient header sections
-- `hero-bg` dark overlay
+- Articles on OCD, Psychosis, Digital Addiction, Family, Digital Age (not requested)
+- danishniazbabbar.blogspot.com as primary source
 
 ## Implementation Plan
-1. Update `index.css` -- light color tokens, white bg, dark green primary, clean typography
-2. Update `Layout.tsx` -- white header, utility top bar, IHHN-style footer with columns
-3. Update `Home.tsx` -- light hero with new image, white stat cards, clean sections
-4. Update all page files -- replace dark backgrounds/cards with light equivalents
-5. Ensure all existing content (MHOs, Patient Data, Psychologists, Leadership, Regions, Workshops, Awareness, Gallery, Feedback, Contact) is preserved, just restyled
+1. Write 8-10 new articles focused on Stress, Anxiety, Depression, and Rural Mental Health
+2. Add a "Rural Areas" badge/tag on relevant articles
+3. Update categories to: All, Stress, Anxiety, Depression, Rural Mental Health
+4. Update source references to credible mental health organizations
+5. Update hero section subtitle to reflect new focus areas

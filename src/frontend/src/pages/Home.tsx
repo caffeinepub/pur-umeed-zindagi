@@ -1101,38 +1101,96 @@ export default function Home() {
   }, [selectedPsychologist]);
 
   return (
-    <div className="bg-white">
-      {/* Staff Portal Banner */}
-      <StaffPortalBanner />
+    <div
+      style={{
+        backgroundImage:
+          'url("/assets/generated/hero-bg-indus-hospital.dim_1920x1080.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        position: "relative",
+      }}
+    >
+      {/* Full-page semi-transparent overlay so content stays readable */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(255,255,255,0.82)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        {/* Staff Portal Banner */}
+        <StaffPortalBanner />
 
-      {/* Live Date Bar */}
-      <LiveDateBar />
+        {/* Live Date Bar */}
+        <LiveDateBar />
 
-      {/* ── Hero Slider ─────────────────────────────────────── */}
-      <HeroSlider />
+        {/* ── Hero Slider ─────────────────────────────────────── */}
+        <HeroSlider />
 
-      {/* ── Stats Band ──────────────────────────────────────── */}
-      <StatsBand />
+        {/* ── Stats Band ──────────────────────────────────────── */}
+        <StatsBand />
 
-      {/* ── Self Screening Banner ───────────────────────────── */}
-      <section className="py-10 bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl p-8 border-2"
-            style={{
-              borderColor: "oklch(70% 0.12 145)",
-              background: "oklch(97% 0.03 145)",
-            }}
-          >
-            <div className="flex items-center gap-4">
-              <div
-                className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+        {/* ── Self Screening Banner ───────────────────────────── */}
+        <section className="py-10 bg-white border-b border-gray-100">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+              className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl p-8 border-2"
+              style={{
+                borderColor: "oklch(70% 0.12 145)",
+                background: "oklch(97% 0.03 145)",
+              }}
+            >
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ background: "oklch(35% 0.2 145)" }}
+                >
+                  <svg
+                    role="img"
+                    aria-label="Self screening form icon"
+                    className="w-7 h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    className="text-xl font-bold"
+                    style={{ color: "oklch(20% 0.06 145)" }}
+                  >
+                    Self Screening
+                  </h3>
+                  <p
+                    className="text-sm mt-0.5"
+                    style={{ color: "oklch(45% 0.05 145)" }}
+                  >
+                    PHQ-4 &mdash; Check your mental health in 2 minutes.
+                    English, Roman Urdu aur Urdu mein
+                  </p>
+                </div>
+              </div>
+              <Link
+                to="/self-screening"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-bold text-white text-sm transition-all hover:opacity-90 flex-shrink-0"
                 style={{ background: "oklch(35% 0.2 145)" }}
               >
+                Start Screening{" "}
                 <svg
                   role="img"
-                  aria-label="Self screening form icon"
-                  className="w-7 h-7 text-white"
+                  aria-label="Arrow right"
+                  className="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -1141,815 +1199,792 @@ export default function Home() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    d="M9 5l7 7-7 7"
                   />
                 </svg>
-              </div>
-              <div>
-                <h3
-                  className="text-xl font-bold"
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── About Strip ─────────────────────────────────────── */}
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <p
+                  className="text-xs uppercase tracking-widest font-semibold mb-3"
+                  style={{ color: "oklch(35% 0.2 145)" }}
+                >
+                  Our Mission
+                </p>
+                <h2
+                  className="text-3xl md:text-4xl font-bold mb-5"
                   style={{ color: "oklch(20% 0.06 145)" }}
                 >
-                  Self Screening
-                </h3>
+                  Why Pur Umeed Zindagi?
+                </h2>
                 <p
-                  className="text-sm mt-0.5"
-                  style={{ color: "oklch(45% 0.05 145)" }}
+                  className="text-base leading-relaxed mb-4"
+                  style={{ color: "oklch(40% 0.04 145)" }}
                 >
-                  PHQ-4 &mdash; Check your mental health in 2 minutes. English,
-                  Roman Urdu aur Urdu mein
+                  Pur Umeed Zindagi was established in 2018 under Indus Hospital
+                  &amp; Health Network to bring accessible, stigma-free
+                  psychological care to underserved communities across Pakistan.
                 </p>
-              </div>
-            </div>
-            <Link
-              to="/self-screening"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-bold text-white text-sm transition-all hover:opacity-90 flex-shrink-0"
-              style={{ background: "oklch(35% 0.2 145)" }}
-            >
-              Start Screening{" "}
-              <svg
-                role="img"
-                aria-label="Arrow right"
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
+                <p
+                  className="text-base leading-relaxed mb-6"
+                  style={{ color: "oklch(40% 0.04 145)" }}
+                >
+                  Our trained Mental Health Officers and Clinical Psychologists
+                  work across 17 sites in Karachi, Sindh, Balochistan, and
+                  Punjab — providing screenings, counseling, and follow-up care
+                  completely free of charge.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Evidence-Based",
+                    "Culturally Sensitive",
+                    "Trauma-Informed",
+                    "Community-Led",
+                  ].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-full text-xs font-medium border"
+                      style={{
+                        borderColor: "oklch(70% 0.12 145)",
+                        color: "oklch(35% 0.18 145)",
+                        background: "oklch(94% 0.04 145)",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
 
-      {/* ── About Strip ─────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: 24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="grid grid-cols-2 gap-4"
+              >
+                {[
+                  { value: "2018", label: "Founded" },
+                  { value: "4", label: "Regions" },
+                  { value: "17+", label: "Sites" },
+                  { value: "3", label: "Psychologists" },
+                ].map((s) => (
+                  <div
+                    key={s.label}
+                    className="rounded-2xl p-8 border text-center card-hover"
+                    style={{
+                      background: "white",
+                      borderColor: "oklch(88% 0.03 145)",
+                      boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
+                    }}
+                  >
+                    <div
+                      className="text-3xl font-bold mb-1"
+                      style={{ color: "oklch(35% 0.2 145)" }}
+                    >
+                      {s.value}
+                    </div>
+                    <div
+                      className="text-sm"
+                      style={{ color: "oklch(50% 0.04 145)" }}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Live Patient Counter ───────────────────────────── */}
+        <div
+          ref={counterRef}
+          className="py-16 text-center"
+          style={{ background: "oklch(96% 0.01 145)" }}
+        >
+          <div className="max-w-2xl mx-auto px-4">
             <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={counterInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.6 }}
             >
               <p
                 className="text-xs uppercase tracking-widest font-semibold mb-3"
                 style={{ color: "oklch(35% 0.2 145)" }}
               >
-                Our Mission
+                Live Counter — 2025
               </p>
-              <h2
-                className="text-3xl md:text-4xl font-bold mb-5"
-                style={{ color: "oklch(20% 0.06 145)" }}
+              <div
+                className="text-6xl md:text-7xl font-bold tracking-tight mb-2"
+                style={{ color: "oklch(35% 0.2 145)" }}
               >
-                Why Pur Umeed Zindagi?
-              </h2>
-              <p
-                className="text-base leading-relaxed mb-4"
-                style={{ color: "oklch(40% 0.04 145)" }}
+                {count.toLocaleString()}
+              </div>
+              <div
+                className="text-lg font-semibold mb-1"
+                style={{ color: "oklch(25% 0.08 145)" }}
               >
-                Pur Umeed Zindagi was established in 2018 under Indus Hospital
-                &amp; Health Network to bring accessible, stigma-free
-                psychological care to underserved communities across Pakistan.
-              </p>
-              <p
-                className="text-base leading-relaxed mb-6"
-                style={{ color: "oklch(40% 0.04 145)" }}
-              >
-                Our trained Mental Health Officers and Clinical Psychologists
-                work across 17 sites in Karachi, Sindh, Balochistan, and Punjab
-                — providing screenings, counseling, and follow-up care
-                completely free of charge.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Evidence-Based",
-                  "Culturally Sensitive",
-                  "Trauma-Informed",
-                  "Community-Led",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full text-xs font-medium border"
-                    style={{
-                      borderColor: "oklch(70% 0.12 145)",
-                      color: "oklch(35% 0.18 145)",
-                      background: "oklch(94% 0.04 145)",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
+                Patients Seen in 2025
+              </div>
+              <div className="text-sm" style={{ color: "oklch(50% 0.04 145)" }}>
+                Across 4 regions · 17+ sites · Karachi, Sindh, Balochistan,
+                Punjab
               </div>
             </motion.div>
+          </div>
+        </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="grid grid-cols-2 gap-4"
-            >
-              {[
-                { value: "2018", label: "Founded" },
-                { value: "4", label: "Regions" },
-                { value: "17+", label: "Sites" },
-                { value: "3", label: "Psychologists" },
-              ].map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl p-8 border text-center card-hover"
+        {/* ── Psychologists ───────────────────────────────────── */}
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <p
+                className="text-xs uppercase tracking-widest font-semibold mb-2"
+                style={{ color: "oklch(35% 0.2 145)" }}
+              >
+                Our Team
+              </p>
+              <h2
+                className="text-3xl font-bold"
+                style={{ color: "oklch(20% 0.06 145)" }}
+              >
+                Regional Psychologists
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {homePsychologists.map((p, i) => (
+                <motion.button
+                  key={p.name}
+                  type="button"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12, duration: 0.5 }}
+                  className="bg-white rounded-2xl p-6 border text-center card-hover cursor-pointer group w-full"
                   style={{
-                    background: "white",
+                    borderColor: "oklch(88% 0.03 145)",
+                    boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.08)",
+                  }}
+                  onClick={() => setSelectedPsychologist(p)}
+                  data-ocid={`psychologists.item.${i + 1}`}
+                >
+                  <img
+                    src={p.photo}
+                    alt={p.name}
+                    className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4"
+                    style={{ borderColor: p.accentColor }}
+                  />
+                  <h3
+                    className="text-lg font-bold mb-0.5"
+                    style={{ color: "oklch(20% 0.06 145)" }}
+                  >
+                    {p.name}
+                  </h3>
+                  <div
+                    className="text-sm font-medium mb-1"
+                    style={{ color: p.accentColor }}
+                  >
+                    {p.role}
+                  </div>
+                  <div
+                    className="text-xs mb-3"
+                    style={{ color: "oklch(50% 0.04 145)" }}
+                  >
+                    {p.region} Region
+                  </div>
+                  {p.clinicDays && (
+                    <div
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold mb-3"
+                      style={{
+                        background: "oklch(92% 0.04 145)",
+                        color: "oklch(30% 0.15 145)",
+                      }}
+                    >
+                      Clinic: {p.clinicDays.join(" & ")}
+                    </div>
+                  )}
+                  <div
+                    className="mt-3 flex items-center justify-center gap-1 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{ color: p.accentColor }}
+                  >
+                    <ArrowRight className="w-3 h-3" />
+                    View Profile
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* ── Psychologist Profile Modal ─────────────────────────── */}
+            {selectedPsychologist && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                style={{ background: "rgba(0,0,0,0.55)" }}
+                onClick={() => setSelectedPsychologist(null)}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") setSelectedPsychologist(null);
+                }}
+                data-ocid="psychologists.modal"
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Close button */}
+                  <button
+                    type="button"
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10"
+                    onClick={() => setSelectedPsychologist(null)}
+                    data-ocid="psychologists.modal.close_button"
+                    aria-label="Close profile"
+                  >
+                    <X className="w-5 h-5 text-gray-500" />
+                  </button>
+
+                  {/* Header */}
+                  <div
+                    className="p-8 pb-6 text-center border-b"
+                    style={{ borderColor: "oklch(92% 0.03 145)" }}
+                  >
+                    <img
+                      src={selectedPsychologist.photo}
+                      alt={selectedPsychologist.name}
+                      className="w-32 h-32 rounded-2xl object-cover mx-auto mb-4 border-4"
+                      style={{ borderColor: selectedPsychologist.accentColor }}
+                    />
+                    <h2
+                      className="text-3xl font-bold mb-1"
+                      style={{ color: "oklch(15% 0.06 145)" }}
+                    >
+                      {selectedPsychologist.name}
+                    </h2>
+                    <p
+                      className="text-base font-medium mb-1"
+                      style={{ color: selectedPsychologist.accentColor }}
+                    >
+                      {selectedPsychologist.role}
+                    </p>
+                    <div
+                      className="flex items-center justify-center gap-1.5 text-sm"
+                      style={{ color: "oklch(45% 0.04 145)" }}
+                    >
+                      <MapPin
+                        className="w-4 h-4"
+                        style={{ color: selectedPsychologist.accentColor }}
+                      />
+                      {selectedPsychologist.region} Region
+                    </div>
+                    {selectedPsychologist.clinicDays && (
+                      <div
+                        className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-xl text-sm font-semibold"
+                        style={{
+                          background: "oklch(93% 0.04 145)",
+                          color: "oklch(28% 0.15 145)",
+                        }}
+                      >
+                        <Calendar className="w-4 h-4" />
+                        Clinic Days:{" "}
+                        {selectedPsychologist.clinicDays.join(" & ")}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Details */}
+                  <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Sites */}
+                    <div>
+                      <h4
+                        className="text-sm font-bold uppercase tracking-wide mb-3"
+                        style={{ color: selectedPsychologist.accentColor }}
+                      >
+                        Sites Covered
+                      </h4>
+                      <ul className="space-y-2">
+                        {selectedPsychologist.sites.map((site) => (
+                          <li
+                            key={site}
+                            className="flex items-start gap-2 text-sm"
+                            style={{ color: "oklch(30% 0.04 145)" }}
+                          >
+                            <MapPin
+                              className="w-4 h-4 mt-0.5 shrink-0"
+                              style={{
+                                color: selectedPsychologist.accentColor,
+                              }}
+                            />
+                            {site}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Specializations */}
+                    <div>
+                      <h4
+                        className="text-sm font-bold uppercase tracking-wide mb-3"
+                        style={{ color: selectedPsychologist.accentColor }}
+                      >
+                        Specializations
+                      </h4>
+                      <ul className="space-y-2">
+                        {selectedPsychologist.specializations.map((spec) => (
+                          <li
+                            key={spec}
+                            className="flex items-start gap-2 text-sm"
+                            style={{ color: "oklch(30% 0.04 145)" }}
+                          >
+                            <CheckCircle
+                              className="w-4 h-4 mt-0.5 shrink-0"
+                              style={{
+                                color: selectedPsychologist.accentColor,
+                              }}
+                            />
+                            {spec}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Services */}
+                    <div>
+                      <h4
+                        className="text-sm font-bold uppercase tracking-wide mb-3"
+                        style={{ color: selectedPsychologist.accentColor }}
+                      >
+                        Services Offered
+                      </h4>
+                      <ul className="space-y-2">
+                        {selectedPsychologist.services.map((svc) => (
+                          <li
+                            key={svc}
+                            className="flex items-start gap-2 text-sm"
+                            style={{ color: "oklch(30% 0.04 145)" }}
+                          >
+                            <CheckCircle
+                              className="w-4 h-4 mt-0.5 shrink-0"
+                              style={{
+                                color: selectedPsychologist.accentColor,
+                              }}
+                            />
+                            {svc}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="px-8 pb-8 text-center">
+                    <Link
+                      to="/psychologists"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-green-50"
+                      style={{
+                        borderColor: selectedPsychologist.accentColor,
+                        color: selectedPsychologist.accentColor,
+                      }}
+                      onClick={() => setSelectedPsychologist(null)}
+                      data-ocid="psychologists.modal.link"
+                    >
+                      View Full Psychologists Page{" "}
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+            <div className="mt-8 text-center">
+              <Link
+                to="/psychologists"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold border transition-colors hover:bg-green-50"
+                style={{
+                  borderColor: "oklch(70% 0.12 145)",
+                  color: "oklch(35% 0.2 145)",
+                }}
+                data-ocid="home.psychologists.secondary_button"
+              >
+                View Full Profiles <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Patient Data Preview ────────────────────────────── */}
+        <section
+          className="py-16"
+          style={{ background: "oklch(96% 0.01 145)" }}
+        >
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <p
+                  className="text-xs uppercase tracking-widest font-semibold"
+                  style={{ color: "oklch(35% 0.2 145)" }}
+                >
+                  MHO Patient Data
+                </p>
+                <span
+                  className="w-2 h-2 rounded-full pulse-dot"
+                  style={{ background: "oklch(40% 0.2 145)" }}
+                />
+              </div>
+              <h2
+                className="text-2xl font-bold mb-1"
+                style={{ color: "oklch(20% 0.06 145)" }}
+              >
+                Screening, Enrollment &amp; End of Treatment
+              </h2>
+              <p className="text-xs" style={{ color: "oklch(50% 0.04 145)" }}>
+                Numbers change daily — updated regularly
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  year: "2025",
+                  data: [
+                    { label: "Screening", value: "250,000" },
+                    { label: "Enrolled", value: "13,000" },
+                    { label: "End of Treatment", value: "1,000" },
+                  ],
+                },
+                {
+                  year: "2026",
+                  data: [
+                    { label: "Screening", value: "25,000" },
+                    { label: "Enrolled", value: "9,000" },
+                    { label: "End of Treatment", value: "1,000" },
+                  ],
+                },
+              ].map((yr) => (
+                <div
+                  key={yr.year}
+                  className="bg-white rounded-2xl p-6 border"
+                  style={{
                     borderColor: "oklch(88% 0.03 145)",
                     boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
                   }}
                 >
                   <div
-                    className="text-3xl font-bold mb-1"
+                    className="text-xs uppercase tracking-widest font-semibold mb-4"
                     style={{ color: "oklch(35% 0.2 145)" }}
                   >
-                    {s.value}
+                    Year {yr.year}
                   </div>
-                  <div
-                    className="text-sm"
-                    style={{ color: "oklch(50% 0.04 145)" }}
-                  >
-                    {s.label}
+                  <div className="grid grid-cols-3 gap-4">
+                    {yr.data.map((d) => (
+                      <div key={d.label} className="text-center">
+                        <div
+                          className="text-xl font-bold mb-1"
+                          style={{ color: "oklch(25% 0.15 145)" }}
+                        >
+                          {d.value}
+                        </div>
+                        <div
+                          className="text-xs"
+                          style={{ color: "oklch(50% 0.04 145)" }}
+                        >
+                          {d.label}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Live Patient Counter ───────────────────────────── */}
-      <div
-        ref={counterRef}
-        className="py-16 text-center"
-        style={{ background: "oklch(96% 0.01 145)" }}
-      >
-        <div className="max-w-2xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={counterInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <p
-              className="text-xs uppercase tracking-widest font-semibold mb-3"
-              style={{ color: "oklch(35% 0.2 145)" }}
-            >
-              Live Counter — 2025
-            </p>
-            <div
-              className="text-6xl md:text-7xl font-bold tracking-tight mb-2"
-              style={{ color: "oklch(35% 0.2 145)" }}
-            >
-              {count.toLocaleString()}
             </div>
-            <div
-              className="text-lg font-semibold mb-1"
-              style={{ color: "oklch(25% 0.08 145)" }}
-            >
-              Patients Seen in 2025
-            </div>
-            <div className="text-sm" style={{ color: "oklch(50% 0.04 145)" }}>
-              Across 4 regions · 17+ sites · Karachi, Sindh, Balochistan, Punjab
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* ── Psychologists ───────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p
-              className="text-xs uppercase tracking-widest font-semibold mb-2"
-              style={{ color: "oklch(35% 0.2 145)" }}
-            >
-              Our Team
-            </p>
-            <h2
-              className="text-3xl font-bold"
-              style={{ color: "oklch(20% 0.06 145)" }}
-            >
-              Regional Psychologists
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {homePsychologists.map((p, i) => (
-              <motion.button
-                key={p.name}
-                type="button"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.5 }}
-                className="bg-white rounded-2xl p-6 border text-center card-hover cursor-pointer group w-full"
-                style={{
-                  borderColor: "oklch(88% 0.03 145)",
-                  boxShadow: "0 2px 16px oklch(50% 0.06 145 / 0.08)",
-                }}
-                onClick={() => setSelectedPsychologist(p)}
-                data-ocid={`psychologists.item.${i + 1}`}
-              >
-                <img
-                  src={p.photo}
-                  alt={p.name}
-                  className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4"
-                  style={{ borderColor: p.accentColor }}
-                />
-                <h3
-                  className="text-lg font-bold mb-0.5"
-                  style={{ color: "oklch(20% 0.06 145)" }}
-                >
-                  {p.name}
-                </h3>
-                <div
-                  className="text-sm font-medium mb-1"
-                  style={{ color: p.accentColor }}
-                >
-                  {p.role}
-                </div>
-                <div
-                  className="text-xs mb-3"
-                  style={{ color: "oklch(50% 0.04 145)" }}
-                >
-                  {p.region} Region
-                </div>
-                {p.clinicDays && (
-                  <div
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold mb-3"
-                    style={{
-                      background: "oklch(92% 0.04 145)",
-                      color: "oklch(30% 0.15 145)",
-                    }}
-                  >
-                    Clinic: {p.clinicDays.join(" & ")}
-                  </div>
-                )}
-                <div
-                  className="mt-3 flex items-center justify-center gap-1 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: p.accentColor }}
-                >
-                  <ArrowRight className="w-3 h-3" />
-                  View Profile
-                </div>
-              </motion.button>
-            ))}
-          </div>
-
-          {/* ── Psychologist Profile Modal ─────────────────────────── */}
-          {selectedPsychologist && (
-            <div
-              className="fixed inset-0 z-50 flex items-center justify-center p-4"
-              style={{ background: "rgba(0,0,0,0.55)" }}
-              onClick={() => setSelectedPsychologist(null)}
-              onKeyDown={(e) => {
-                if (e.key === "Escape") setSelectedPsychologist(null);
-              }}
-              data-ocid="psychologists.modal"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
-                className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Close button */}
-                <button
-                  type="button"
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10"
-                  onClick={() => setSelectedPsychologist(null)}
-                  data-ocid="psychologists.modal.close_button"
-                  aria-label="Close profile"
-                >
-                  <X className="w-5 h-5 text-gray-500" />
-                </button>
-
-                {/* Header */}
-                <div
-                  className="p-8 pb-6 text-center border-b"
-                  style={{ borderColor: "oklch(92% 0.03 145)" }}
-                >
-                  <img
-                    src={selectedPsychologist.photo}
-                    alt={selectedPsychologist.name}
-                    className="w-32 h-32 rounded-2xl object-cover mx-auto mb-4 border-4"
-                    style={{ borderColor: selectedPsychologist.accentColor }}
-                  />
-                  <h2
-                    className="text-3xl font-bold mb-1"
-                    style={{ color: "oklch(15% 0.06 145)" }}
-                  >
-                    {selectedPsychologist.name}
-                  </h2>
-                  <p
-                    className="text-base font-medium mb-1"
-                    style={{ color: selectedPsychologist.accentColor }}
-                  >
-                    {selectedPsychologist.role}
-                  </p>
-                  <div
-                    className="flex items-center justify-center gap-1.5 text-sm"
-                    style={{ color: "oklch(45% 0.04 145)" }}
-                  >
-                    <MapPin
-                      className="w-4 h-4"
-                      style={{ color: selectedPsychologist.accentColor }}
-                    />
-                    {selectedPsychologist.region} Region
-                  </div>
-                  {selectedPsychologist.clinicDays && (
-                    <div
-                      className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-xl text-sm font-semibold"
-                      style={{
-                        background: "oklch(93% 0.04 145)",
-                        color: "oklch(28% 0.15 145)",
-                      }}
-                    >
-                      <Calendar className="w-4 h-4" />
-                      Clinic Days: {selectedPsychologist.clinicDays.join(" & ")}
-                    </div>
-                  )}
-                </div>
-
-                {/* Details */}
-                <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {/* Sites */}
-                  <div>
-                    <h4
-                      className="text-sm font-bold uppercase tracking-wide mb-3"
-                      style={{ color: selectedPsychologist.accentColor }}
-                    >
-                      Sites Covered
-                    </h4>
-                    <ul className="space-y-2">
-                      {selectedPsychologist.sites.map((site) => (
-                        <li
-                          key={site}
-                          className="flex items-start gap-2 text-sm"
-                          style={{ color: "oklch(30% 0.04 145)" }}
-                        >
-                          <MapPin
-                            className="w-4 h-4 mt-0.5 shrink-0"
-                            style={{ color: selectedPsychologist.accentColor }}
-                          />
-                          {site}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Specializations */}
-                  <div>
-                    <h4
-                      className="text-sm font-bold uppercase tracking-wide mb-3"
-                      style={{ color: selectedPsychologist.accentColor }}
-                    >
-                      Specializations
-                    </h4>
-                    <ul className="space-y-2">
-                      {selectedPsychologist.specializations.map((spec) => (
-                        <li
-                          key={spec}
-                          className="flex items-start gap-2 text-sm"
-                          style={{ color: "oklch(30% 0.04 145)" }}
-                        >
-                          <CheckCircle
-                            className="w-4 h-4 mt-0.5 shrink-0"
-                            style={{ color: selectedPsychologist.accentColor }}
-                          />
-                          {spec}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Services */}
-                  <div>
-                    <h4
-                      className="text-sm font-bold uppercase tracking-wide mb-3"
-                      style={{ color: selectedPsychologist.accentColor }}
-                    >
-                      Services Offered
-                    </h4>
-                    <ul className="space-y-2">
-                      {selectedPsychologist.services.map((svc) => (
-                        <li
-                          key={svc}
-                          className="flex items-start gap-2 text-sm"
-                          style={{ color: "oklch(30% 0.04 145)" }}
-                        >
-                          <CheckCircle
-                            className="w-4 h-4 mt-0.5 shrink-0"
-                            style={{ color: selectedPsychologist.accentColor }}
-                          />
-                          {svc}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Footer */}
-                <div className="px-8 pb-8 text-center">
-                  <Link
-                    to="/psychologists"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-green-50"
-                    style={{
-                      borderColor: selectedPsychologist.accentColor,
-                      color: selectedPsychologist.accentColor,
-                    }}
-                    onClick={() => setSelectedPsychologist(null)}
-                    data-ocid="psychologists.modal.link"
-                  >
-                    View Full Psychologists Page{" "}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          )}
-          <div className="mt-8 text-center">
-            <Link
-              to="/psychologists"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold border transition-colors hover:bg-green-50"
-              style={{
-                borderColor: "oklch(70% 0.12 145)",
-                color: "oklch(35% 0.2 145)",
-              }}
-              data-ocid="home.psychologists.secondary_button"
-            >
-              View Full Profiles <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Patient Data Preview ────────────────────────────── */}
-      <section className="py-16" style={{ background: "oklch(96% 0.01 145)" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <p
-                className="text-xs uppercase tracking-widest font-semibold"
+            <div className="mt-6 text-center">
+              <Link
+                to="/patient-data"
+                className="inline-flex items-center gap-2 text-sm font-semibold"
                 style={{ color: "oklch(35% 0.2 145)" }}
+                data-ocid="home.patient_data.link"
               >
-                MHO Patient Data
-              </p>
-              <span
-                className="w-2 h-2 rounded-full pulse-dot"
-                style={{ background: "oklch(40% 0.2 145)" }}
-              />
+                View Full Patient Data <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
-            <h2
-              className="text-2xl font-bold mb-1"
-              style={{ color: "oklch(20% 0.06 145)" }}
-            >
-              Screening, Enrollment &amp; End of Treatment
-            </h2>
-            <p className="text-xs" style={{ color: "oklch(50% 0.04 145)" }}>
-              Numbers change daily — updated regularly
-            </p>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                year: "2025",
-                data: [
-                  { label: "Screening", value: "250,000" },
-                  { label: "Enrolled", value: "13,000" },
-                  { label: "End of Treatment", value: "1,000" },
-                ],
-              },
-              {
-                year: "2026",
-                data: [
-                  { label: "Screening", value: "25,000" },
-                  { label: "Enrolled", value: "9,000" },
-                  { label: "End of Treatment", value: "1,000" },
-                ],
-              },
-            ].map((yr) => (
+        {/* ── Videos ─────────────────────────────────────────── */}
+        <section className="py-20 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
               <div
-                key={yr.year}
-                className="bg-white rounded-2xl p-6 border"
-                style={{
-                  borderColor: "oklch(88% 0.03 145)",
-                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
-                }}
-              >
-                <div
-                  className="text-xs uppercase tracking-widest font-semibold mb-4"
-                  style={{ color: "oklch(35% 0.2 145)" }}
-                >
-                  Year {yr.year}
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {yr.data.map((d) => (
-                    <div key={d.label} className="text-center">
-                      <div
-                        className="text-xl font-bold mb-1"
-                        style={{ color: "oklch(25% 0.15 145)" }}
-                      >
-                        {d.value}
-                      </div>
-                      <div
-                        className="text-xs"
-                        style={{ color: "oklch(50% 0.04 145)" }}
-                      >
-                        {d.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 text-center">
-            <Link
-              to="/patient-data"
-              className="inline-flex items-center gap-2 text-sm font-semibold"
-              style={{ color: "oklch(35% 0.2 145)" }}
-              data-ocid="home.patient_data.link"
-            >
-              View Full Patient Data <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Videos ─────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div
-              className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3"
-              style={{ background: "oklch(94% 0.04 145)" }}
-            >
-              <Play
-                className="w-5 h-5"
-                style={{ color: "oklch(35% 0.2 145)" }}
-              />
-            </div>
-            <p
-              className="text-xs uppercase tracking-widest font-semibold mb-2"
-              style={{ color: "oklch(35% 0.2 145)" }}
-            >
-              Awareness &amp; Education
-            </p>
-            <h2
-              className="text-3xl font-bold mb-3"
-              style={{ color: "oklch(20% 0.06 145)" }}
-            >
-              Mental Health Awareness
-            </h2>
-            <p
-              className="text-sm max-w-xl mx-auto"
-              style={{ color: "oklch(45% 0.04 145)" }}
-            >
-              Educational videos on anxiety and depression — understand the
-              causes, symptoms, and paths to recovery.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                id: "ZidGozDhOjg",
-                title: "Understanding Anxiety",
-                desc: "Learn about anxiety disorder — its causes, symptoms, and evidence-based coping strategies.",
-              },
-              {
-                id: "XiCrniLQGYc",
-                title: "Understanding Depression",
-                desc: "Recognizing the signs of depression and available treatment options for recovery.",
-              },
-            ].map((video, i) => (
-              <motion.div
-                key={video.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="rounded-2xl overflow-hidden border card-hover"
-                style={{
-                  borderColor: "oklch(88% 0.03 145)",
-                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
-                }}
-                data-ocid={`videos.item.${i + 1}`}
-              >
-                <div className="aspect-video w-full">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  />
-                </div>
-                <div className="p-5">
-                  <h3
-                    className="text-sm font-bold mb-1"
-                    style={{ color: "oklch(20% 0.06 145)" }}
-                  >
-                    {video.title}
-                  </h3>
-                  <p
-                    className="text-xs leading-relaxed"
-                    style={{ color: "oklch(50% 0.04 145)" }}
-                  >
-                    {video.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── MHO Team CTA ─────────────────────────────────────── */}
-      <section
-        className="py-10"
-        style={{
-          background: "oklch(96% 0.01 145)",
-          borderTop: "1px solid oklch(88% 0.03 145)",
-          borderBottom: "1px solid oklch(88% 0.03 145)",
-        }}
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div className="flex items-center gap-4">
-            <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-              style={{ background: "oklch(35% 0.2 145)" }}
-            >
-              <Users className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3
-                className="text-base font-bold"
-                style={{ color: "oklch(20% 0.06 145)" }}
-              >
-                Meet Our 34+ Mental Health Officers
-              </h3>
-              <p className="text-sm" style={{ color: "oklch(45% 0.04 145)" }}>
-                Dedicated MHOs working across 17 sites in Karachi, Sindh,
-                Balochistan, and Punjab.
-              </p>
-            </div>
-          </div>
-          <Link
-            to="/mhos"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-green-50 flex-shrink-0"
-            style={{
-              borderColor: "oklch(65% 0.15 145)",
-              color: "oklch(35% 0.2 145)",
-            }}
-            data-ocid="home.mho_team.link"
-          >
-            <Sparkles className="w-4 h-4" />
-            View Full MHO Team
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Quote ─────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6"
-              style={{ background: "oklch(94% 0.04 145)" }}
-            >
-              <span
-                className="text-2xl font-serif"
-                style={{ color: "oklch(35% 0.2 145)" }}
-              >
-                &ldquo;
-              </span>
-            </div>
-            <blockquote
-              className="text-xl md:text-2xl font-medium leading-relaxed mb-8 italic"
-              style={{ color: "oklch(30% 0.06 145)" }}
-            >
-              Mental health is not a luxury — it is a right. Every person
-              deserves access to compassionate, evidence-based care, regardless
-              of where they live or what they can afford.
-            </blockquote>
-            <div className="flex items-center justify-center gap-3">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center"
+                className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3"
                 style={{ background: "oklch(94% 0.04 145)" }}
               >
-                <Brain
+                <Play
                   className="w-5 h-5"
                   style={{ color: "oklch(35% 0.2 145)" }}
                 />
               </div>
-              <div className="text-left">
-                <div
-                  className="font-bold text-sm"
+              <p
+                className="text-xs uppercase tracking-widest font-semibold mb-2"
+                style={{ color: "oklch(35% 0.2 145)" }}
+              >
+                Awareness &amp; Education
+              </p>
+              <h2
+                className="text-3xl font-bold mb-3"
+                style={{ color: "oklch(20% 0.06 145)" }}
+              >
+                Mental Health Awareness
+              </h2>
+              <p
+                className="text-sm max-w-xl mx-auto"
+                style={{ color: "oklch(45% 0.04 145)" }}
+              >
+                Educational videos on anxiety and depression — understand the
+                causes, symptoms, and paths to recovery.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  id: "ZidGozDhOjg",
+                  title: "Understanding Anxiety",
+                  desc: "Learn about anxiety disorder — its causes, symptoms, and evidence-based coping strategies.",
+                },
+                {
+                  id: "XiCrniLQGYc",
+                  title: "Understanding Depression",
+                  desc: "Recognizing the signs of depression and available treatment options for recovery.",
+                },
+              ].map((video, i) => (
+                <motion.div
+                  key={video.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  className="rounded-2xl overflow-hidden border card-hover"
+                  style={{
+                    borderColor: "oklch(88% 0.03 145)",
+                    boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
+                  }}
+                  data-ocid={`videos.item.${i + 1}`}
+                >
+                  <div className="aspect-video w-full">
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3
+                      className="text-sm font-bold mb-1"
+                      style={{ color: "oklch(20% 0.06 145)" }}
+                    >
+                      {video.title}
+                    </h3>
+                    <p
+                      className="text-xs leading-relaxed"
+                      style={{ color: "oklch(50% 0.04 145)" }}
+                    >
+                      {video.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── MHO Team CTA ─────────────────────────────────────── */}
+        <section
+          className="py-10"
+          style={{
+            background: "oklch(96% 0.01 145)",
+            borderTop: "1px solid oklch(88% 0.03 145)",
+            borderBottom: "1px solid oklch(88% 0.03 145)",
+          }}
+        >
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div className="flex items-center gap-4">
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+                style={{ background: "oklch(35% 0.2 145)" }}
+              >
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3
+                  className="text-base font-bold"
                   style={{ color: "oklch(20% 0.06 145)" }}
                 >
-                  Dr. Hiba Ashraf
-                </div>
-                <div
-                  className="text-xs"
-                  style={{ color: "oklch(50% 0.04 145)" }}
-                >
-                  Director, Primary Care Program · Indus Hospital &amp; Health
-                  Network
-                </div>
+                  Meet Our 34+ Mental Health Officers
+                </h3>
+                <p className="text-sm" style={{ color: "oklch(45% 0.04 145)" }}>
+                  Dedicated MHOs working across 17 sites in Karachi, Sindh,
+                  Balochistan, and Punjab.
+                </p>
               </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Appointment Form ──────────────────────────────────── */}
-      <AppointmentSection />
-
-      {/* ── Photo Slideshow ───────────────────────────────────── */}
-      <PhotoSlideshow />
-
-      {/* ── Get Help CTA ─────────────────────────────────────── */}
-      <section className="py-20" style={{ background: "oklch(25% 0.15 145)" }}>
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <div
-              className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5"
-              style={{ background: "oklch(35% 0.2 145)" }}
+            <Link
+              to="/mhos"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-green-50 flex-shrink-0"
+              style={{
+                borderColor: "oklch(65% 0.15 145)",
+                color: "oklch(35% 0.2 145)",
+              }}
+              data-ocid="home.mho_team.link"
             >
-              <HeartHandshake className="w-7 h-7 text-white" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">
-              You Don&apos;t Have to Face It Alone
-            </h2>
-            <p
-              className="text-base leading-relaxed mb-8 max-w-xl mx-auto"
-              style={{ color: "oklch(80% 0.08 145)" }}
-            >
-              Our trained professionals are here to listen, support, and guide
-              you. All services are completely free and confidential.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm bg-white transition-opacity hover:opacity-90"
-                style={{ color: "oklch(25% 0.15 145)" }}
-                data-ocid="home.get_help.primary_button"
-              >
-                Get Help Now <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm border border-white/30 text-white transition-opacity hover:opacity-90"
-                data-ocid="home.get_help.secondary_button"
-              >
-                Our Services
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+              <Sparkles className="w-4 h-4" />
+              View Full MHO Team
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
 
-      {/* ── Mini Footer note ─────────────────────────────────── */}
-      <div
-        className="py-5 text-center text-xs"
-        style={{
-          background: "oklch(96% 0.01 145)",
-          borderTop: "1px solid oklch(88% 0.03 145)",
-          color: "oklch(50% 0.04 145)",
-        }}
-      >
-        <Shield
-          className="w-3.5 h-3.5 inline mr-1.5"
-          style={{ color: "oklch(45% 0.15 145)" }}
-        />
-        All services are free, confidential, and evidence-based. IHHN Mental
-        Health Program.
+        {/* ── Quote ─────────────────────────────────────────── */}
+        <section className="py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6"
+                style={{ background: "oklch(94% 0.04 145)" }}
+              >
+                <span
+                  className="text-2xl font-serif"
+                  style={{ color: "oklch(35% 0.2 145)" }}
+                >
+                  &ldquo;
+                </span>
+              </div>
+              <blockquote
+                className="text-xl md:text-2xl font-medium leading-relaxed mb-8 italic"
+                style={{ color: "oklch(30% 0.06 145)" }}
+              >
+                Mental health is not a luxury — it is a right. Every person
+                deserves access to compassionate, evidence-based care,
+                regardless of where they live or what they can afford.
+              </blockquote>
+              <div className="flex items-center justify-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center"
+                  style={{ background: "oklch(94% 0.04 145)" }}
+                >
+                  <Brain
+                    className="w-5 h-5"
+                    style={{ color: "oklch(35% 0.2 145)" }}
+                  />
+                </div>
+                <div className="text-left">
+                  <div
+                    className="font-bold text-sm"
+                    style={{ color: "oklch(20% 0.06 145)" }}
+                  >
+                    Dr. Hiba Ashraf
+                  </div>
+                  <div
+                    className="text-xs"
+                    style={{ color: "oklch(50% 0.04 145)" }}
+                  >
+                    Director, Primary Care Program · Indus Hospital &amp; Health
+                    Network
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── Appointment Form ──────────────────────────────────── */}
+        <AppointmentSection />
+
+        {/* ── Photo Slideshow ───────────────────────────────────── */}
+        <PhotoSlideshow />
+
+        {/* ── Get Help CTA ─────────────────────────────────────── */}
+        <section
+          className="py-20"
+          style={{ background: "oklch(25% 0.15 145)" }}
+        >
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <div
+                className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5"
+                style={{ background: "oklch(35% 0.2 145)" }}
+              >
+                <HeartHandshake className="w-7 h-7 text-white" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">
+                You Don&apos;t Have to Face It Alone
+              </h2>
+              <p
+                className="text-base leading-relaxed mb-8 max-w-xl mx-auto"
+                style={{ color: "oklch(80% 0.08 145)" }}
+              >
+                Our trained professionals are here to listen, support, and guide
+                you. All services are completely free and confidential.
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm bg-white transition-opacity hover:opacity-90"
+                  style={{ color: "oklch(25% 0.15 145)" }}
+                  data-ocid="home.get_help.primary_button"
+                >
+                  Get Help Now <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm border border-white/30 text-white transition-opacity hover:opacity-90"
+                  data-ocid="home.get_help.secondary_button"
+                >
+                  Our Services
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── Mini Footer note ─────────────────────────────────── */}
+        <div
+          className="py-5 text-center text-xs"
+          style={{
+            background: "oklch(96% 0.01 145)",
+            borderTop: "1px solid oklch(88% 0.03 145)",
+            color: "oklch(50% 0.04 145)",
+          }}
+        >
+          <Shield
+            className="w-3.5 h-3.5 inline mr-1.5"
+            style={{ color: "oklch(45% 0.15 145)" }}
+          />
+          All services are free, confidential, and evidence-based. IHHN Mental
+          Health Program.
+        </div>
       </div>
     </div>
   );

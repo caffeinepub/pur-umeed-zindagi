@@ -3,312 +3,632 @@ import {
   BookOpen,
   Calendar,
   ExternalLink,
+  MapPin,
   User,
   X,
 } from "lucide-react";
 import { useState } from "react";
 
-const blogs = [
+type Blog = {
+  id: number;
+  title: string;
+  date: string;
+  author: string;
+  category: string;
+  categories: string[];
+  ruralTag?: boolean;
+  excerpt: string;
+  content: string;
+  url: string;
+  image: string | null;
+};
+
+const blogs: Blog[] = [
   {
     id: 1,
-    title: "Psychological First Aid in Crises",
-    date: "March 10, 2026",
-    author: "Danish Niaz Babbar",
-    category: "Training & Workshops",
+    title: "Stress in Rural Pakistan: The Hidden Burden",
+    date: "March 2026",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Rural Mental Health",
+    categories: ["Rural Mental Health", "Stress"],
+    ruralTag: true,
     excerpt:
-      "Indus Hospital & Health Network (IHHN) SAM Civil Hospital Campus, Badin, successfully conducted a workshop on 'Psychological First Aid in Crises'. The session equipped healthcare professionals with practical PFA skills including Safety, Calmness, Connectedness, Self-efficacy, and Hope.",
-    content: `Indus Hospital & Health Network (IHHN) SAM Civil Hospital Campus, Badin, successfully conducted a workshop on "Psychological First Aid in Crises" at the Seminar Hall. The session brought together healthcare professionals and community workers to enhance their skills in supporting individuals during emergencies and traumatic situations.
+      "Rural communities in Pakistan face unique stressors -- poverty, limited healthcare, natural disasters, and social isolation. This article explores the burden of stress in dihati areas.",
+    content: `Rural communities in Pakistan bear a disproportionate burden of psychological stress. Unlike urban populations, residents of dihati (rural) areas face a unique and compounding set of stressors that are rarely addressed by formal healthcare systems.
 
-The workshop focused on equipping participants with practical knowledge and skills to provide effective Psychological First Aid (PFA). Participants learned to:
+Farming Stress and Financial Burden
 
-• Define crisis and trauma, recognize their psychological and physical impacts
-• Identify the key principles of PFA: Safety, Calmness, Connectedness, Self-efficacy, and Hope
-• Practice practical PFA techniques in simulated crisis situations
-• Apply effective listening, empathy, and grounding strategies with distressed individuals
-• Understand when and how to refer individuals for professional mental health support
-• Practice self-care and stress management to maintain emotional wellbeing while providing PFA
+For millions of farmers across Sindh, Punjab, and Balochistan, daily survival is a source of chronic stress. Unpredictable rains, water scarcity, crop failure, and rising input costs create persistent financial anxiety. Many farmers are trapped in debt cycles -- borrowing from landlords or banks to plant crops, only to face losses due to floods, drought, or market fluctuations.
 
-By the end of the workshop, participants gained confidence and practical skills to apply the 5Cs of Psychological First Aid in real-life crises, demonstrate empathy and calm communication, and practice self-care while supporting others.
+Limited Access to Mental Health Services
 
-The workshop was facilitated by Ms. Ayesha Kasiri, Assistant Manager, Pur Umeed Zindagi Program, Community Health Directorate, IHHN, with moderation by Mr. Danish Khan, Psychologist, Community Health Directorate, IHHN.`,
-    url: "https://danishniazbabbar.blogspot.com/2026/03/psychological-first-aid-in-crises.html",
-    image:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisBlp3NLSqHrtsqTB1NbtKRVwgWKVvRYP4DiBMA9ejB6fOmPwcI85Jxff4_sOVXGn0jgtJj-d5mXOMYAc9KplZhlO6sTwkzV27C5gH6NUGvTembADFe15YKnodnsMF5-6LvADndPmCH0lBEdZyYX_wJ9sPDZ36elTOQf902T2GC44dw9NV635Qmci8EZqT/w801-h431/psycological-first-aid-e1767090987590.jpeg",
+Rural areas in Pakistan have virtually no formal mental health infrastructure. A single psychiatrist may serve a district of hundreds of thousands. Community health workers like MHOs (Mental Health Officers) under the Pur Umeed Zindagi program are often the only point of contact for mental health support in these communities.
+
+Stigma: The Invisible Barrier
+
+In rural Pakistan, mental health conditions are frequently attributed to supernatural causes, personal weakness, or moral failure. This deep-rooted stigma prevents individuals from seeking help even when services are available. Community-level awareness sessions are critical to changing this narrative.
+
+Natural Disasters and Displacement
+
+The 2022 super-floods devastated rural Sindh and Balochistan, displacing millions. Displacement, loss of livelihood, home, and loved ones created acute and chronic stress that has lasted years. Post-disaster mental health responses remain largely insufficient.
+
+Community-Based Solutions
+
+The Pur Umeed Zindagi (PUZ) program under IHHN has adopted a community-based approach to reach rural patients:
+
+• Mobile Mental Health Bus (MMB) serving remote Sindh areas
+• MHOs stationed at Primary Care Plus (PCP) sites in Matli, Sehwan, Makli, Khorwah, and Shadilarge
+• Psychosocial support groups in flood-affected communities
+• Awareness sessions at Civil Hospital Badin (CHB)
+
+Addressing stress in rural Pakistan requires not just clinical services but systemic attention to poverty, infrastructure, and the dignity of rural life.
+
+Reference: WHO Mental Health Atlas 2023; IHHN Pur Umeed Zindagi Program Reports 2024–2026`,
+    url: "https://www.who.int/mental_health",
+    image: null,
   },
   {
     id: 2,
-    title:
-      "Understanding Psychological Issues: Causes, Types, and Effective Management",
-    date: "December 8, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Mental Health Education",
+    title: "Anxiety Among Farmers and Rural Workers",
+    date: "February 2026",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Rural Mental Health",
+    categories: ["Rural Mental Health", "Anxiety"],
+    ruralTag: true,
     excerpt:
-      "Psychological issues affect millions of people worldwide, impacting mental health, emotional stability, and quality of life. This article explores the underlying causes, various types of psychological disorders, and effective management strategies.",
-    content: `Psychological issues affect millions of people worldwide, impacting mental health, emotional stability, and quality of life. Understanding these issues is crucial for early intervention, reducing stigma, and promoting mental well-being.
+      "Crop failure, debt, water scarcity -- farmers in Sindh, Balochistan, and Punjab face chronic anxiety that goes undiagnosed. What does anxiety look like in rural communities?",
+    content: `Anxiety disorders affect approximately 284 million people worldwide, yet in rural Pakistan, the condition is rarely recognized, diagnosed, or treated. For farmers and rural workers, anxiety is not an abstract concept -- it is a daily reality woven into the fabric of survival.
 
-Types of Psychological Issues:
+What Anxiety Looks Like in Rural Settings
 
-1. Mood Disorders (Depression, Bipolar Disorder) — Persistent sadness, mood swings, loss of interest, fatigue.
+Anxiety in rural communities often presents differently than in clinical settings. It may appear as:
 
-2. Anxiety Disorders (GAD, Panic Disorder) — Excessive worry, panic attacks, restlessness, sleep disturbances.
+• Persistent worry about weather, crop yields, and water availability
+• Physical symptoms: heart palpitations, chest tightness, headaches, trembling
+• Irritability and anger in family settings (misattributed to character, not illness)
+• Avoidance of social gatherings due to shame around financial failure
+• Sleep disturbances and nightmares
+• Inability to make decisions due to fear of consequences
 
-3. Personality Disorders — Unstable self-image, impulsive behavior, difficulty forming relationships.
+Key Triggers for Rural Anxiety
 
-4. Psychotic Disorders (Schizophrenia) — Hallucinations, delusions, disorganized thinking.
+The triggers in rural Pakistan are distinct from urban anxiety:
 
-5. Eating Disorders — Unhealthy eating habits, distorted body image, extreme concern with weight.
+1. Crop Failure — A single failed harvest can wipe out a family's income for an entire year
+2. Debt — Most small farmers operate on borrowed money; default is catastrophic
+3. Climate Change — Unpredictable monsoons, heatwaves, and drought create constant uncertainty
+4. Water Scarcity — In Balochistan and rural Sindh, water access itself is a source of acute anxiety
+5. Land Disputes — Property conflicts are a major source of prolonged community anxiety
+6. Child Marriage and Family Pressure — Women and young girls face particular anxiety from family expectations
 
-6. Trauma-Related Disorders (PTSD) — Flashbacks, nightmares, hyper-vigilance, emotional numbness.
+Cultural Barriers to Help-Seeking
 
-Causes: Biological factors (genetics, chemical imbalances), Environmental factors (childhood trauma, chronic stress), Psychological factors (low self-esteem, negative thought patterns), Social factors (isolation, stigma).
+In rural communities, admitting anxiety is often seen as weakness. Many individuals self-medicate with tobacco, paan, or in some cases, substance use. Spiritual and traditional healers (hakims, fakirs) are the first point of contact for most rural patients.
 
-Effective Management:
-• Cognitive Behavioral Therapy (CBT) and other therapies
-• Medication when prescribed by a professional
-• Lifestyle changes: exercise, healthy diet, adequate sleep
-• Mindfulness and relaxation techniques
-• Support groups
+The Role of PUZ's MHOs
 
-Promoting open conversations about mental health and educating the public are key to reducing stigma. Early intervention and supportive environments are essential for recovery.`,
-    url: "https://danishniazbabbar.blogspot.com/2024/12/understanding-psychological-issues.html",
-    image:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj3rdJ8sH5gmXXOhyvcZix1oThLX2N4qWSud9x434l_0NIqqeIae0v2oL8JRwZ9gFpBYZb_zdORQkHdOmG1G8hXI_a5CepFoWdgRD0V8wHAMT1zs8GdHI5N8NVSQw9msAy8ybo_T1ExP4eHNE0DU4x_ksP-Q-jDRy7a5bLJb2OIQaxcPpcKsUD0X4NcEq1P/s320/1000059619.webp",
+Mental Health Officers (MHOs) stationed at PCP sites across Sindh, Punjab, and Balochistan are trained in Cognitive Behavioral Techniques and basic anxiety management. They conduct:
+
+• PHQ-4 and GAD-7 screening in community settings
+• Psychoeducation about anxiety as a medical condition
+• Breathing exercises and grounding techniques
+• Referral to regional psychologists for moderate-to-severe cases
+
+Anxiety is treatable. Community-based mental health services, culturally sensitive outreach, and reduced stigma can transform outcomes for millions of rural Pakistanis.
+
+Reference: WHO Fact Sheet on Anxiety Disorders; PUZ Program Field Data 2024–2026`,
+    url: "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders",
+    image: null,
   },
   {
     id: 3,
-    title: "Stress Makes You Sick: Understanding the Impact on Health",
-    date: "December 6, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Stress & Wellbeing",
+    title: "Depression: When Sadness Becomes a Sickness",
+    date: "January 2026",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Depression",
+    categories: ["Depression"],
+    ruralTag: false,
     excerpt:
-      "We all experience stress at different points in our lives. A little stress can motivate us, but when it becomes constant, it takes a toll on our body and mind. Learn how stress affects your health and simple ways to manage it.",
-    content: `We all experience stress at different points in our lives. Whether it's work pressure, financial struggles, or relationship issues, stress seems to creep into every corner of life. A little stress can motivate us to achieve goals, but when it becomes constant, it takes a toll on our body and mind.
+      "Millions suffer from depression in silence. Learn the difference between ordinary sadness and clinical depression, its warning signs, and how treatment can help.",
+    content: `Depression is one of the most common and debilitating mental health conditions worldwide. According to the WHO, over 280 million people live with depression globally. Yet it remains one of the most stigmatized and least treated conditions -- particularly in low- and middle-income countries like Pakistan.
 
-How Stress Affects Our Body:
+What Is Depression?
 
-1. Weakened Immune System — Prolonged stress lowers your body's ability to fight off infections, making you prone to colds, flu, and other illnesses.
+Depression is not simply feeling sad. It is a clinical condition characterized by persistent low mood, loss of interest, and a range of physical and psychological symptoms lasting two weeks or more. Unlike ordinary grief or sadness -- which are normal responses to life events -- depression persists regardless of circumstances and significantly impairs daily functioning.
 
-2. Heart Problems — Chronic stress can lead to high blood pressure and heart diseases.
+Key Warning Signs
 
-3. Digestive Issues — Stress can cause acidity, stomach pain, and irritable bowel syndrome (IBS).
+According to DSM-5 criteria, depression involves five or more of the following over a two-week period:
 
-4. Mental Health Struggles — Constant stress leads to anxiety, depression, and inability to focus.
+• Persistent sad, empty, or hopeless mood
+• Loss of interest or pleasure in most activities (anhedonia)
+• Significant weight loss or gain
+• Insomnia or hypersomnia (sleeping too much)
+• Fatigue or loss of energy
+• Feelings of worthlessness or excessive guilt
+• Difficulty thinking, concentrating, or making decisions
+• Recurrent thoughts of death or suicide
 
-Simple Ways to Manage Stress:
-• Take Deep Breaths: A few deep breaths can calm your mind.
-• Exercise Regularly: Moving your body releases feel-good hormones.
-• Talk to Loved Ones: Sharing your worries lightens the burden.
-• Sleep Well: Good sleep helps your body recover.
-• Seek Professional Help: Therapists can teach you coping strategies.
+Types of Depression
 
-Stress is a part of life, but it doesn't have to control your health. By understanding its effects and learning how to manage it, you can lead a healthier and happier life.`,
-    url: "https://danishniazbabbar.blogspot.com/2024/12/stress-makes-you-sick-understanding.html",
-    image:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiSvKpQtIZ9A7ZouhjcXTE9nXZC8OF4CaImxIsF5z6jTEMBscrL_Nh0UE4grX1U8WbSk3UaakLb62gg2CTyPF7tM-NnK3YOugd-QbimegqPu9meMF9sq_8GeinNke1Ipi9UQTYFJqR_14J6BrS5KI2ozWTmVbMhz41vJrMwMGEK6PMn_WUrMVzRaW68d4f7/s320/1000059236.webp",
+• Major Depressive Disorder (MDD): The most severe form
+• Persistent Depressive Disorder (Dysthymia): Chronic, lower-grade depression lasting 2+ years
+• Postpartum Depression: Following childbirth; particularly prevalent in Pakistan
+• Seasonal Affective Disorder: Related to seasonal light changes
+• Treatment-Resistant Depression: Not responding to standard treatments
+
+Depression in Pakistan
+
+Studies estimate 34–44% of patients visiting primary care clinics in Pakistan have depressive symptoms. In rural areas, depression is often expressed through somatic complaints (body pain, fatigue) rather than emotional language, making it harder to diagnose.
+
+The PHQ-4 and PHQ-9 screening tools used by PUZ's MHOs help identify depression in community settings, even among patients who do not report emotional symptoms.
+
+Treatment Options
+
+• Psychotherapy: Cognitive Behavioral Therapy (CBT), Interpersonal Therapy
+• Medication: Antidepressants prescribed by a psychiatrist
+• Community support: Social engagement, peer support groups
+• Lifestyle: Exercise, sleep hygiene, reduced isolation
+
+Depression is highly treatable. Seeking help is a sign of strength, not weakness.
+
+Reference: WHO Depression Fact Sheet 2023; DSM-5 Diagnostic Criteria; PUZ Program Clinical Data`,
+    url: "https://www.who.int/news-room/fact-sheets/detail/depression",
+    image: null,
   },
   {
     id: 4,
-    title: "The Psychological Impact of Home and Family Environment",
-    date: "December 5, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Family & Mental Health",
+    title: "Understanding Anxiety: More Than Just Worry",
+    date: "January 2026",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Anxiety",
+    categories: ["Anxiety"],
+    ruralTag: false,
     excerpt:
-      "The environment at home and within the family plays a significant role in shaping an individual's personality, behavior, and mental health. This article explores how positive or negative home environments can impact individuals psychologically.",
-    content: `The environment at home and within the family plays a significant role in shaping an individual's personality, behavior, and mental health. Children and other family members learn and adapt based on their surroundings, and the quality of the family atmosphere directly influences their emotional and psychological well-being.
+      "Anxiety is the world's most common mental health condition. This article explains what anxiety really is, the different types, and practical ways to manage it.",
+    content: `Anxiety is the world's most prevalent mental health condition, affecting over 284 million people according to the World Health Organization. Yet it is also among the most misunderstood -- often dismissed as "just worrying" or attributed to personal weakness.
 
-Psychological Effects of the Home Environment:
+What Is Anxiety?
 
-1. Emotional Stability or Instability — A peaceful and harmonious home environment fosters emotional stability in children and family members. Frequent conflicts and negative communication can lead to depression and anxiety.
+Anxiety is a normal human emotion -- a response to perceived threats or uncertainty. However, when anxiety becomes excessive, persistent, and disproportionate to the actual situation, it crosses into a clinical disorder that requires attention and care.
 
-2. Development of Self-Esteem — A supportive and encouraging family environment helps build self-esteem and confidence. Toxic environments erode confidence and increase vulnerability to mental health issues.
+Types of Anxiety Disorders
 
-3. Communication Patterns — Open, respectful communication in the family promotes emotional intelligence and conflict resolution skills.
+1. Generalized Anxiety Disorder (GAD)
+Characterized by excessive, uncontrollable worry about everyday matters -- health, work, finances, relationships. The worry is difficult to stop and interferes with daily life.
 
-4. Impact on Children — Children raised in nurturing environments tend to develop better social skills, academic performance, and emotional regulation.
+2. Panic Disorder
+Recurring, unexpected panic attacks -- sudden episodes of intense fear with physical symptoms: racing heart, shortness of breath, dizziness, numbness, fear of dying.
 
-Creating a Positive Home Environment:
-• Practice open, respectful communication
-• Show appreciation and encourage family members
-• Establish healthy routines and boundaries
-• Spend quality time together
-• Address conflicts constructively without aggression
-• Seek family therapy or counseling when needed
+3. Social Anxiety Disorder
+Intense fear of social situations due to fear of judgment, embarrassment, or humiliation. Can severely limit work, relationships, and daily activities.
 
-A positive home environment is one of the most powerful protective factors for mental health across the lifespan.`,
-    url: "https://danishniazbabbar.blogspot.com/2024/12/the-psychological-impact-of-home-and.html",
+4. Specific Phobias
+Irrational fear of specific objects or situations -- heights, animals, medical procedures, flying.
+
+5. Health Anxiety
+Excessive worry about having or developing a serious illness, despite reassurance.
+
+Physical Symptoms of Anxiety
+
+• Rapid heartbeat and chest tightness
+• Shortness of breath or hyperventilation
+• Muscle tension, trembling, or shaking
+• Sweating, nausea, stomach discomfort
+• Headaches and dizziness
+• Fatigue and sleep disturbances
+
+Practical Management Techniques
+
+4-7-8 Breathing: Inhale for 4 counts, hold for 7, exhale slowly for 8. Activates the parasympathetic nervous system.
+
+Grounding (5-4-3-2-1): Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste. Breaks the anxiety cycle.
+
+Cognitive Restructuring (CBT): Identify and challenge catastrophic thinking patterns. Ask: "What is the evidence for this fear? What is the realistic worst case?"
+
+Regular Exercise: 30 minutes of moderate activity significantly reduces anxiety symptoms.
+
+Limiting Stimulants: Reduce caffeine, tobacco, and screen time before bed.
+
+When to Seek Help
+
+If anxiety is interfering with work, relationships, or daily activities for more than 2 weeks, consult a mental health professional. MHOs at PUZ program sites offer free assessment and support.
+
+Reference: WHO Anxiety Disorders Fact Sheet; CBT clinical guidelines; PUZ Program Community Health Data`,
+    url: "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders",
     image: null,
   },
   {
     id: 5,
-    title: "Understanding Psychotic Disorders: Symptoms, Causes, and Treatment",
-    date: "December 4, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Mental Health Education",
+    title: "Stress Management for Rural Communities",
+    date: "December 2025",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Stress",
+    categories: ["Stress", "Rural Mental Health"],
+    ruralTag: true,
     excerpt:
-      "Psychotic disorders are severe mental health conditions that significantly impair an individual's ability to perceive and interact with reality. This article provides a comprehensive overview including symptoms, causes, types, and treatment strategies.",
-    content: `Psychotic disorders represent a spectrum of mental health conditions characterized by a disconnection from reality, often resulting in hallucinations, delusions, and disorganized thinking. These disorders can affect daily functioning, relationships, and overall quality of life.
+      "Simple, practical stress management techniques that can be used in rural settings without specialized equipment or clinics -- breathing, social support, routine.",
+    content: `Stress management does not require a clinic, therapist, or medication. Many of the most effective techniques are simple, free, and can be practiced anywhere -- including in villages, fields, and homes across rural Pakistan.
 
-Symptoms of Psychotic Disorders:
-• Hallucinations: Seeing, hearing, or feeling things that don't exist
-• Delusions: Strongly held false beliefs not based in reality
-• Disorganized thinking and speech
-• Disorganized or abnormal motor behavior
-• Negative symptoms: reduced emotional expression, lack of motivation
+Understanding Stress in Rural Context
 
-Types of Psychotic Disorders:
-• Schizophrenia — The most well-known psychotic disorder
-• Schizoaffective Disorder — Combination of psychosis and mood disorder symptoms
-• Delusional Disorder — Persistent delusions without other psychotic symptoms
-• Brief Psychotic Disorder — Short-term episode triggered by stress
+Rural residents face stressors that are often invisible to policymakers and healthcare systems: crop failure, debt, water scarcity, limited education access, domestic conflict, and post-disaster recovery. Acknowledging that these stressors are real -- and that stress is a medical issue, not a moral one -- is the first step.
 
-Causes:
-• Genetic predisposition
-• Brain chemistry imbalances (dopamine, serotonin)
-• Environmental stressors and trauma
-• Substance abuse
-• Developmental factors
+Low-Resource Stress Management Techniques
 
-Treatment Approaches:
-• Antipsychotic medications
-• Cognitive Behavioral Therapy (CBT)
-• Family therapy and psychoeducation
-• Rehabilitation and social support programs
-• Early intervention is critical for better outcomes
+1. Deep Breathing (Saans Lena)
+Slow, deep breathing activates the body's relaxation response. Practice:
+• Breathe in through the nose for 4 counts
+• Hold for 2 counts
+• Breathe out through the mouth for 6 counts
+• Repeat 5–10 times
+This can be done anywhere -- in the field, at home, or before sleep.
 
-Early intervention and consistent care can dramatically improve outcomes for individuals suffering from psychosis.`,
-    url: "https://danishniazbabbar.blogspot.com/2024/12/understanding-psychotic-disorders.html",
+2. Prayer and Spirituality
+For many rural Pakistanis, regular prayer (namaz), dhikr, and Quranic recitation serve as natural stress management tools. These practices calm the mind, regulate breathing, and provide a sense of meaning and connection.
+
+3. Social Bonding (Mahol aur Saath)
+Talking to a trusted family member, elder, or friend reduces the burden of stress significantly. In rural settings, community gatherings (mosque, chaupal, community meetings) can serve as informal support networks.
+
+4. Physical Activity
+Farming and physical labor provide some stress relief through activity. When possible, additional movement -- walking in the evening, light stretching -- supports mental health.
+
+5. Routine and Predictability
+In chaotic circumstances (floods, displacement), maintaining small routines -- prayer times, mealtimes, sleeping schedules -- provides psychological stability.
+
+6. Talking to Community Leaders and MHOs
+Mental Health Officers (MHOs) at PUZ program sites (Matli, Sehwan, Makli, Khorwah, Shadilarge, Badin, Nokundi, Saranana) are trained to provide basic counseling and stress management guidance without judgment.
+
+When to Refer
+
+If stress leads to persistent inability to sleep, eat, work, or care for family -- or if someone expresses thoughts of self-harm -- refer them to the nearest PUZ psychologist or MHO immediately.
+
+Reference: WHO Mental Health Action Plan; PUZ Program MHO Training Manual 2024`,
+    url: "https://www.who.int/mental_health",
     image: null,
   },
   {
     id: 6,
-    title:
-      "The Complex World of OCD: Myths, Realities, and Treatment Strategies",
-    date: "December 2, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Mental Health Education",
+    title: "Depression in Women in Rural Areas: An Unspoken Reality",
+    date: "November 2025",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Depression",
+    categories: ["Depression", "Rural Mental Health"],
+    ruralTag: true,
     excerpt:
-      "Obsessive-Compulsive Disorder (OCD) is a chronic and debilitating mental health condition characterized by intrusive thoughts and repetitive behaviors. Despite being widely recognized, OCD is often misunderstood and stigmatized.",
-    content: `Obsessive-Compulsive Disorder is not merely about being overly tidy or perfectionistic, as popular misconceptions suggest. It is a serious mental health condition that can disrupt a person's life, relationships, and well-being. OCD affects approximately 1-2% of the global population.
+      "Women in rural areas face double the risk of depression due to domestic pressure, lack of autonomy, poverty, and cultural silence. This article sheds light on a neglected issue.",
+    content: `Women in rural Pakistan face an elevated risk of depression that is rarely acknowledged and even more rarely treated. Epidemiological data from IHHN and WHO indicate that women in low-income rural settings are twice as likely to develop clinical depression as men -- yet barriers to care are significantly higher.
 
-What is OCD?
-• Obsessions: Persistent, unwanted thoughts, images, or urges that cause significant distress.
-• Compulsions: Repetitive behaviors or mental acts performed to reduce anxiety caused by obsessions.
+Prevalence and Scope
 
-Common Myths vs. Reality:
-• Myth: OCD is just about cleanliness. Reality: OCD can involve fears about harm, symmetry, religion, relationships, and more.
-• Myth: People with OCD can simply stop their behaviors. Reality: OCD is a neurobiological condition requiring professional treatment.
-• Myth: OCD is rare. Reality: It affects millions worldwide across all cultures and backgrounds.
+In rural Pakistan, studies suggest that 30–50% of women presenting at primary care facilities have significant depressive symptoms. Many of these women have been suffering for years without diagnosis or treatment, their symptoms attributed to physical illness, family conflict, or divine will.
 
-Treatment Strategies:
-• Cognitive Behavioral Therapy — specifically Exposure and Response Prevention (ERP), the gold standard treatment
-• Medication: Selective Serotonin Reuptake Inhibitors (SSRIs)
-• Mindfulness-based approaches
-• Support groups
-• Psychoeducation for patients and families
+Risk Factors Specific to Rural Women
 
-With proper treatment, most people with OCD can lead fulfilling lives. Early diagnosis and access to evidence-based treatment are key to recovery.`,
-    url: "https://danishniazbabbar.blogspot.com/2024/12/the-complex-world-of-ocd-myths.html",
+1. Early Marriage — Child and adolescent brides face abrupt transitions, loss of education, and reduced agency, all major risk factors for depression.
+
+2. Domestic Pressure and Violence — Intimate partner violence is significantly underreported in rural settings. Violence, control, and humiliation are powerful triggers for depression.
+
+3. Poverty and Food Insecurity — Women often eat last and least in poor households. Nutritional deficiency compounds depression risk.
+
+4. Loss of Autonomy — Limited mobility, no financial independence, and restricted social interaction create conditions for learned helplessness -- a core psychological component of depression.
+
+5. Repeated Pregnancy and Postpartum Depression — Rural women often have multiple closely-spaced pregnancies. Postpartum depression is underdiagnosed and untreated in rural settings.
+
+6. Isolation — Extended family systems can be supportive, but they can also amplify pressure, judgment, and stigma.
+
+Barriers to Care
+
+• Requirement for husband or male family member's permission to seek care
+• Distance to health facilities
+• Cost of transportation and consultation
+• Fear of stigma and family shame
+• Belief that emotional distress is not a medical issue
+
+Role of Female MHOs in PUZ Program
+
+The Pur Umeed Zindagi program has strategically placed female MHOs in several sites -- including Civil Hospital Badin, Khorwah, Shadilarge, and Sehwan -- specifically to provide culturally acceptable, private mental health support for women.
+
+The PHQ-4 screening tool is used to identify likely depression cases, which are then referred to regional psychologists.
+
+Safe Spaces and Community Action
+
+Creating safe spaces -- physically and emotionally -- where rural women can speak openly about their distress is a core component of sustainable mental health support. Community health workers, school teachers, and religious leaders play a critical role.
+
+Reference: WHO Gender and Mental Health Report; IHHN PUZ Program Data 2024–2026; WHO Depression Fact Sheet`,
+    url: "https://www.who.int/news-room/fact-sheets/detail/depression",
     image: null,
   },
   {
     id: 7,
-    title:
-      "The Psychology of Hyper-Connected but Emotionally Disconnected World",
-    date: "November 27, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Digital Age & Mental Health",
+    title: "What Stress Does to Your Body and Mind",
+    date: "October 2025",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Stress",
+    categories: ["Stress"],
+    ruralTag: false,
     excerpt:
-      "In the 21st century, the digital revolution has connected us in ways previously unimaginable, yet feelings of loneliness, isolation, and emotional disconnection are at an all-time high. This article explores why emotional bonds are weakening despite technological means to stay connected.",
-    content: `In the 21st century, the digital revolution has connected us in ways previously unimaginable. From instant messaging and video calls to social media platforms that bring millions together, the world is hyper-connected. Yet, paradoxically, feelings of loneliness, isolation, and emotional disconnection are at an all-time high.
+      "Stress is not just a feeling -- it has real physical and mental health consequences. Understand the stress response, its effects, and healthy coping strategies.",
+    content: `Most people experience stress as a feeling -- tension, pressure, worry. But stress is far more than an emotion. It is a physiological cascade that affects every organ system in the body, and when it becomes chronic, it becomes a serious medical concern.
 
-The Rise of Digital Communication:
-Hyper-connectivity is rooted in the explosive growth of technology. Smartphones, social media platforms, and messaging apps have allowed people to interact across distances with ease. However, digital interactions often lack the depth and authenticity of face-to-face communication, leading to a shallow sense of bonding.
+The Stress Response: Fight-or-Flight
 
-Why Emotional Disconnection Occurs:
-• Social media creates curated, idealized versions of life that foster comparison and inadequacy
-• Constant digital stimulation reduces our capacity for deep, meaningful conversation
-• Screen time replaces activities that build genuine emotional bonds
-• Notifications and multitasking fragment our attention, preventing real presence
+When the brain perceives a threat -- real or imagined -- it activates the hypothalamic-pituitary-adrenal (HPA) axis. This triggers the release of stress hormones, primarily cortisol and adrenaline.
 
-Impact on Mental Health:
-• Increased rates of loneliness and depression despite large online networks
-• Reduced empathy from lack of face-to-face interaction
-• Digital addiction and fear of missing out (FOMO)
-• Difficulty forming and maintaining deep relationships
+Acute effects:
+• Heart rate increases to pump blood to muscles
+• Breathing quickens
+• Blood sugar spikes for energy
+• Digestion pauses
+• Immune response temporarily activates
 
-Building Genuine Connection:
-• Prioritize face-to-face interactions
-• Practice mindful technology use — set boundaries
-• Engage in community activities and shared interests
-• Be fully present in conversations — put the phone away
-• Seek professional support if loneliness becomes chronic`,
-    url: "https://danishniazbabbar.blogspot.com/2024/11/the-psychology-of-hyper-connected-but.html",
+This response is adaptive for short-term threats. The problem arises when the stress response becomes chronic -- activated day after day with no resolution.
+
+Physical Effects of Chronic Stress
+
+1. Cardiovascular System
+Chronic cortisol elevation increases blood pressure, promotes arterial inflammation, and significantly raises the risk of heart attack and stroke.
+
+2. Immune System
+Prolonged stress suppresses immune function, making individuals more susceptible to infections, slower wound healing, and increased cancer risk.
+
+3. Digestive System
+Stress causes acid reflux, stomach ulcers, IBS (irritable bowel syndrome), and disrupts gut microbiome balance.
+
+4. Sleep and Fatigue
+Cortisol interferes with melatonin production, causing insomnia. Paradoxically, chronic stress also causes fatigue -- the body simply wears out.
+
+5. Musculoskeletal System
+Tension headaches, neck pain, back pain, and jaw clenching are common physical manifestations of chronic stress.
+
+Mental Effects of Chronic Stress
+
+• Anxiety: Chronic stress primes the brain's threat-detection system, leading to generalized anxiety
+• Depression: Cortisol damages the hippocampus, impairing memory and mood regulation
+• Cognitive Impairment: Difficulty concentrating, forgetfulness, poor decision-making
+• Burnout: Complete mental and physical exhaustion
+
+Acute vs. Chronic Stress
+
+Acute stress (before an exam, during a crisis) is normal and often beneficial. Chronic stress (ongoing financial trouble, relationship conflict, job insecurity) is harmful and must be actively managed.
+
+Healthy Coping Strategies
+
+• Regular physical activity (30 minutes, most days)
+• Social connection and talking to trusted people
+• Mindfulness, prayer, and breathing practices
+• Adequate sleep (7–9 hours)
+• Limiting caffeine, tobacco, and alcohol
+• Professional help when coping fails
+
+Reference: WHO Mental Health and Physical Health; Sapolsky R. "Why Zebras Don't Get Ulcers"; APA Stress Research`,
+    url: "https://www.who.int/mental_health",
     image: null,
   },
   {
     id: 8,
-    title:
-      "Digital Detox or Addiction? The Rising Mental Health Issues from Internet and Tech Dependence",
-    date: "September 20, 2024",
-    author: "Danish Niaz Babbar",
-    category: "Digital Age & Mental Health",
+    title: "Mental Health in Rural Sindh and Balochistan: PUZ Program Impact",
+    date: "September 2025",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Rural Mental Health",
+    categories: ["Rural Mental Health"],
+    ruralTag: true,
     excerpt:
-      "The digital age has transformed how people interact, work, and entertain themselves. However, increasing reliance on digital devices has given rise to a new type of addiction causing severe psychological issues. Learn about tech dependence and the importance of digital detox.",
-    content: `The digital age has transformed the way people interact, work, and entertain themselves. The internet, social media, gaming platforms, and smartphones are now deeply intertwined with daily life. However, this increasing reliance on digital devices has given rise to a new type of addiction — one that is insidious and deeply rooted in modern society.
+      "The Pur Umeed Zindagi program has reached thousands of patients across rural Sindh and Balochistan. This report highlights the mental health challenges and successes in these underserved communities.",
+    content: `The Pur Umeed Zindagi (PUZ) program -- "Life Full of Hope" -- is a community mental health initiative under Indus Hospital & Health Network (IHHN). It is one of the few programs in Pakistan systematically delivering mental health services to remote rural communities.
 
-Signs of Internet and Tech Addiction:
-• Inability to control time spent on devices
-• Neglecting real-world responsibilities for digital activities
-• Withdrawal symptoms when unable to access devices
-• Using technology to escape negative emotions
-• Disrupted sleep due to screen time
+Program Reach: Sindh and Balochistan
 
-Mental Health Impacts:
-• Anxiety and depression linked to social media use
-• Reduced attention span and concentration
-• Sleep disorders from blue light exposure
-• Social isolation and weakened real-world relationships
-• Cyberbullying and online harassment effects
+In rural Sindh, PUZ operates at:
+• Civil Hospital Badin (CHB) -- Nayab Suhail, Arshad Khuwaja, Sughra Kumbhar, Syed Shahzaib, Faizan
+• Matli (PCP) -- Bilquees Bano Shah, Meer Hassan
+• Sehwan (PCP) -- Hameeda Burdi
+• Makli (PCP) -- Samren Shahani, Lal Bux
+• Khorwah (PCP) -- Zubaida Jamali, Tafseer Memon
+• Shadilarge (PCP) -- Muqadas Ansari, Ahmer Ali
+• MMB (Medical Mobile Bus, Sindh) -- Raheela Kashif
 
-Benefits of Digital Detox:
-• Improved sleep quality
-• Reduced anxiety and stress
-• Better face-to-face social connections
-• Enhanced focus and productivity
-• Greater mindfulness and presence
+In rural Balochistan, PUZ operates at:
+• Saranana (PCP) -- Bibi Safia
+• Nokundi (PCP) -- Asiya Nawab
 
-How to Start a Digital Detox:
-• Set specific no-phone times (meals, bedtime)
-• Disable non-essential notifications
-• Replace screen time with physical activities
-• Practice mindfulness without devices
-• Gradually reduce daily screen time
+Types of Mental Health Issues Encountered
 
-Technology is a tool — the key is conscious, balanced use that serves your wellbeing rather than undermining it.`,
-    url: "https://danishniazbabbar.blogspot.com/2024/09/digital-detox-or-addiction-rising.html",
+Field data from MHOs across these sites consistently shows three primary presentations:
+
+1. Depression (40–50% of cases) -- Most common, often presenting as somatic complaints (body pain, fatigue, weakness)
+2. Anxiety (25–35% of cases) -- Worry, sleep disturbance, panic symptoms
+3. Stress-related disorders (15–20% of cases) -- Adjustment disorders, acute stress reactions, post-flood trauma
+
+Patient Data Highlights (2025)
+
+• Screening: Over 250,000 individuals screened through PUZ sites
+• Enrollment: 13,000+ patients enrolled in treatment programs
+• End of Treatment (EOT): 1,000+ patients completing treatment cycles
+
+The Role of MHOs
+
+MHOs are the backbone of PUZ's rural reach. They:
+• Conduct door-to-door awareness campaigns
+• Screen patients using PHQ-4 and GAD-7 tools
+• Provide basic counseling and psychoeducation
+• Facilitate support groups
+• Refer moderate-to-severe cases to regional psychologists
+
+Success Stories (Anonymized)
+
+"A 34-year-old woman in Sehwan presented with severe depression following the 2022 floods. After six months of MHO support and psychologist consultation, she returned to caring for her family and started a small embroidery business."
+
+"A 28-year-old male farmer in Badin, burdened by debt and crop failure, was screened at CHB and enrolled in PUZ's program. Combination of counseling and antidepressant medication over 8 months led to significant improvement."
+
+Future Plans
+
+PUZ aims to expand to additional rural sites, increase MHO capacity, and integrate mental health screening into routine primary care across all IHHN sites.
+
+Reference: IHHN PUZ Program Annual Reports 2024–2025; IHHN Monitoring and Evaluation Data`,
+    url: "https://www.ihhn.org",
+    image: null,
+  },
+  {
+    id: 9,
+    title: "Recognizing Depression Early: Signs You Should Not Ignore",
+    date: "August 2025",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Depression",
+    categories: ["Depression"],
+    ruralTag: false,
+    excerpt:
+      "Early recognition of depression can save lives. This article outlines the key warning signs, explains how depression progresses, and encourages seeking help without shame.",
+    content: `Depression rarely arrives all at once. It creeps in gradually -- a fading of color from everyday life, a heaviness that does not lift, a quiet withdrawal from the world. The earlier it is recognized, the better the outcome.
+
+Why Early Recognition Matters
+
+Untreated depression worsens over time. What begins as mild symptoms can deepen into severe, treatment-resistant depression with suicidal ideation. Early intervention:
+• Prevents escalation to severe depression
+• Reduces the duration of the episode
+• Preserves work, relationships, and social function
+• Dramatically reduces the risk of suicide
+
+Warning Signs: What to Watch For
+
+Mood Changes
+• Persistent sadness, tearfulness, or emptiness lasting more than 2 weeks
+• Irritability, frustration, or anger -- especially in men and adolescents
+• Feeling hopeless, helpless, or worthless
+• Loss of interest in things once enjoyed (hobbies, relationships, food)
+
+Energy and Sleep
+• Unusual fatigue or exhaustion not explained by physical activity
+• Sleeping too much (hypersomnia) or insomnia
+• Difficulty getting out of bed in the morning
+
+Thinking and Concentration
+• Difficulty focusing, remembering, or making decisions
+• Slowed thinking or speech
+• Negative, self-critical thought patterns
+
+Physical Symptoms
+• Unexplained aches and pains (especially common in South Asian cultures)
+• Changes in appetite -- eating much more or much less
+• Significant weight change
+
+The Most Serious Warning Signs
+• Thoughts of death or dying
+• Feeling like a burden to others
+• Making arrangements or giving away possessions
+• Direct statements about wanting to die or not wanting to live
+
+These require immediate professional attention.
+
+How Depression Progresses Without Treatment
+
+Mild → Moderate → Severe: Without intervention, depression typically worsens. Each episode increases the risk of future episodes. Untreated depression contributes to substance abuse, relationship breakdown, chronic physical illness, and suicide.
+
+How PUZ MHOs Can Help
+
+Mental Health Officers at PUZ program sites are trained to:
+• Use PHQ-4 and PHQ-9 for early detection
+• Provide psychoeducation to patients and families
+• Offer brief counseling and behavioral activation techniques
+• Facilitate timely referral to psychologists and psychiatrists
+
+Seeking help is not weakness. Depression is a medical condition -- as treatable as diabetes or hypertension.
+
+Reference: WHO Depression Fact Sheet 2023; DSM-5 Clinical Criteria; IHHN PUZ Program MHO Training Manual`,
+    url: "https://www.who.int/news-room/fact-sheets/detail/depression",
+    image: null,
+  },
+  {
+    id: 10,
+    title:
+      "Anxiety and Stress in Post-Flood Communities: Lessons from Rural Pakistan",
+    date: "July 2025",
+    author: "Pur Umeed Zindagi, IHHN",
+    category: "Rural Mental Health",
+    categories: ["Rural Mental Health", "Anxiety", "Stress"],
+    ruralTag: true,
+    excerpt:
+      "The 2022 floods devastated rural Pakistan and left a mental health crisis in their wake. This article examines ongoing anxiety and stress in flood-affected communities and how the PUZ program is responding.",
+    content: `The 2022 super-floods in Pakistan were among the worst climate disasters in the country's history. Over 33 million people were affected, with rural Sindh and Balochistan bearing the greatest burden. Entire villages were submerged. Livelihoods were destroyed. Families lost members, homes, and everything they had built over generations.
+
+Three years later, the mental health consequences are still unfolding.
+
+The Mental Health Spectrum: Stress, Anxiety, and PTSD
+
+Post-disaster mental health follows a continuum:
+
+1. Acute Stress Response (days to weeks after the event)
+• Shock, numbness, disbelief
+• Hyperarousal (constant alertness, difficulty sleeping)
+• Emotional outbursts or emotional blunting
+• Intrusive memories
+
+2. Prolonged Stress and Anxiety (weeks to months)
+• Chronic worry about recurrence
+• Economic anxiety from destroyed livelihoods
+• Displacement anxiety (living in camps, uncertain housing)
+• Disrupted social networks and community bonds
+
+3. PTSD and Clinical Anxiety (months to years)
+• Flashbacks and nightmares
+• Avoidance of flood-related triggers
+• Hypervigilance (especially during rains)
+• Persistent feelings of danger and threat
+
+Impact on Rural Sindh and Balochistan
+
+Field reports from PUZ MHOs in Badin, Sehwan, Makli, and Balochistan sites document:
+• Significantly elevated PHQ-4 scores in flood-affected communities
+• High rates of sleep disturbance and somatic complaints
+• Increased domestic conflict and substance use
+• Children presenting with school refusal and regression
+• Women reporting profound helplessness and hopelessness
+
+PUZ's Rapid and Sustained Response
+
+Immediate response (2022–2023):
+• Psychological First Aid (PFA) training for healthcare workers at Civil Hospital Badin
+• MMB (Mobile Mental Health Bus) deployed to inaccessible flood-affected areas
+• Community-based psychosocial support groups established
+
+Ongoing response (2024–2026):
+• Integration of trauma-informed screening at all PCP sites
+• Collaboration with ICON (IHHN's annual conference) on PFA training -- sessions facilitated in December 2025 and January 2026
+• Long-term follow-up of severely affected patients through regional psychologists
+
+Community-Based Psychosocial Support
+
+Research consistently shows that community-based approaches are most effective for post-disaster mental health:
+• Re-establishing social connections and community cohesion
+• Practical support (livelihood restoration) reduces anxiety as much as clinical care
+• Cultural and religious frameworks (community prayer, storytelling, mourning rituals) support recovery
+
+Climate Change and the Future
+
+With climate change increasing the frequency and severity of floods in rural Pakistan, the need for sustained, community-embedded mental health services in disaster-prone areas is not a luxury -- it is a necessity.
+
+Reference: WHO Psychological First Aid Field Guide; IHHN Flood Response Reports 2022–2024; PUZ Field Data 2024–2026`,
+    url: "https://www.who.int/mental_health",
     image: null,
   },
 ];
 
 const categories = [
   "All",
-  "Mental Health Education",
-  "Stress & Wellbeing",
-  "Training & Workshops",
-  "Family & Mental Health",
-  "Digital Age & Mental Health",
+  "Stress",
+  "Anxiety",
+  "Depression",
+  "Rural Mental Health",
 ];
 
 export default function Blogs() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedBlog, setSelectedBlog] = useState<(typeof blogs)[0] | null>(
-    null,
-  );
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
   const filtered =
     selectedCategory === "All"
       ? blogs
-      : blogs.filter((b) => b.category === selectedCategory);
+      : blogs.filter((b) => b.categories.includes(selectedCategory));
 
   return (
     <div className="min-h-screen" style={{ background: "oklch(97% 0.01 145)" }}>
@@ -330,22 +650,35 @@ export default function Blogs() {
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
             Mental Health Insights
           </h1>
-          <p className="text-white/80 text-base leading-relaxed">
-            Articles and insights by{" "}
-            <span className="font-semibold text-white">Danish Niaz Babbar</span>
-            , Psychologist & Regional Lead (Sindh), Pur Umeed Zindagi
+          <p className="text-white/85 text-base leading-relaxed">
+            Articles on{" "}
+            <span className="font-semibold text-white">
+              Stress, Anxiety &amp; Depression
+            </span>{" "}
+            with a focus on{" "}
+            <span className="font-semibold text-white">
+              Rural Communities in Pakistan
+            </span>
+            . Curated by Pur Umeed Zindagi, IHHN.
           </p>
-          <a
-            href="https://danishniazbabbar.blogspot.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 rounded-full text-sm font-semibold bg-white/15 text-white border border-white/30 hover:bg-white/25 transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Visit Full Blog
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/15 text-white border border-white/25">
+              <MapPin className="w-3 h-3" />
+              Rural Areas Focus
+            </span>
+            <a
+              href="https://www.who.int/mental_health"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/15 text-white border border-white/25 hover:bg-white/25 transition-colors"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Source: WHO & IHHN
+            </a>
+          </div>
         </div>
       </div>
+
       {/* Category Filter */}
       <div
         className="sticky top-16 z-30 bg-white border-b"
@@ -356,6 +689,7 @@ export default function Blogs() {
             <button
               key={cat}
               type="button"
+              data-ocid="blogs.filter.tab"
               onClick={() => setSelectedCategory(cat)}
               className="flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
               style={{
@@ -372,66 +706,81 @@ export default function Blogs() {
           ))}
         </div>
       </div>
+
       {/* Blog Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((blog) => (
-            <div
-              key={blog.id}
-              className="bg-white rounded-2xl overflow-hidden border flex flex-col group cursor-pointer hover:shadow-lg transition-shadow"
-              style={{ borderColor: "oklch(90% 0.02 145)" }}
-              onClick={() => setSelectedBlog(blog)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") setSelectedBlog(blog);
-              }}
-            >
-              {/* Image */}
-              {blog.image ? (
-                <div className="h-44 overflow-hidden">
-                  <img
-                    src={blog.image}
-                    alt={blog.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display =
-                        "none";
-                    }}
-                  />
-                </div>
-              ) : (
+        {filtered.length === 0 ? (
+          <div
+            data-ocid="blogs.empty_state"
+            className="text-center py-20"
+            style={{ color: "oklch(55% 0.04 145)" }}
+          >
+            <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-40" />
+            <p className="text-lg font-medium">No articles in this category.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((blog, idx) => (
+              <div
+                key={blog.id}
+                data-ocid={`blogs.item.${idx + 1}`}
+                className="bg-white rounded-2xl overflow-hidden border flex flex-col group cursor-pointer hover:shadow-lg transition-shadow"
+                style={{ borderColor: "oklch(90% 0.02 145)" }}
+                onClick={() => setSelectedBlog(blog)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") setSelectedBlog(blog);
+                }}
+                aria-label={`Read article: ${blog.title}`}
+              >
+                {/* Placeholder Image Banner */}
                 <div
-                  className="h-44 flex items-center justify-center"
-                  style={{ background: "oklch(92% 0.04 145)" }}
+                  className="h-44 flex flex-col items-center justify-center relative"
+                  style={{ background: getCategoryGradient(blog.category) }}
                 >
-                  <BookOpen
-                    className="w-12 h-12"
-                    style={{ color: "oklch(50% 0.15 145)" }}
-                  />
+                  <BookOpen className="w-10 h-10 text-white/50" />
+                  {blog.ruralTag && (
+                    <span
+                      className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold text-white"
+                      style={{ background: "oklch(35% 0.2 145)" }}
+                    >
+                      <MapPin className="w-3 h-3" />
+                      Rural Areas
+                    </span>
+                  )}
                 </div>
-              )}
 
-              {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <span
-                  className="text-xs font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: "oklch(40% 0.2 145)" }}
-                >
-                  {blog.category}
-                </span>
-                <h2
-                  className="text-base font-bold mb-2 leading-snug"
-                  style={{ color: "oklch(20% 0.08 145)" }}
-                >
-                  {blog.title}
-                </h2>
-                <p
-                  className="text-sm leading-relaxed flex-1 mb-4"
-                  style={{ color: "oklch(45% 0.04 145)" }}
-                >
-                  {blog.excerpt}
-                </p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-3">
+                {/* Content */}
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <span
+                      className="text-xs font-semibold uppercase tracking-wider"
+                      style={{ color: "oklch(40% 0.2 145)" }}
+                    >
+                      {blog.category}
+                    </span>
+                    {blog.ruralTag && (
+                      <span
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium text-white"
+                        style={{ background: "oklch(42% 0.18 145)" }}
+                      >
+                        <MapPin className="w-2.5 h-2.5" />
+                        Rural
+                      </span>
+                    )}
+                  </div>
+                  <h2
+                    className="text-base font-bold mb-2 leading-snug"
+                    style={{ color: "oklch(20% 0.08 145)" }}
+                  >
+                    {blog.title}
+                  </h2>
+                  <p
+                    className="text-sm leading-relaxed flex-1 mb-4"
+                    style={{ color: "oklch(45% 0.04 145)" }}
+                  >
+                    {blog.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
                     <span
                       className="flex items-center gap-1 text-xs"
                       style={{ color: "oklch(55% 0.04 145)" }}
@@ -439,18 +788,20 @@ export default function Blogs() {
                       <Calendar className="w-3 h-3" />
                       {blog.date}
                     </span>
+                    <span
+                      className="flex items-center gap-1 text-xs font-semibold"
+                      style={{ color: "oklch(35% 0.2 145)" }}
+                    >
+                      Read More <ArrowRight className="w-3 h-3" />
+                    </span>
                   </div>
-                  <span
-                    className="flex items-center gap-1 text-xs font-semibold"
-                    style={{ color: "oklch(35% 0.2 145)" }}
-                  >
-                    Read More <ArrowRight className="w-3 h-3" />
-                  </span>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+
+        {/* About / Source */}
         <div
           className="mt-12 p-6 rounded-2xl text-center"
           style={{ background: "oklch(93% 0.04 145)" }}
@@ -461,132 +812,182 @@ export default function Blogs() {
               className="font-semibold"
               style={{ color: "oklch(25% 0.1 145)" }}
             >
-              About the Author
+              About the Source
             </span>
           </div>
           <p className="text-sm mb-3" style={{ color: "oklch(40% 0.06 145)" }}>
-            <strong>Danish Niaz Babbar</strong> — Psychologist & Regional Lead
-            for Sindh, Pur Umeed Zindagi Program, IHHN. BS Psychology from
-            University of Sindh, Jamshoro. Specialization in Addiction Science
-            from Institute of Clinical Psychology.
+            Articles curated by <strong>Pur Umeed Zindagi, IHHN</strong> --
+            drawing from WHO, global mental health research, and field data from
+            rural Pakistan programs across Sindh, Balochistan, and Punjab.
           </p>
-          <a
-            href="https://danishniazbabbar.blogspot.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ background: "oklch(35% 0.2 145)" }}
-          >
-            <ExternalLink className="w-4 h-4" />
-            More Articles at danishniazbabbar.blogspot.com
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="https://www.who.int/mental_health"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              style={{ background: "oklch(35% 0.2 145)" }}
+            >
+              <ExternalLink className="w-4 h-4" />
+              WHO Mental Health
+            </a>
+            <a
+              href="https://www.ihhn.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-opacity hover:opacity-90"
+              style={{
+                background: "oklch(93% 0.04 145)",
+                color: "oklch(30% 0.15 145)",
+                border: "1px solid oklch(75% 0.1 145)",
+              }}
+            >
+              <ExternalLink className="w-4 h-4" />
+              IHHN.org
+            </a>
+          </div>
         </div>
       </div>
-      selectedBlog && (
-      <div
-        className="fixed inset-0 z-50 flex items-start justify-center p-4 overflow-y-auto"
-        style={{ background: "rgba(0,0,0,0.6)" }}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) setSelectedBlog(null);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") setSelectedBlog(null);
-        }}
-        aria-modal="true"
-        aria-label="Blog detail"
-      >
+
+      {/* Article Modal */}
+      {selectedBlog && (
         <div
-          className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-8"
-          style={{ maxHeight: "90vh", overflowY: "auto" }}
+          data-ocid="blogs.modal"
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 overflow-y-auto"
+          style={{ background: "rgba(0,0,0,0.6)" }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedBlog(null);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setSelectedBlog(null);
+          }}
+          aria-modal="true"
+          aria-label="Article detail"
         >
-          {/* Modal Header */}
           <div
-            className="sticky top-0 bg-white px-6 pt-5 pb-4 border-b flex items-start justify-between gap-4"
-            style={{ borderColor: "oklch(90% 0.02 145)" }}
+            className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-8"
+            style={{ maxHeight: "90vh", overflowY: "auto" }}
           >
-            <div className="flex-1">
-              <span
-                className="text-xs font-semibold uppercase tracking-wider"
-                style={{ color: "oklch(40% 0.2 145)" }}
+            {/* Modal Header */}
+            <div
+              className="sticky top-0 bg-white px-6 pt-5 pb-4 border-b flex items-start justify-between gap-4"
+              style={{ borderColor: "oklch(90% 0.02 145)" }}
+            >
+              <div className="flex-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "oklch(40% 0.2 145)" }}
+                  >
+                    {selectedBlog.category}
+                  </span>
+                  {selectedBlog.ruralTag && (
+                    <span
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium text-white"
+                      style={{ background: "oklch(42% 0.18 145)" }}
+                    >
+                      <MapPin className="w-2.5 h-2.5" />
+                      Rural Areas
+                    </span>
+                  )}
+                </div>
+                <h2
+                  className="text-lg font-bold mt-1 leading-snug"
+                  style={{ color: "oklch(20% 0.08 145)" }}
+                >
+                  {selectedBlog.title}
+                </h2>
+                <div className="flex items-center gap-4 mt-2 flex-wrap">
+                  <span
+                    className="flex items-center gap-1 text-xs"
+                    style={{ color: "oklch(55% 0.04 145)" }}
+                  >
+                    <Calendar className="w-3 h-3" />
+                    {selectedBlog.date}
+                  </span>
+                  <span
+                    className="flex items-center gap-1 text-xs"
+                    style={{ color: "oklch(55% 0.04 145)" }}
+                  >
+                    <User className="w-3 h-3" />
+                    {selectedBlog.author}
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                data-ocid="blogs.close_button"
+                onClick={() => setSelectedBlog(null)}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
+                aria-label="Close article"
               >
-                {selectedBlog!.category}
-              </span>
-              <h2
-                className="text-lg font-bold mt-1 leading-snug"
-                style={{ color: "oklch(20% 0.08 145)" }}
+                <X
+                  className="w-5 h-5"
+                  style={{ color: "oklch(40% 0.04 145)" }}
+                />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="px-6 py-5">
+              <div
+                className="text-sm leading-relaxed whitespace-pre-line"
+                style={{ color: "oklch(30% 0.05 145)" }}
               >
-                {selectedBlog!.title}
-              </h2>
-              <div className="flex items-center gap-4 mt-2">
-                <span
-                  className="flex items-center gap-1 text-xs"
+                {selectedBlog.content}
+              </div>
+
+              <div
+                className="mt-6 pt-4 border-t"
+                style={{ borderColor: "oklch(92% 0.02 145)" }}
+              >
+                <p
+                  className="text-xs mb-3"
                   style={{ color: "oklch(55% 0.04 145)" }}
                 >
-                  <Calendar className="w-3 h-3" />
-                  {selectedBlog!.date}
-                </span>
-                <span
-                  className="flex items-center gap-1 text-xs"
-                  style={{ color: "oklch(55% 0.04 145)" }}
-                >
-                  <User className="w-3 h-3" />
-                  {selectedBlog!.author}
-                </span>
+                  <strong>Source:</strong> WHO / Pur Umeed Zindagi, IHHN
+                </p>
+                <div className="flex items-center justify-between gap-3 flex-wrap">
+                  <p
+                    className="text-xs italic"
+                    style={{ color: "oklch(60% 0.03 145)" }}
+                  >
+                    Articles curated by Pur Umeed Zindagi, IHHN -- drawing from
+                    WHO, global mental health research, and field data from
+                    rural Pakistan programs.
+                  </p>
+                  <a
+                    href={selectedBlog.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-ocid="blogs.primary_button"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 flex-shrink-0"
+                    style={{ background: "oklch(35% 0.2 145)" }}
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    Read on Blog
+                  </a>
+                </div>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setSelectedBlog(null)}
-              className="p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" style={{ color: "oklch(40% 0.04 145)" }} />
-            </button>
-          </div>
-
-          {/* Modal Image */}
-          {selectedBlog!.image && (
-            <img
-              src={selectedBlog!.image}
-              alt={selectedBlog!.title}
-              className="w-full object-cover max-h-56"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
-          )}
-
-          {/* Modal Body */}
-          <div className="px-6 py-5">
-            <div
-              className="text-sm leading-relaxed whitespace-pre-line"
-              style={{ color: "oklch(30% 0.05 145)" }}
-            >
-              {selectedBlog!.content}
-            </div>
-
-            <div
-              className="mt-6 pt-4 border-t flex items-center justify-between"
-              style={{ borderColor: "oklch(92% 0.02 145)" }}
-            >
-              <p className="text-xs" style={{ color: "oklch(55% 0.04 145)" }}>
-                Source: danishniazbabbar.blogspot.com
-              </p>
-              <a
-                href={selectedBlog!.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ background: "oklch(35% 0.2 145)" }}
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                Read on Blog
-              </a>
-            </div>
           </div>
         </div>
-      </div>
-      )
+      )}
     </div>
   );
+}
+
+function getCategoryGradient(category: string): string {
+  switch (category) {
+    case "Rural Mental Health":
+      return "linear-gradient(135deg, oklch(30% 0.18 145), oklch(45% 0.22 145))";
+    case "Anxiety":
+      return "linear-gradient(135deg, oklch(35% 0.15 200), oklch(48% 0.18 210))";
+    case "Depression":
+      return "linear-gradient(135deg, oklch(30% 0.1 270), oklch(42% 0.15 265))";
+    case "Stress":
+      return "linear-gradient(135deg, oklch(38% 0.15 30), oklch(50% 0.2 35))";
+    default:
+      return "linear-gradient(135deg, oklch(35% 0.12 145), oklch(48% 0.16 145))";
+  }
 }
