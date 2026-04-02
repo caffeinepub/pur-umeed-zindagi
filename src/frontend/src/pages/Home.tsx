@@ -1,11 +1,27 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   Brain,
+  CalendarCheck,
   CheckCircle,
+  Clock,
+  Database,
+  ExternalLink,
   FileText,
   HeartHandshake,
   Leaf,
+  Lock,
   MapPin,
   Phone,
   Shield,
@@ -40,6 +56,56 @@ function useCountUp(target: number, duration: number, active: boolean) {
   }, [active, target, duration]);
 
   return count;
+}
+
+function LiveDateBadge() {
+  const [dateStr, setDateStr] = useState("");
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      setDateStr(now.toLocaleDateString("en-PK", options));
+    };
+    update();
+    // Update at midnight
+    const now = new Date();
+    const msUntilMidnight =
+      new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0,
+        0,
+        0,
+      ).getTime() - now.getTime();
+    const timeout = setTimeout(() => {
+      update();
+    }, msUntilMidnight);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <div className="flex justify-center mb-4">
+      <div
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border"
+        style={{
+          background: "oklch(14% 0.05 145)",
+          borderColor: "oklch(30% 0.12 145)",
+          color: "oklch(80% 0.12 145)",
+        }}
+        data-ocid="home.date_badge"
+      >
+        <Clock className="w-4 h-4" style={{ color: "oklch(58% 0.22 145)" }} />
+        <span>{dateStr}</span>
+      </div>
+    </div>
+  );
 }
 
 function CounterBand() {
@@ -145,12 +211,610 @@ function StatItem({
   );
 }
 
+// ─── Appointment Form ────────────────────────────────────────────────────────
+
+interface ApptForm {
+  fullName: string;
+  phone: string;
+  age: string;
+  gender: string;
+  region: string;
+  preferredDate: string;
+  preferredTime: string;
+  complaint: string;
+}
+
+const EMPTY_FORM: ApptForm = {
+  fullName: "",
+  phone: "",
+  age: "",
+  gender: "",
+  region: "",
+  preferredDate: "",
+  preferredTime: "",
+  complaint: "",
+};
+
+function AppointmentSection() {
+  const [form, setForm] = useState<ApptForm>(EMPTY_FORM);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Partial<ApptForm>>({});
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const validate = (): boolean => {
+    const e: Partial<ApptForm> = {};
+    if (!form.fullName.trim()) e.fullName = "Full name is required";
+    if (!form.phone.trim()) e.phone = "Phone number is required";
+    if (!form.age.trim()) e.age = "Age is required";
+    if (!form.gender) e.gender = "Gender is required";
+    if (!form.region.trim()) e.region = "Region/City is required";
+    if (!form.preferredDate) e.preferredDate = "Preferred date is required";
+    if (!form.preferredTime) e.preferredTime = "Preferred time is required";
+    if (!form.complaint.trim())
+      e.complaint = "Please describe your reason for appointment";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = (ev: React.FormEvent) => {
+    ev.preventDefault();
+    if (validate()) setSubmitted(true);
+  };
+
+  const handleChange = (field: keyof ApptForm, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+  };
+
+  return (
+    <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10"
+        >
+          <div
+            className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4"
+            style={{ background: "oklch(58% 0.22 145 / 0.15)" }}
+          >
+            <CalendarCheck
+              className="w-7 h-7"
+              style={{ color: "oklch(58% 0.22 145)" }}
+            />
+          </div>
+          <div
+            className="uppercase tracking-widest text-xs font-semibold mb-2"
+            style={{ color: "oklch(58% 0.22 145)" }}
+          >
+            Free Service
+          </div>
+          <h2
+            className="text-4xl font-bold mb-3"
+            style={{ color: "oklch(96% 0.005 145)" }}
+          >
+            Book an Appointment
+          </h2>
+          <p className="text-base" style={{ color: "oklch(68% 0.025 145)" }}>
+            Fill out the form below. Our team will contact you within 24 hours —
+            completely free of charge.
+          </p>
+        </motion.div>
+
+        {submitted ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-2xl p-10 text-center border"
+            style={{
+              background: "oklch(12% 0.05 145)",
+              borderColor: "oklch(22% 0.06 145)",
+            }}
+            data-ocid="home.appointment.success_state"
+          >
+            <div
+              className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+              style={{ background: "oklch(58% 0.22 145 / 0.15)" }}
+            >
+              <CheckCircle
+                className="w-10 h-10"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              />
+            </div>
+            <h3
+              className="text-2xl font-bold mb-3"
+              style={{ color: "oklch(96% 0.005 145)" }}
+            >
+              Request Received!
+            </h3>
+            <p
+              className="text-base leading-relaxed mb-8 max-w-md mx-auto"
+              style={{ color: "oklch(68% 0.025 145)" }}
+            >
+              Your appointment request has been received. Our team will contact
+              you within 24 hours at the provided phone number.
+            </p>
+            <div
+              className="rounded-xl p-4 mb-8 text-left max-w-sm mx-auto"
+              style={{
+                background: "oklch(10% 0.04 145)",
+                border: "1px solid oklch(22% 0.06 145)",
+              }}
+            >
+              <div className="space-y-1.5">
+                {[
+                  { label: "Name", value: form.fullName },
+                  { label: "Phone", value: form.phone },
+                  { label: "Date", value: form.preferredDate },
+                  { label: "Time", value: form.preferredTime },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex gap-2 text-sm">
+                    <span style={{ color: "oklch(55% 0.02 145)" }}>
+                      {label}:
+                    </span>
+                    <span style={{ color: "oklch(82% 0.02 145)" }}>
+                      {value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Button
+              onClick={() => {
+                setSubmitted(false);
+                setForm(EMPTY_FORM);
+              }}
+              className="px-8 py-2.5 rounded-xl font-semibold"
+              style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+              data-ocid="home.appointment.secondary_button"
+            >
+              Book Another Appointment
+            </Button>
+          </motion.div>
+        ) : (
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            onSubmit={handleSubmit}
+            className="rounded-2xl p-6 sm:p-8 space-y-6 border"
+            style={{
+              background: "oklch(12% 0.05 145)",
+              borderColor: "oklch(22% 0.06 145)",
+            }}
+            data-ocid="home.appointment.modal"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Full Name */}
+              <div className="sm:col-span-2 space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Patient Full Name{" "}
+                  <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Input
+                  type="text"
+                  placeholder="Enter patient's full name"
+                  value={form.fullName}
+                  onChange={(e) => handleChange("fullName", e.target.value)}
+                  className="h-11"
+                  style={{
+                    background: "oklch(10% 0.04 145)",
+                    borderColor: errors.fullName
+                      ? "oklch(55% 0.22 25)"
+                      : "oklch(22% 0.06 145)",
+                    color: "oklch(96% 0.005 145)",
+                  }}
+                  data-ocid="home.appointment.input"
+                />
+                {errors.fullName && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.fullName}
+                  </p>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Phone Number{" "}
+                  <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Input
+                  type="tel"
+                  placeholder="e.g. 0300-1234567"
+                  value={form.phone}
+                  onChange={(e) => handleChange("phone", e.target.value)}
+                  className="h-11"
+                  style={{
+                    background: "oklch(10% 0.04 145)",
+                    borderColor: errors.phone
+                      ? "oklch(55% 0.22 25)"
+                      : "oklch(22% 0.06 145)",
+                    color: "oklch(96% 0.005 145)",
+                  }}
+                  data-ocid="home.appointment.input"
+                />
+                {errors.phone && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.phone}
+                  </p>
+                )}
+              </div>
+
+              {/* Age */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Age <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Input
+                  type="number"
+                  placeholder="e.g. 32"
+                  min={1}
+                  max={120}
+                  value={form.age}
+                  onChange={(e) => handleChange("age", e.target.value)}
+                  className="h-11"
+                  style={{
+                    background: "oklch(10% 0.04 145)",
+                    borderColor: errors.age
+                      ? "oklch(55% 0.22 25)"
+                      : "oklch(22% 0.06 145)",
+                    color: "oklch(96% 0.005 145)",
+                  }}
+                  data-ocid="home.appointment.input"
+                />
+                {errors.age && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.age}
+                  </p>
+                )}
+              </div>
+
+              {/* Gender */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Gender <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Select
+                  value={form.gender}
+                  onValueChange={(v) => handleChange("gender", v)}
+                >
+                  <SelectTrigger
+                    className="h-11"
+                    style={{
+                      background: "oklch(10% 0.04 145)",
+                      borderColor: errors.gender
+                        ? "oklch(55% 0.22 25)"
+                        : "oklch(22% 0.06 145)",
+                      color: form.gender
+                        ? "oklch(96% 0.005 145)"
+                        : "oklch(55% 0.02 145)",
+                    }}
+                    data-ocid="home.appointment.select"
+                  >
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent
+                    style={{
+                      background: "oklch(14% 0.05 145)",
+                      borderColor: "oklch(22% 0.06 145)",
+                      color: "oklch(96% 0.005 145)",
+                    }}
+                  >
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.gender && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.gender}
+                  </p>
+                )}
+              </div>
+
+              {/* Region */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Region / City{" "}
+                  <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Input
+                  type="text"
+                  placeholder="e.g. Karachi, Badin, Quetta"
+                  value={form.region}
+                  onChange={(e) => handleChange("region", e.target.value)}
+                  className="h-11"
+                  style={{
+                    background: "oklch(10% 0.04 145)",
+                    borderColor: errors.region
+                      ? "oklch(55% 0.22 25)"
+                      : "oklch(22% 0.06 145)",
+                    color: "oklch(96% 0.005 145)",
+                  }}
+                  data-ocid="home.appointment.input"
+                />
+                {errors.region && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.region}
+                  </p>
+                )}
+              </div>
+
+              {/* Preferred Date */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Preferred Date{" "}
+                  <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Input
+                  type="date"
+                  min={today}
+                  value={form.preferredDate}
+                  onChange={(e) =>
+                    handleChange("preferredDate", e.target.value)
+                  }
+                  className="h-11"
+                  style={{
+                    background: "oklch(10% 0.04 145)",
+                    borderColor: errors.preferredDate
+                      ? "oklch(55% 0.22 25)"
+                      : "oklch(22% 0.06 145)",
+                    color: "oklch(96% 0.005 145)",
+                    colorScheme: "dark",
+                  }}
+                  data-ocid="home.appointment.input"
+                />
+                {errors.preferredDate && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.preferredDate}
+                  </p>
+                )}
+              </div>
+
+              {/* Preferred Time */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Preferred Time{" "}
+                  <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Select
+                  value={form.preferredTime}
+                  onValueChange={(v) => handleChange("preferredTime", v)}
+                >
+                  <SelectTrigger
+                    className="h-11"
+                    style={{
+                      background: "oklch(10% 0.04 145)",
+                      borderColor: errors.preferredTime
+                        ? "oklch(55% 0.22 25)"
+                        : "oklch(22% 0.06 145)",
+                      color: form.preferredTime
+                        ? "oklch(96% 0.005 145)"
+                        : "oklch(55% 0.02 145)",
+                    }}
+                    data-ocid="home.appointment.select"
+                  >
+                    <SelectValue placeholder="Select time slot" />
+                  </SelectTrigger>
+                  <SelectContent
+                    style={{
+                      background: "oklch(14% 0.05 145)",
+                      borderColor: "oklch(22% 0.06 145)",
+                      color: "oklch(96% 0.005 145)",
+                    }}
+                  >
+                    <SelectItem value="Morning 9am-12pm">
+                      Morning — 9:00 AM to 12:00 PM
+                    </SelectItem>
+                    <SelectItem value="Afternoon 12pm-3pm">
+                      Afternoon — 12:00 PM to 3:00 PM
+                    </SelectItem>
+                    <SelectItem value="Evening 3pm-6pm">
+                      Evening — 3:00 PM to 6:00 PM
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.preferredTime && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.preferredTime}
+                  </p>
+                )}
+              </div>
+
+              {/* Chief Complaint */}
+              <div className="sm:col-span-2 space-y-1.5">
+                <Label style={{ color: "oklch(82% 0.02 145)" }}>
+                  Reason / Chief Complaint{" "}
+                  <span style={{ color: "oklch(58% 0.22 145)" }}>*</span>
+                </Label>
+                <Textarea
+                  rows={4}
+                  placeholder="Briefly describe the reason for your appointment or any symptoms you are experiencing..."
+                  value={form.complaint}
+                  onChange={(e) => handleChange("complaint", e.target.value)}
+                  style={{
+                    background: "oklch(10% 0.04 145)",
+                    borderColor: errors.complaint
+                      ? "oklch(55% 0.22 25)"
+                      : "oklch(22% 0.06 145)",
+                    color: "oklch(96% 0.005 145)",
+                    resize: "vertical",
+                  }}
+                  data-ocid="home.appointment.textarea"
+                />
+                {errors.complaint && (
+                  <p
+                    className="text-xs"
+                    style={{ color: "oklch(55% 0.22 25)" }}
+                    data-ocid="home.appointment.error_state"
+                  >
+                    {errors.complaint}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Disclaimer */}
+            <div
+              className="rounded-xl p-4 text-sm"
+              style={{
+                background: "oklch(10% 0.04 145)",
+                border: "1px solid oklch(22% 0.06 145)",
+                color: "oklch(68% 0.025 145)",
+              }}
+            >
+              <strong style={{ color: "oklch(72% 0.18 145)" }}>
+                Important:
+              </strong>{" "}
+              All services are completely free of charge. Your information is
+              kept strictly confidential. Our team will call you within 24 hours
+              to confirm your appointment.
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full h-12 text-base font-semibold rounded-xl transition-all hover:opacity-90"
+              style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+              data-ocid="home.appointment.submit_button"
+            >
+              Submit Appointment Request
+            </Button>
+          </motion.form>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─── Staff Portal Section ────────────────────────────────────────────────────
+
+function StaffPortalSection() {
+  return (
+    <section className="py-16" style={{ background: "oklch(11% 0.045 145)" }}>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div
+            className="rounded-2xl p-8 border relative overflow-hidden"
+            style={{
+              background: "oklch(12% 0.05 145)",
+              borderColor: "oklch(22% 0.06 145)",
+            }}
+          >
+            {/* Decorative ring */}
+            <div
+              className="absolute -top-16 -right-16 w-48 h-48 rounded-full opacity-10"
+              style={{ background: "oklch(58% 0.22 145)" }}
+            />
+
+            <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              {/* Icon */}
+              <div
+                className="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center"
+                style={{ background: "oklch(22% 0.08 145)" }}
+              >
+                <Database
+                  className="w-8 h-8"
+                  style={{ color: "oklch(58% 0.22 145)" }}
+                />
+              </div>
+
+              {/* Text */}
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <Lock
+                    className="w-3.5 h-3.5"
+                    style={{ color: "oklch(68% 0.025 145)" }}
+                  />
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "oklch(68% 0.025 145)" }}
+                  >
+                    For MHOs & Program Staff Only
+                  </span>
+                </div>
+                <h3
+                  className="text-2xl font-bold mb-1"
+                  style={{ color: "oklch(96% 0.005 145)" }}
+                >
+                  Staff Data Entry Portal
+                </h3>
+                <p
+                  className="text-sm leading-relaxed mb-4"
+                  style={{ color: "oklch(68% 0.025 145)" }}
+                >
+                  Enter patient data, screening records, and program updates
+                  directly into REDCap — the official data management system of
+                  Pur Umeed Zindagi.
+                </p>
+                <a
+                  href="https://redcap.tih.org.pk/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:opacity-90"
+                  style={{ background: "oklch(58% 0.22 145)", color: "white" }}
+                  data-ocid="home.staff_portal.primary_button"
+                >
+                  <Database className="w-4 h-4" />
+                  Open REDCap Portal
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <div style={{ background: "oklch(8% 0.04 145)" }}>
       {/* Hero Section */}
       <section className="hero-bg py-20 md:py-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Live Date Banner */}
+          <LiveDateBadge />
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Hero Text */}
             <motion.div
@@ -912,6 +1576,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Appointment Form */}
+      <AppointmentSection />
+
+      {/* Staff Portal */}
+      <StaffPortalSection />
 
       {/* CTA */}
       <section className="py-20" style={{ background: "oklch(8% 0.04 145)" }}>

@@ -83,21 +83,23 @@
 .green-gradient {
   background: linear-gradient(
     135deg,
-    oklch(32% 0.18 145) 0%,
-    oklch(42% 0.2 148) 100%
+    oklch(28% 0.16 145) 0%,
+    oklch(38% 0.2 148) 50%,
+    oklch(30% 0.17 145) 100%
   );
 }
 
 .hero-bg {
   background-image: linear-gradient(
-      135deg,
-      oklch(5% 0.04 145 / 0.92) 0%,
-      oklch(10% 0.07 148 / 0.85) 50%,
-      oklch(7% 0.05 145 / 0.9) 100%
+      160deg,
+      oklch(4% 0.03 145 / 0.75) 0%,
+      oklch(8% 0.06 148 / 0.6) 40%,
+      oklch(5% 0.04 145 / 0.72) 100%
     ), url("/assets/generated/hero-background.dim_1920x1080.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .section-alt {
@@ -105,20 +107,24 @@
 }
 
 .header-bg {
-  background: oklch(12% 0.05 145);
+  background: oklch(10% 0.05 145 / 0.95);
+  backdrop-filter: blur(12px);
 }
 
 .emerald-glow {
-  text-shadow: 0 0 30px oklch(58% 0.22 145 / 0.6);
+  text-shadow: 0 0 40px oklch(58% 0.22 145 / 0.7), 0 0 80px
+    oklch(58% 0.22 145 / 0.3);
 }
 
 .card-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s
+    ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px oklch(58% 0.22 145 / 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px oklch(58% 0.22 145 / 0.25);
+  border-color: oklch(35% 0.14 145) !important;
 }
 
 @keyframes pulse-dot {
@@ -135,4 +141,28 @@
 
 .pulse-dot {
   animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    oklch(58% 0.22 145) 0%,
+    oklch(75% 0.25 155) 40%,
+    oklch(65% 0.22 145) 60%,
+    oklch(58% 0.22 145) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
 }

@@ -63,8 +63,14 @@ const regions = [
     name: "Balochistan",
     color: "oklch(75% 0.18 60)",
     sites: [
-      { name: "Saranana", address: "Saranana Health Center, Balochistan" },
-      { name: "Nokundi", address: "Nokundi Health Facility, Balochistan" },
+      {
+        name: "Saranana (PCP)",
+        address: "Saranana Primary Care Program, Balochistan",
+      },
+      {
+        name: "Nokundi (PCP)",
+        address: "Nokundi Primary Care Program, Balochistan",
+      },
     ],
   },
   {

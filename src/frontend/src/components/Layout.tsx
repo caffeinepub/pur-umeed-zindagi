@@ -1,7 +1,7 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
-import { Brain, ChevronDown, Menu, Phone, X } from "lucide-react";
+import { Brain, Calendar, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const programDropdown = [
   { label: "Services", to: "/services" },
@@ -13,8 +13,24 @@ const programDropdown = [
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [programOpen, setProgramOpen] = useState(false);
+  const [currentDate, setCurrentDate] = useState("");
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+
+  useEffect(() => {
+    const updateDate = () => {
+      const formatted = new Date().toLocaleDateString("en-PK", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      setCurrentDate(formatted);
+    };
+    updateDate();
+    const interval = setInterval(updateDate, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const isActive = (path: string) => currentPath === path;
 
@@ -23,6 +39,38 @@ export default function Layout() {
       className="min-h-screen flex flex-col"
       style={{ background: "oklch(8% 0.04 145)" }}
     >
+      {/* Date Announcement Bar */}
+      {currentDate && (
+        <div
+          className="w-full py-1.5 px-4"
+          style={{
+            background: "oklch(14% 0.06 145)",
+            borderBottom: "1px solid oklch(22% 0.06 145)",
+          }}
+        >
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Calendar
+                className="w-3.5 h-3.5 flex-shrink-0"
+                style={{ color: "oklch(58% 0.22 145)" }}
+              />
+              <span
+                className="text-xs font-medium"
+                style={{ color: "oklch(75% 0.05 145)" }}
+              >
+                {currentDate}
+              </span>
+            </div>
+            <span
+              className="hidden sm:inline text-xs"
+              style={{ color: "oklch(55% 0.04 145)" }}
+            >
+              Pur Umeed Zindagi — Free Mental Health Services · IHHN
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header
         className="sticky top-0 z-50 border-b"
@@ -159,12 +207,17 @@ export default function Layout() {
                 label="Contact"
                 isActive={isActive("/contact")}
               />
+              <NavLink
+                to="/appointment"
+                label="Appointment"
+                isActive={isActive("/appointment")}
+              />
             </nav>
 
             {/* CTA Button */}
             <div className="hidden lg:block">
               <Link
-                to="/contact"
+                to="/appointment"
                 className="px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
                 style={{ background: "oklch(58% 0.22 145)", color: "white" }}
                 data-ocid="nav.primary_button"
@@ -217,6 +270,7 @@ export default function Layout() {
                   { to: "/annual-reports", label: "Annual Reports" },
                   { to: "/patient-data", label: "Patient Data" },
                   { to: "/contact", label: "Contact" },
+                  { to: "/appointment", label: "Appointment" },
                 ].map((item) => (
                   <Link
                     key={item.to}
@@ -237,7 +291,7 @@ export default function Layout() {
                   </Link>
                 ))}
                 <Link
-                  to="/contact"
+                  to="/appointment"
                   className="block mt-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-center transition-all hover:opacity-90"
                   style={{ background: "oklch(58% 0.22 145)", color: "white" }}
                   onClick={() => setMobileOpen(false)}
@@ -335,6 +389,7 @@ export default function Layout() {
                   { to: "/workshops", label: "Workshops & Events" },
                   { to: "/awareness", label: "Awareness Programs" },
                   { to: "/patient-data", label: "Patient Data" },
+                  { to: "/appointment", label: "Book Appointment" },
                   { to: "/contact", label: "Contact Us" },
                 ].map((item) => (
                   <li key={item.to}>
@@ -462,7 +517,7 @@ export default function Layout() {
 
       {/* Floating Help Button */}
       <Link
-        to="/contact"
+        to="/appointment"
         className="fixed bottom-6 right-6 w-13 h-13 rounded-full flex items-center justify-center shadow-xl z-40 transition-transform hover:scale-110"
         style={{
           background: "oklch(58% 0.22 145)",

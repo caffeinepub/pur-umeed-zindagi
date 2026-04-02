@@ -1,34 +1,36 @@
 # Pur Umeed Zindagi
 
 ## Current State
-Website has 9 pages including Psychologists. No workshops/events page exists.
+The website has a sticky header (Layout.tsx) with logo, navigation links, and mobile menu. The header does NOT display the current date. There is no Appointment booking form anywhere on the site. The App.tsx has routes for 12 pages.
 
 ## Requested Changes (Diff)
 
 ### Add
-- New `Workshops` page (`/workshops`) featuring:
-  - Featured highlight: 8th Biennial ICON Conference 2026 – "Resilient Care, Sustainable Future" (organized by IHHN)
-    - Workshop: "Psychological First Aid in Crises" – December 9, 2025, IHHN Badin Campus
-    - Moderator: Danish Khan (Certificate of Appreciation)
-    - Facilitator: Ms. Ayesha Kasiri (Certificate of Appreciation)
-  - Full events list:
-    1. World Mental Health Day Celebration – October 2025, Badin
-    2. Stress Management Seminar – November 20, 2025, Badin
-    3. Psychological First Aid in Crises – December 9, 2025, Badin Campus
-    4. Psychological First Aid in Crises – January 16, 2026, Karachi (9AM–1PM, Transfusion Hall Blood Centre; Facilitator: Ms. Mishal Ashraf; Moderator: Ms. Ayesha Kasiri; Learning objectives listed)
-    5. Community Awareness Sessions (Ongoing) – Shahdi Large, Sehwan, and rural areas
-  - Also include: Stress Management workshop content (practical strategies, deep breathing, mindfulness, journaling – from LinkedIn post by Danish Niaz Babbar)
-- Route `/workshops` in App.tsx
-- "Workshops" nav link in Layout.tsx (desktop + mobile)
+- **Live Date Display in Header**: Show today's date (auto-updating daily) in the header bar -- visible on desktop. Format: e.g. "Thursday, 02 April 2026" in Urdu or English. Updates automatically every day without manual changes.
+- **Appointment Form Page** (`/appointment`): A dedicated appointment booking form page with fields:
+  - Patient Name (full name)
+  - Phone Number
+  - Age
+  - Gender (Male/Female/Other)
+  - Region/City
+  - Preferred Date
+  - Preferred Time
+  - Reason / Chief Complaint (textarea)
+  - Submit button
+  - Success confirmation message on submit
+- **Navigation Link**: Add "Appointment" link to the header navigation and mobile menu.
+- **Route**: Add `/appointment` route in App.tsx.
 
 ### Modify
-- App.tsx: add workshopsRoute
-- Layout.tsx: add Workshops nav link after Psychologists
+- Layout.tsx: Add live date display in the header (top right area near nav, or in a thin top bar above header). Import `useState` and `useEffect` for live date.
+- App.tsx: Import and register the new Appointment page route.
 
 ### Remove
-- Nothing
+- Nothing removed.
 
 ## Implementation Plan
-1. Create `src/frontend/src/pages/Workshops.tsx`
-2. Register route in App.tsx
-3. Add nav link in Layout.tsx
+1. Add `LiveDate` component inside Layout.tsx that uses `useEffect` to update once per minute (or on mount) and formats today's date fully (e.g. "Thursday, 2 April 2026").
+2. Place the live date display in the header, right side or in a thin announcement bar above the main nav.
+3. Create `/src/frontend/src/pages/Appointment.tsx` with the appointment booking form. On submit, show a success message (no backend required -- local state only).
+4. Add `/appointment` route to App.tsx.
+5. Add "Appointment" nav link to Layout.tsx desktop nav and mobile menu.

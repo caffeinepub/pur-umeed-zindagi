@@ -13,9 +13,17 @@ const regions = [
   {
     name: "Sindh",
     province: "Sindh — Rural & Semi-Urban",
-    sites: ["CHB", "Makli", "Matli", "Khorwah", "Shadi Large", "Sehwan"],
-    count: 6,
-    desc: "Reaching rural and semi-urban communities across the Sindh interior from CHB to Sehwan.",
+    sites: [
+      "CHB",
+      "Makli",
+      "Matli",
+      "Khorwah",
+      "Shadi Large",
+      "Sehwan",
+      "MMB (Medical Mobile Bus)",
+    ],
+    count: 7,
+    desc: "Reaching rural and semi-urban communities across the Sindh interior from CHB to Sehwan, including the Medical Mobile Bus (MMB) outreach service.",
   },
   {
     name: "Balochistan",

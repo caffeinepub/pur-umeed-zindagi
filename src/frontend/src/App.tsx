@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import { Toaster } from "@/components/ui/sonner";
 import About from "@/pages/About";
 import AnnualReports from "@/pages/AnnualReports";
+import Appointment from "@/pages/Appointment";
 import Awareness from "@/pages/Awareness";
 import Contact from "@/pages/Contact";
 import Home from "@/pages/Home";
@@ -98,6 +99,12 @@ const patientDataRoute = createRoute({
   component: PatientData,
 });
 
+const appointmentRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/appointment",
+  component: Appointment,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -111,6 +118,7 @@ const routeTree = rootRoute.addChildren([
   annualReportsRoute,
   contactRoute,
   patientDataRoute,
+  appointmentRoute,
 ]);
 
 const router = createRouter({ routeTree });

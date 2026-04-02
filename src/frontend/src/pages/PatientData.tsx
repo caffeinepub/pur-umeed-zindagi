@@ -106,14 +106,14 @@ export default function PatientData() {
               className="text-3xl font-bold mb-2"
               style={{ color: "oklch(96% 0.005 145)" }}
             >
-              MHO Patient Data — Jan to March 2026
+              MHO Patient Data — 2026
             </h2>
             <p
               className="text-sm mb-8"
               style={{ color: "oklch(68% 0.025 145)" }}
             >
               Data collected by Mental Health Officers (MHOs). Numbers are
-              updated daily and reflect cumulative totals up to March 2026.
+              updated daily and reflect cumulative totals for 2026.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -134,7 +134,7 @@ export default function PatientData() {
                   className="text-4xl font-bold mb-2"
                   style={{ color: "oklch(58% 0.22 145)" }}
                 >
-                  250,000
+                  25,000
                 </div>
                 <div
                   className="text-base font-semibold mb-1"
@@ -164,7 +164,7 @@ export default function PatientData() {
               >
                 <div className="text-4xl mb-2">&#128101;</div>
                 <div className="text-4xl font-bold mb-2 text-amber-400">
-                  13,000
+                  9,000
                 </div>
                 <div
                   className="text-base font-semibold mb-1"
