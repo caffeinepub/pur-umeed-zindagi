@@ -16,6 +16,8 @@ import {
   Calendar,
   CalendarCheck,
   CheckCircle,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   Database,
   ExternalLink,
@@ -28,7 +30,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { motion, useInView } from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 // ─── Count-up hook ─────────────────────────────────────────────────────────────────────────────
@@ -55,6 +57,208 @@ function useCountUp(target: number, duration: number, active: boolean) {
   }, [active, target, duration]);
 
   return count;
+}
+
+// ─── Hero Slider ───────────────────────────────────────────────────────────────
+const heroSlides = [
+  {
+    image: "/assets/generated/hero-hospital-banner.dim_1920x700.jpg",
+    title: "Pur Umeed Zindagi",
+    subtitle: "A Life Full of Hope",
+    caption:
+      "Free, confidential mental health care across 17+ sites in Pakistan",
+  },
+  {
+    image: "/assets/generated/gallery-awareness-session.dim_800x500.jpg",
+    title: "Awareness & Prevention",
+    subtitle: "Mental Health for All",
+    caption:
+      "Community sessions, workshops and outreach programs across Pakistan",
+  },
+  {
+    image: "/assets/generated/gallery-training-workshop.dim_800x500.jpg",
+    title: "Training & Capacity Building",
+    subtitle: "Empowering Professionals",
+    caption: "Equipping healthcare workers with psychological first aid skills",
+  },
+  {
+    image: "/assets/generated/gallery-counseling-session.dim_800x500.jpg",
+    title: "Compassionate Care",
+    subtitle: "You Are Not Alone",
+    caption:
+      "Professional psychologists and trained MHOs serving your community",
+  },
+];
+
+function HeroSlider() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: auto-advance timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection("right");
+      setCurrent((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goTo = (idx: number) => {
+    setDirection(idx > current ? "right" : "left");
+    setCurrent(idx);
+  };
+
+  const prev = () => {
+    setDirection("left");
+    setCurrent((p) => (p - 1 + heroSlides.length) % heroSlides.length);
+  };
+  const next = () => {
+    setDirection("right");
+    setCurrent((p) => (p + 1) % heroSlides.length);
+  };
+
+  const slide = heroSlides[current];
+
+  return (
+    <section className="relative overflow-hidden" style={{ height: "560px" }}>
+      {/* Slides */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={current}
+          initial={{ x: direction === "right" ? "100%" : "-100%", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: direction === "right" ? "-100%" : "100%", opacity: 0 }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
+          className="absolute inset-0"
+        >
+          {/* Background image with blur */}
+          <div
+            className="absolute inset-0 scale-105"
+            style={{
+              backgroundImage: `url("${slide.image}")`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(3px)",
+            }}
+          />
+          {/* Dark overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(160deg, oklch(12% 0.1 145 / 0.78) 0%, oklch(18% 0.12 148 / 0.68) 50%, oklch(12% 0.1 145 / 0.78) 100%)",
+            }}
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Content overlay (sharp, above blur) */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`text-${current}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-5 border"
+              style={{
+                background: "oklch(100% 0 0 / 0.12)",
+                borderColor: "oklch(100% 0 0 / 0.3)",
+                color: "oklch(92% 0.05 145)",
+              }}
+            >
+              A Program of Indus Hospital &amp; Health Network
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-3 text-white drop-shadow-lg">
+              {slide.title}
+            </h1>
+            <p
+              className="text-xl md:text-2xl mb-3 font-light"
+              style={{ color: "oklch(88% 0.06 145)" }}
+            >
+              {slide.subtitle}
+            </p>
+            <p
+              className="text-sm max-w-xl mx-auto mb-8 leading-relaxed"
+              style={{ color: "oklch(80% 0.04 145)" }}
+            >
+              {slide.caption}
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                to="/appointment"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-semibold text-sm text-white transition-opacity hover:opacity-90"
+                style={{ background: "oklch(35% 0.2 145)" }}
+                data-ocid="home.primary_button"
+              >
+                Book Appointment <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-semibold text-sm border transition-opacity hover:opacity-90"
+                style={{
+                  borderColor: "oklch(100% 0 0 / 0.5)",
+                  color: "white",
+                  background: "oklch(100% 0 0 / 0.1)",
+                }}
+                data-ocid="home.secondary_button"
+              >
+                Learn More
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Prev / Next arrows */}
+      <button
+        type="button"
+        onClick={prev}
+        aria-label="Previous slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/20"
+        style={{
+          background: "oklch(100% 0 0 / 0.12)",
+          border: "1px solid oklch(100% 0 0 / 0.25)",
+        }}
+      >
+        <ChevronLeft className="w-5 h-5 text-white" />
+      </button>
+      <button
+        type="button"
+        onClick={next}
+        aria-label="Next slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/20"
+        style={{
+          background: "oklch(100% 0 0 / 0.12)",
+          border: "1px solid oklch(100% 0 0 / 0.25)",
+        }}
+      >
+        <ChevronRight className="w-5 h-5 text-white" />
+      </button>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {heroSlides.map((slide, i) => (
+          <button
+            key={slide.title}
+            type="button"
+            onClick={() => goTo(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className="rounded-full transition-all"
+            style={{
+              width: i === current ? "24px" : "8px",
+              height: "8px",
+              background:
+                i === current ? "oklch(70% 0.2 145)" : "oklch(100% 0 0 / 0.4)",
+            }}
+          />
+        ))}
+      </div>
+    </section>
+  );
 }
 
 // ─── Staff Portal Banner ──────────────────────────────────────────────────────────────────────
@@ -712,6 +916,174 @@ const homePsychologists = [
 
 type PsychProfile = (typeof homePsychologists)[0];
 
+// ─── Photo Slideshow ───────────────────────────────────────────────────────────────────────────
+const slidePhotos = [
+  "/assets/snapchat-847966840-019d4f5c-4194-72ae-8b29-1624330cdd15.jpg",
+  "/assets/snapchat-1948415730-019d4f5c-443f-701e-bf5a-86238153fcc8.jpg",
+  "/assets/img-20260326-wa0053-019d4f54-c37f-73d8-8021-1ef555c6a95c.jpg",
+  "/assets/img-20260326-wa0054-019d4f54-c3ba-722f-87dc-c6a4ea3aa52c.jpg",
+  "/assets/images_-_2026-04-02t185141.867-019d4e77-efab-7739-bc9e-71c502114b5c.jpeg",
+  "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
+  "/assets/images_-_2026-04-02t185141.867-019d4f05-7a25-709a-bab6-99c578f28db3.jpeg",
+  "/assets/img_20251209_171017_589-019d4f56-f6c0-7458-9fc4-41436fa998de.webp",
+  "/assets/img_20251209_173323_310-019d4f56-f389-7758-8c66-58f2643c1214.webp",
+  "/assets/img_20251209_173332_007-019d4f56-f43d-7078-8ae5-9b952d81b79d.webp",
+];
+
+function PhotoSlideshow() {
+  const [current, setCurrent] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const total = slidePhotos.length;
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
+  const visibleCount = isDesktop ? 3 : 1;
+  const step = visibleCount;
+  const maxIndex = Math.max(0, total - visibleCount);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => {
+        const next = prev + step;
+        return next > maxIndex ? 0 : next;
+      });
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [step, maxIndex]);
+
+  const prev = () => setCurrent((p) => (p - step < 0 ? maxIndex : p - step));
+  const next = () => setCurrent((p) => (p + step > maxIndex ? 0 : p + step));
+
+  const dotCount = Math.ceil(total / visibleCount);
+  const activeDot = Math.floor(current / visibleCount);
+
+  return (
+    <section className="py-14" style={{ background: "oklch(97% 0.01 145)" }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2
+              className="text-2xl md:text-3xl font-bold"
+              style={{ color: "oklch(25% 0.15 145)" }}
+            >
+              Photo Gallery
+            </h2>
+            <p
+              className="text-sm mt-1"
+              style={{ color: "oklch(50% 0.04 145)" }}
+            >
+              Program Moments
+            </p>
+          </div>
+          <Link
+            to="/gallery"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-80"
+            style={{
+              color: "oklch(35% 0.2 145)",
+              border: "1px solid oklch(35% 0.2 145 / 0.4)",
+              background: "oklch(35% 0.2 145 / 0.06)",
+            }}
+            data-ocid="home.gallery.link"
+          >
+            View All Photos <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        {/* Carousel */}
+        <div className="relative">
+          {/* Photos strip */}
+          <div className="overflow-hidden rounded-2xl">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${(current / visibleCount) * 100}%)`,
+                width: `${(total / visibleCount) * 100}%`,
+              }}
+            >
+              {slidePhotos.map((src, i) => (
+                <div
+                  key={src}
+                  className="flex-shrink-0 px-1.5"
+                  style={{ width: `${100 / total}%` }}
+                >
+                  <div
+                    className="overflow-hidden rounded-xl h-52 md:h-56"
+                    style={{
+                      boxShadow: "0 4px 16px oklch(30% 0.1 145 / 0.12)",
+                      border: "1px solid oklch(88% 0.03 145)",
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`PUZ Program session ${i + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Left arrow */}
+          <button
+            type="button"
+            onClick={prev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 md:-translate-x-5 w-9 h-9 rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90 z-10"
+            style={{
+              background: "oklch(35% 0.2 145)",
+              boxShadow: "0 2px 8px oklch(25% 0.15 145 / 0.35)",
+            }}
+            data-ocid="home.gallery.pagination_prev"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          {/* Right arrow */}
+          <button
+            type="button"
+            onClick={next}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 md:translate-x-5 w-9 h-9 rounded-full flex items-center justify-center text-white transition-opacity hover:opacity-90 z-10"
+            style={{
+              background: "oklch(35% 0.2 145)",
+              boxShadow: "0 2px 8px oklch(25% 0.15 145 / 0.35)",
+            }}
+            data-ocid="home.gallery.pagination_next"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-5">
+          {[...Array(dotCount).keys()].map((dotIdx) => (
+            <button
+              key={`slide-dot-${dotIdx}`}
+              type="button"
+              onClick={() => setCurrent(dotIdx * visibleCount)}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width: dotIdx === activeDot ? "24px" : "8px",
+                height: "8px",
+                background:
+                  dotIdx === activeDot
+                    ? "oklch(35% 0.2 145)"
+                    : "oklch(70% 0.06 145)",
+              }}
+              data-ocid="home.gallery.toggle"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const counterRef = useRef<HTMLDivElement>(null);
   const counterInView = useInView(counterRef, { once: true, margin: "-100px" });
@@ -736,68 +1108,8 @@ export default function Home() {
       {/* Live Date Bar */}
       <LiveDateBar />
 
-      {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="hero-bg py-24 md:py-32 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-6 border"
-              style={{
-                background: "oklch(100% 0 0 / 0.12)",
-                borderColor: "oklch(100% 0 0 / 0.3)",
-                color: "oklch(92% 0.05 145)",
-              }}
-            >
-              A Program of Indus Hospital &amp; Health Network
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-4 text-white">
-              Pur Umeed Zindagi
-            </h1>
-            <p
-              className="text-xl md:text-2xl mb-3 font-light"
-              style={{ color: "oklch(88% 0.06 145)" }}
-            >
-              Mental Health Program | Indus Hospital &amp; Health Network
-            </p>
-            <p
-              className="text-base max-w-2xl mx-auto mb-10 leading-relaxed"
-              style={{ color: "oklch(80% 0.04 145)" }}
-            >
-              Free, confidential psychological care across 17+ sites in 4
-              regions of Pakistan. Hope is real. Help is available.
-            </p>
-
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                to="/appointment"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-base text-white transition-opacity hover:opacity-90"
-                style={{ background: "oklch(35% 0.2 145)" }}
-                data-ocid="home.primary_button"
-              >
-                Book Appointment <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold text-base border transition-opacity hover:opacity-90"
-                style={{
-                  borderColor: "oklch(100% 0 0 / 0.5)",
-                  color: "white",
-                  background: "oklch(100% 0 0 / 0.1)",
-                }}
-                data-ocid="home.secondary_button"
-              >
-                Learn More
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* ── Hero Slider ─────────────────────────────────────── */}
+      <HeroSlider />
 
       {/* ── Stats Band ──────────────────────────────────────── */}
       <StatsBand />
@@ -1573,6 +1885,9 @@ export default function Home() {
 
       {/* ── Appointment Form ──────────────────────────────────── */}
       <AppointmentSection />
+
+      {/* ── Photo Slideshow ───────────────────────────────────── */}
+      <PhotoSlideshow />
 
       {/* ── Get Help CTA ─────────────────────────────────────── */}
       <section className="py-20" style={{ background: "oklch(25% 0.15 145)" }}>

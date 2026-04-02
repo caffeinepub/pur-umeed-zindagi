@@ -19,6 +19,7 @@ const programDropdown = [
   { label: "Psychologists", to: "/psychologists" },
   { label: "MHO Team Directory", to: "/mhos" },
   { label: "Photo Gallery", to: "/gallery" },
+  { label: "Blogs & Articles", to: "/blogs" },
   { label: "Feedback", to: "/feedback" },
 ];
 
@@ -267,6 +268,7 @@ export default function Layout() {
                   { to: "/psychologists", label: "Psychologists" },
                   { to: "/mhos", label: "MHO Team Directory" },
                   { to: "/gallery", label: "Photo Gallery" },
+                  { to: "/blogs", label: "Blogs & Articles" },
                   { to: "/leadership", label: "Leadership" },
                   { to: "/workshops", label: "Workshops" },
                   { to: "/awareness", label: "Awareness" },
@@ -389,6 +391,7 @@ export default function Layout() {
                   { to: "/leadership", label: "Leadership" },
                   { to: "/psychologists", label: "Psychologists" },
                   { to: "/gallery", label: "Photo Gallery" },
+                  { to: "/blogs", label: "Blogs & Articles" },
                   { to: "/patient-data", label: "Patient Data" },
                   { to: "/mhos", label: "MHO Directory" },
                   { to: "/feedback", label: "Feedback" },

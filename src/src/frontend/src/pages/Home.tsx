@@ -211,9 +211,11 @@ export default function Home() {
         className="relative overflow-hidden min-h-screen flex items-center"
         style={{
           background:
-            "linear-gradient(135deg, oklch(18% 0.015 240) 0%, oklch(25% 0.04 210) 50%, oklch(20% 0.03 200) 100%)",
+            "url('/assets/generated/hero-bg-indus-hospital.dim_1920x1080.jpg') center/cover no-repeat",
         }}
       >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/60 z-0" />
         {/* Animated bg blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div

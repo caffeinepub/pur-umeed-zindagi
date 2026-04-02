@@ -38,6 +38,7 @@ type GalleryItem = {
 
 const categories = [
   "All",
+  "Workshops & Sessions",
   "Awareness",
   "Training",
   "Team",
@@ -48,31 +49,73 @@ const categories = [
 const galleryItems: GalleryItem[] = [
   {
     src: "/assets/snapchat-847966840-019d4f5c-4194-72ae-8b29-1624330cdd15.jpg",
-    title: "PUZ Program Photo",
-    category: "Events",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
     description:
-      "Pur Umeed Zindagi program -- Indus Hospital & Health Network.",
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/snapchat-1948415730-019d4f5c-443f-701e-bf5a-86238153fcc8.jpg",
-    title: "PUZ Program Photo",
-    category: "Events",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
     description:
-      "Pur Umeed Zindagi program -- Indus Hospital & Health Network.",
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/img-20260326-wa0053-019d4f54-c37f-73d8-8021-1ef555c6a95c.jpg",
-    title: "PUZ Program Activity",
-    category: "Events",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
     description:
-      "Pur Umeed Zindagi program activity -- Indus Hospital & Health Network.",
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/img-20260326-wa0054-019d4f54-c3ba-722f-87dc-c6a4ea3aa52c.jpg",
-    title: "PUZ Program Activity",
-    category: "Events",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
     description:
-      "Pur Umeed Zindagi program activity -- Indus Hospital & Health Network.",
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/images_-_2026-04-02t185141.867-019d4e77-efab-7739-bc9e-71c502114b5c.jpeg",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
+    description:
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
+    description:
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/images_-_2026-04-02t185141.867-019d4f05-7a25-709a-bab6-99c578f28db3.jpeg",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
+    description:
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/img_20251209_171017_589-019d4f56-f6c0-7458-9fc4-41436fa998de.webp",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
+    description:
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/img_20251209_173323_310-019d4f56-f389-7758-8c66-58f2643c1214.webp",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
+    description:
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+  },
+  {
+    src: "/assets/img_20251209_173332_007-019d4f56-f43d-7078-8ae5-9b952d81b79d.webp",
+    title: "Workshop / Session Photo",
+    category: "Workshops & Sessions",
+    description:
+      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/generated/gallery-awareness-session.dim_800x500.jpg",

@@ -4,6 +4,7 @@ import About from "@/pages/About";
 import AnnualReports from "@/pages/AnnualReports";
 import Appointment from "@/pages/Appointment";
 import Awareness from "@/pages/Awareness";
+import Blogs from "@/pages/Blogs";
 import Contact from "@/pages/Contact";
 import Feedback from "@/pages/Feedback";
 import Gallery from "@/pages/Gallery";
@@ -133,6 +134,12 @@ const selfScreeningRoute = createRoute({
   component: SelfScreening,
 });
 
+const blogsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/blogs",
+  component: Blogs,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -151,6 +158,7 @@ const routeTree = rootRoute.addChildren([
   feedbackRoute,
   galleryRoute,
   selfScreeningRoute,
+  blogsRoute,
 ]);
 
 const router = createRouter({ routeTree });

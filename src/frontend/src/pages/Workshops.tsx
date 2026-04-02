@@ -1,4 +1,11 @@
-import { Award, Calendar, MapPin, Star, Users } from "lucide-react";
+import {
+  Award,
+  Calendar,
+  ExternalLink,
+  MapPin,
+  Star,
+  Users,
+} from "lucide-react";
 import { motion } from "motion/react";
 
 const PageHeader = ({
@@ -27,6 +34,23 @@ const PageHeader = ({
     </div>
   </div>
 );
+
+const iconSessions = [
+  {
+    title: "Psychological First Aid in Crises",
+    date: "January 16, 2026",
+    url: "https://icon.indushospital.org.pk/2026/01/16/psychological-first-aid-in-crises-2/",
+    desc: "Session on Psychological First Aid in crisis situations, presented at the ICON Conference 2026. Covers evidence-based techniques for providing immediate psychological support to individuals affected by emergencies and disasters.",
+    tags: ["ICON 2026", "Crisis Intervention", "PFA"],
+  },
+  {
+    title: "Psychological First Aid in Crises",
+    date: "December 9, 2025",
+    url: "https://icon.indushospital.org.pk/2025/12/09/psychological-first-aid-in-crises/",
+    desc: "ICON session focusing on Psychological First Aid frameworks and their practical application in crisis and disaster settings across Pakistan's healthcare network.",
+    tags: ["ICON 2025", "Crisis Intervention", "PFA"],
+  },
+];
 
 const events = [
   {
@@ -189,8 +213,98 @@ export default function Workshops() {
         </div>
       </section>
 
-      {/* Other Events */}
+      {/* ICON Sessions */}
       <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div
+              className="uppercase tracking-widest text-xs font-semibold mb-3"
+              style={{ color: "oklch(35% 0.2 145)" }}
+            >
+              ICON Conference Sessions
+            </div>
+            <h2
+              className="text-3xl font-bold"
+              style={{ color: "oklch(20% 0.06 145)" }}
+            >
+              Psychological First Aid Sessions
+            </h2>
+            <p
+              className="text-sm mt-2"
+              style={{ color: "oklch(50% 0.04 145)" }}
+            >
+              PUZ program contributions at ICON Conference
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {iconSessions.map((session, i) => (
+              <motion.div
+                key={session.url}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.5 }}
+                className="rounded-2xl p-6 border"
+                style={{
+                  background: "oklch(97% 0.01 145)",
+                  borderColor: "oklch(82% 0.06 145)",
+                  boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.08)",
+                }}
+              >
+                <div
+                  className="flex items-center gap-2 text-xs mb-3"
+                  style={{ color: "oklch(50% 0.04 145)" }}
+                >
+                  <Calendar className="w-3.5 h-3.5" />
+                  {session.date}
+                </div>
+                <h3
+                  className="font-bold text-lg mb-3"
+                  style={{ color: "oklch(20% 0.06 145)" }}
+                >
+                  {session.title}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed mb-4"
+                  style={{ color: "oklch(40% 0.04 145)" }}
+                >
+                  {session.desc}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {session.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 rounded-full text-xs font-medium"
+                      style={{
+                        background: "oklch(88% 0.08 145)",
+                        color: "oklch(25% 0.15 145)",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={session.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-opacity hover:opacity-80"
+                  style={{
+                    background: "oklch(25% 0.15 145)",
+                    color: "white",
+                  }}
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  View on ICON Website
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Other Events */}
+      <section className="py-16" style={{ background: "oklch(96% 0.01 145)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div
