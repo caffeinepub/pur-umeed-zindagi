@@ -1624,19 +1624,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Patient Data Preview ────────────────────────────── */}
+        {/* ── Patient Data Preview 2026 ───────────────────────── */}
         <section
           className="py-16"
           style={{ background: "oklch(96% 0.01 145)" }}
         >
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <p
                   className="text-xs uppercase tracking-widest font-semibold"
                   style={{ color: "oklch(35% 0.2 145)" }}
                 >
-                  MHO Patient Data
+                  MHO Patient Data — 2026
                 </p>
                 <span
                   className="w-2 h-2 rounded-full pulse-dot"
@@ -1644,71 +1644,82 @@ export default function Home() {
                 />
               </div>
               <h2
-                className="text-2xl font-bold mb-1"
+                className="text-2xl font-bold mb-2"
                 style={{ color: "oklch(20% 0.06 145)" }}
               >
                 Screening, Enrollment &amp; End of Treatment
               </h2>
-              <p className="text-xs" style={{ color: "oklch(50% 0.04 145)" }}>
-                Numbers change daily — updated regularly
-              </p>
+              {/* Daily change notice in English + Urdu */}
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mt-1"
+                style={{
+                  background: "oklch(92% 0.06 145)",
+                  color: "oklch(30% 0.18 145)",
+                  border: "1px solid oklch(82% 0.08 145)",
+                }}
+              >
+                <span
+                  className="w-2 h-2 rounded-full animate-pulse"
+                  style={{ background: "oklch(45% 0.22 145)" }}
+                />
+                یہ اعداد روزانہ تبدیل ہوتے ہیں — These numbers change daily
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 2026 Data Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {[
                 {
-                  year: "2025",
-                  data: [
-                    { label: "Screening", value: "250,000" },
-                    { label: "Enrolled", value: "13,000" },
-                    { label: "End of Treatment", value: "1,000" },
-                  ],
+                  label: "Screening",
+                  labelUr: "اسکریننگ",
+                  value: "25,000",
+                  icon: "🔍",
                 },
                 {
-                  year: "2026",
-                  data: [
-                    { label: "Screening", value: "25,000" },
-                    { label: "Enrolled", value: "9,000" },
-                    { label: "End of Treatment", value: "1,000" },
-                  ],
+                  label: "Enrolled",
+                  labelUr: "اندراج",
+                  value: "9,000",
+                  icon: "📋",
                 },
-              ].map((yr) => (
+                {
+                  label: "End of Treatment",
+                  labelUr: "علاج مکمل",
+                  value: "1,000",
+                  icon: "✅",
+                },
+              ].map((d) => (
                 <div
-                  key={yr.year}
-                  className="bg-white rounded-2xl p-6 border"
+                  key={d.label}
+                  className="bg-white rounded-2xl p-6 border text-center"
                   style={{
                     borderColor: "oklch(88% 0.03 145)",
-                    boxShadow: "0 2px 12px oklch(50% 0.06 145 / 0.06)",
+                    boxShadow: "0 4px 16px oklch(50% 0.06 145 / 0.08)",
                   }}
                 >
+                  <div className="text-3xl mb-2">{d.icon}</div>
                   <div
-                    className="text-xs uppercase tracking-widest font-semibold mb-4"
-                    style={{ color: "oklch(35% 0.2 145)" }}
+                    className="text-3xl font-extrabold mb-1"
+                    style={{ color: "oklch(25% 0.18 145)" }}
                   >
-                    Year {yr.year}
+                    {d.value}
                   </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    {yr.data.map((d) => (
-                      <div key={d.label} className="text-center">
-                        <div
-                          className="text-xl font-bold mb-1"
-                          style={{ color: "oklch(25% 0.15 145)" }}
-                        >
-                          {d.value}
-                        </div>
-                        <div
-                          className="text-xs"
-                          style={{ color: "oklch(50% 0.04 145)" }}
-                        >
-                          {d.label}
-                        </div>
-                      </div>
-                    ))}
+                  <div
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(35% 0.12 145)" }}
+                  >
+                    {d.label}
+                  </div>
+                  <div
+                    className="text-xs mt-1"
+                    style={{ color: "oklch(50% 0.06 145)" }}
+                  >
+                    {d.labelUr}
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-6 text-center">
+
+            <div className="mt-8 text-center">
               <Link
                 to="/patient-data"
                 className="inline-flex items-center gap-2 text-sm font-semibold"
