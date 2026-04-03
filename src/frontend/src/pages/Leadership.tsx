@@ -1,4 +1,4 @@
-import { Brain, Crown, Star, Users } from "lucide-react";
+import { Crown, Star, Users } from "lucide-react";
 import { motion } from "motion/react";
 
 const PageHeader = ({
@@ -35,6 +35,7 @@ const leaders = [
     org: "Indus Hospital & Health Network",
     icon: Crown,
     order: 1,
+    photo: null,
   },
   {
     name: "Dr. Zafar Zaidi",
@@ -42,13 +43,15 @@ const leaders = [
     org: "Indus Hospital & Health Network",
     icon: Star,
     order: 2,
+    photo: null,
   },
   {
     name: "Dr. Hiba Ashraf",
     title: "Director, Primary Care Program (PCP)",
     org: "Indus Hospital & Health Network",
-    icon: Brain,
+    icon: null,
     order: 3,
+    photo: "/assets/generated/dr-hiba-ashraf.dim_400x400.jpg",
   },
   {
     name: "Ayesha Kasiri",
@@ -56,6 +59,7 @@ const leaders = [
     org: "Pur Umeed Zindagi Program",
     icon: Users,
     order: 4,
+    photo: null,
   },
 ];
 
@@ -102,15 +106,26 @@ export default function Leadership() {
                 data-ocid={`leadership.item.${i + 1}`}
               >
                 <div className="flex items-start gap-5">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "oklch(94% 0.04 145)" }}
-                  >
-                    <l.icon
-                      className="w-7 h-7"
-                      style={{ color: "oklch(35% 0.2 145)" }}
+                  {l.photo ? (
+                    <img
+                      src={l.photo}
+                      alt={l.name}
+                      className="w-16 h-16 rounded-2xl object-cover flex-shrink-0 border-2"
+                      style={{ borderColor: "oklch(35% 0.2 145)" }}
                     />
-                  </div>
+                  ) : (
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: "oklch(94% 0.04 145)" }}
+                    >
+                      {l.icon && (
+                        <l.icon
+                          className="w-7 h-7"
+                          style={{ color: "oklch(35% 0.2 145)" }}
+                        />
+                      )}
+                    </div>
+                  )}
                   <div>
                     <div
                       className="text-xs font-semibold uppercase tracking-widest mb-1"

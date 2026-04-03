@@ -62,31 +62,43 @@ function useCountUp(target: number, duration: number, active: boolean) {
 // ─── Hero Slider ───────────────────────────────────────────────────────────────
 const heroSlides = [
   {
-    image: "/assets/generated/hero-hospital-banner.dim_1920x700.jpg",
+    image: "/assets/generated/mh-hero-1.dim_1920x600.jpg",
     title: "Pur Umeed Zindagi",
     subtitle: "A Life Full of Hope",
     caption:
       "Free, confidential mental health care across 17+ sites in Pakistan",
   },
   {
-    image: "/assets/generated/gallery-awareness-session.dim_800x500.jpg",
-    title: "Awareness & Prevention",
-    subtitle: "Mental Health for All",
+    image: "/assets/generated/mh-hero-2.dim_1920x600.jpg",
+    title: "Community & Support",
+    subtitle: "Together We Heal",
     caption:
-      "Community sessions, workshops and outreach programs across Pakistan",
+      "Building a supportive community for mental health across Pakistan",
   },
   {
-    image: "/assets/generated/gallery-training-workshop.dim_800x500.jpg",
-    title: "Training & Capacity Building",
-    subtitle: "Empowering Professionals",
-    caption: "Equipping healthcare workers with psychological first aid skills",
+    image: "/assets/generated/mh-hero-3.dim_1920x600.jpg",
+    title: "Professional Care",
+    subtitle: "Expert Help, Always Near",
+    caption: "Qualified psychologists and trained MHOs ready to help you",
   },
   {
-    image: "/assets/generated/gallery-counseling-session.dim_800x500.jpg",
-    title: "Compassionate Care",
-    subtitle: "You Are Not Alone",
+    image: "/assets/generated/mh-hero-4.dim_1920x600.jpg",
+    title: "Mental Wellness",
+    subtitle: "Mind, Body & Soul",
+    caption: "Holistic mental health support for a healthier, happier life",
+  },
+  {
+    image: "/assets/generated/mh-hero-5.dim_1920x600.jpg",
+    title: "Hope & Recovery",
+    subtitle: "Every Step Counts",
+    caption: "Breaking barriers and stigma around mental health in Pakistan",
+  },
+  {
+    image: "/assets/generated/mh-hero-6.dim_1920x600.jpg",
+    title: "Rural Outreach",
+    subtitle: "Reaching Every Corner",
     caption:
-      "Professional psychologists and trained MHOs serving your community",
+      "Mental health services for underserved communities across Pakistan",
   },
 ];
 

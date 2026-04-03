@@ -46,118 +46,84 @@ const categories = [
   "Events",
 ];
 
+// Only user-uploaded photos -- all AI/generated images removed
 const galleryItems: GalleryItem[] = [
   {
     src: "/assets/snapchat-847966840-019d4f5c-4194-72ae-8b29-1624330cdd15.jpg",
-    title: "Workshop / Session Photo",
+    title: "PUZ Workshop & Session",
     category: "Workshops & Sessions",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Pur Umeed Zindagi Program -- Workshops & Sessions, Indus Hospital & Health Network.",
   },
   {
     src: "/assets/snapchat-1948415730-019d4f5c-443f-701e-bf5a-86238153fcc8.jpg",
-    title: "Workshop / Session Photo",
+    title: "PUZ Workshop & Session",
     category: "Workshops & Sessions",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Pur Umeed Zindagi Program -- Workshops & Sessions, Indus Hospital & Health Network.",
   },
   {
     src: "/assets/img-20260326-wa0053-019d4f54-c37f-73d8-8021-1ef555c6a95c.jpg",
-    title: "Workshop / Session Photo",
+    title: "Program Session -- March 2026",
     category: "Workshops & Sessions",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "PUZ Program session conducted in March 2026 -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/img-20260326-wa0054-019d4f54-c3ba-722f-87dc-c6a4ea3aa52c.jpg",
-    title: "Workshop / Session Photo",
+    title: "Program Session -- March 2026",
     category: "Workshops & Sessions",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "PUZ Program session conducted in March 2026 -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/images_-_2026-04-02t185141.867-019d4e77-efab-7739-bc9e-71c502114b5c.jpeg",
-    title: "Workshop / Session Photo",
-    category: "Workshops & Sessions",
+    title: "PUZ Awareness & Training Session",
+    category: "Awareness",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Mental health awareness and training session by PUZ Team -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/images_-_2026-04-02t185141.867-019d4ebd-a823-7098-ae11-cc7041371614.jpeg",
-    title: "Workshop / Session Photo",
-    category: "Workshops & Sessions",
+    title: "PUZ Awareness & Training Session",
+    category: "Awareness",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Mental health awareness and training session by PUZ Team -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/images_-_2026-04-02t185141.867-019d4f05-7a25-709a-bab6-99c578f28db3.jpeg",
-    title: "Workshop / Session Photo",
-    category: "Workshops & Sessions",
+    title: "PUZ Awareness & Training Session",
+    category: "Awareness",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Mental health awareness and training session by PUZ Team -- Indus Hospital & Health Network.",
   },
   {
     src: "/assets/img_20251209_171017_589-019d4f56-f6c0-7458-9fc4-41436fa998de.webp",
-    title: "Workshop / Session Photo",
-    category: "Workshops & Sessions",
+    title: "Psychological First Aid Session -- December 2025",
+    category: "Training",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Psychological First Aid in Crises training session, December 2025 -- ICON Conference, Indus Hospital.",
   },
   {
     src: "/assets/img_20251209_173323_310-019d4f56-f389-7758-8c66-58f2643c1214.webp",
-    title: "Workshop / Session Photo",
-    category: "Workshops & Sessions",
+    title: "Psychological First Aid Session -- December 2025",
+    category: "Training",
     description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
+      "Psychological First Aid in Crises training session, December 2025 -- ICON Conference, Indus Hospital.",
   },
   {
     src: "/assets/img_20251209_173332_007-019d4f56-f43d-7078-8ae5-9b952d81b79d.webp",
-    title: "Workshop / Session Photo",
-    category: "Workshops & Sessions",
-    description:
-      "PUZ Program workshop and session -- Indus Hospital & Health Network.",
-  },
-  {
-    src: "/assets/generated/gallery-awareness-session.dim_800x500.jpg",
-    title: "Mental Health Awareness Session",
-    category: "Awareness",
-    description:
-      "Healthcare workers conducting mental health awareness training with community members.",
-  },
-  {
-    src: "/assets/generated/gallery-community-outreach.dim_800x500.jpg",
-    title: "Community Outreach Program",
-    category: "Outreach",
-    description:
-      "PUZ team reaching out to rural communities across Sindh and Balochistan.",
-  },
-  {
-    src: "/assets/generated/gallery-training-workshop.dim_800x500.jpg",
-    title: "MHO Training Workshop",
+    title: "Psychological First Aid Session -- December 2025",
     category: "Training",
     description:
-      "Specialized psychiatric training workshop for Mental Health Officers (MHOs).",
+      "Psychological First Aid in Crises training session, December 2025 -- ICON Conference, Indus Hospital.",
   },
   {
-    src: "/assets/generated/gallery-team-photo.dim_800x500.jpg",
-    title: "PUZ Program Team",
-    category: "Team",
-    description:
-      "The dedicated team of mental health professionals at Pur Umeed Zindagi.",
-  },
-  {
-    src: "/assets/generated/gallery-counseling-session.dim_800x500.jpg",
-    title: "Patient Counseling Session",
-    category: "Outreach",
-    description:
-      "One-on-one counseling session at a primary healthcare clinic in rural Sindh.",
-  },
-  {
-    src: "/assets/generated/gallery-mental-health-day.dim_800x500.jpg",
-    title: "World Mental Health Day",
+    src: "/assets/1000047109-019d4e7a-e48b-771d-9c8f-dbd860d274f5.png",
+    title: "PUZ Program Event",
     category: "Events",
     description:
-      "Annual World Mental Health Day event organized by PUZ at Indus Hospital.",
+      "Pur Umeed Zindagi Program event -- Indus Hospital & Health Network.",
   },
 ];
 
