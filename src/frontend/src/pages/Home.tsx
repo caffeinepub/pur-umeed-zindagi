@@ -420,7 +420,7 @@ function StatsBand() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   const stats = [
-    { label: "Patients (2025)", value: 120388, suffix: "+" },
+    { label: "Total Screened", value: 58563, suffix: "" },
     { label: "Active Sites", value: 17, suffix: "+" },
     { label: "Regions", value: 4, suffix: "" },
     { label: "100% Free Service", value: 100, suffix: "%" },
@@ -1099,7 +1099,7 @@ function PhotoSlideshow() {
 export default function Home() {
   const counterRef = useRef<HTMLDivElement>(null);
   const counterInView = useInView(counterRef, { once: true, margin: "-100px" });
-  const count = useCountUp(120388, 2500, counterInView);
+  const count = useCountUp(58563, 2500, counterInView);
   const [selectedPsychologist, setSelectedPsychologist] =
     useState<PsychProfile | null>(null);
 
@@ -1337,7 +1337,7 @@ export default function Home() {
                 className="text-xs uppercase tracking-widest font-semibold mb-3"
                 style={{ color: "oklch(35% 0.2 145)" }}
               >
-                Live Counter — 2025
+                Pur Umeed Zindagi – Key Achievements
               </p>
               <div
                 className="text-6xl md:text-7xl font-bold tracking-tight mb-2"
@@ -1349,7 +1349,7 @@ export default function Home() {
                 className="text-lg font-semibold mb-1"
                 style={{ color: "oklch(25% 0.08 145)" }}
               >
-                Patients Seen in 2025
+                Total Individuals Screened
               </div>
               <div className="text-sm" style={{ color: "oklch(50% 0.04 145)" }}>
                 Across 4 regions · 17+ sites · Karachi, Sindh, Balochistan,
@@ -1684,19 +1684,19 @@ export default function Home() {
                 {
                   label: "Screening",
                   labelUr: "اسکریننگ",
-                  value: "25,000",
+                  value: "58,563",
                   icon: "🔍",
                 },
                 {
                   label: "Enrolled",
                   labelUr: "اندراج",
-                  value: "9,000",
+                  value: "3,318",
                   icon: "📋",
                 },
                 {
                   label: "End of Treatment",
                   labelUr: "علاج مکمل",
-                  value: "1,000",
+                  value: "1,456",
                   icon: "✅",
                 },
               ].map((d) => (

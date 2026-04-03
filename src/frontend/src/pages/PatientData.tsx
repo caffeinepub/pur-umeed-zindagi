@@ -86,21 +86,21 @@ export default function PatientData() {
               {[
                 {
                   emoji: "\u{1F4CB}",
-                  value: "250,000",
+                  value: "58,563",
                   label: "Screening",
                   desc: "Total patients screened by MHOs",
                   color: "oklch(35% 0.2 145)",
                 },
                 {
                   emoji: "\u{1F465}",
-                  value: "13,000",
+                  value: "3,318",
                   label: "Enrollments",
                   desc: "Patients enrolled in treatment",
                   color: "oklch(60% 0.18 60)",
                 },
                 {
                   emoji: "\u2705",
-                  value: "1,000",
+                  value: "1,456",
                   label: "End of Treatment (EOT)",
                   desc: "Patients who completed full treatment",
                   color: "oklch(40% 0.18 145)",
@@ -157,17 +157,17 @@ export default function PatientData() {
                 className="uppercase tracking-widest text-xs font-semibold"
                 style={{ color: "oklch(75% 0.12 145)" }}
               >
-                2025 — Total Patients
+                Pur Umeed Zindagi — Key Achievements
               </span>
             </div>
             <h2 className="text-3xl font-bold mb-2 text-white">
-              Total Patients Seen in 2025
+              Total Screenings Across All Sites
             </h2>
             <div
               className="text-6xl font-bold mb-2"
               style={{ color: "oklch(75% 0.2 145)" }}
             >
-              120,388
+              58,563
             </div>
             <p className="text-sm" style={{ color: "oklch(72% 0.06 145)" }}>
               Across 4 regions · Karachi, Sindh, Balochistan, Punjab
@@ -227,21 +227,21 @@ export default function PatientData() {
               {[
                 {
                   emoji: "\u{1F4CB}",
-                  value: "25,000",
+                  value: "58,563",
                   label: "Screening",
                   desc: "Total patients screened by MHOs",
                   color: "oklch(35% 0.2 145)",
                 },
                 {
                   emoji: "\u{1F465}",
-                  value: "9,000",
+                  value: "3,318",
                   label: "Enrollments",
                   desc: "Patients enrolled in treatment",
                   color: "oklch(60% 0.18 60)",
                 },
                 {
                   emoji: "\u2705",
-                  value: "1,000",
+                  value: "1,456",
                   label: "End of Treatment (EOT)",
                   desc: "Patients completed full treatment",
                   color: "oklch(40% 0.18 145)",
